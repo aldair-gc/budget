@@ -1,0 +1,63 @@
+#budget-container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 800px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .header-container {
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+  }
+
+  .month-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    background: #dea;
+  }
+
+  .budget-lists {
+    display: flex;
+    background: #ab8;
+    height: 100%;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .budget-list {
+    background: #896;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+  }
+
+  .total-container {
+    background: #dea;
+    height: 80px;
+    text-align: center;
+  }
+
+  .input-container {
+    padding: 10px;
+  }
+
+  .input-container form {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+
+  .input-container label {
+    font-size: 13px;
+  }
+
+  button, input[type=submit] {
+    padding: 2px 4px;
+  }
