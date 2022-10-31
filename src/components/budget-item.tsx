@@ -1,33 +1,20 @@
-import { Component } from "react";
+import { useState } from "react";
 import { BudgetItemProtocol } from "./protocols/budget-item-protocol";
-import PropTypes from "prop-types";
 
-export default class BudgetItem extends Component implements BudgetItemProtocol {
-  description: string;
-  value: number;
-  status: "pending" | "done";
-  constructor(props: BudgetItemProtocol) {
-    super(props);
-    this.description = props.description;
-    this.value = props.value;
-    this.status = "pending";
-  }
+export default function BudgetItem(props: BudgetItemProtocol) {
+  const [description, setDescription] = useState(props.description);
+  const [value, setValue] = useState(props.value);
+  const [status, setStatus] = useState(props.status);
 
-  toggleStatus(): void {
-    this.status = this.status === "pending" ? "done" : "pending";
-  }
-
-  propTypes = {
-    description: PropTypes.string,
-    value: PropTypes.number,
-    status: PropTypes.string,
+  const toggleButton = () => {
+    setStatus((document.querySelector("#" + props.id) as HTMLInputElement).checked ? "done" : "pending");
   };
-  render() {
-    return (
-      <div className={"budget-item item-status-" + this.status}>
-        <div className="description">{this.description}</div>
-        <div className="value">{this.value}</div>
-      </div>
-    );
-  }
+
+  return (
+    <li className={"budget-item item-status-" + status}>
+      <div className="description">{description}</div>
+      <div className="value">{value}</div>
+      <input type="checkbox" id={props.id} onChange={toggleButton} checked={status === "done"} />
+    </li>
+  );
 }

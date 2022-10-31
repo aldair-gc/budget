@@ -1,5 +1,6 @@
 export interface BudgetItemProtocol {
-    description: string;
-    value: number;
-    status: "pending" | "done";
+  id: string;
+  description: string;
+  value: number;
+  status: "pending" | "done";
 }

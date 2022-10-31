@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import BudgetItem from "./budget-item";
-import { BudgetList } from "./classes/budget-list";
+import { BudgetList } from "./budget-list";
 import "./style.css";
 
 export default function Budget() {
