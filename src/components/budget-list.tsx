@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { BudgetItemProtocol } from "./protocols/budget-item-protocol";
-import { BudgetListProtocol } from "./protocols/budget-list-protocol";
 import BudgetItem from "./budget-item";
 
-export default function BudgetList(props: {id: string, list: BudgetItemProtocol[]}) {
+export default function BudgetList(props: {list: BudgetItemProtocol[]}) {
   const [list, setList] = useState(props.list);
 
   function addItem(...itens: BudgetItemProtocol[]): void {
@@ -29,7 +28,7 @@ export default function BudgetList(props: {id: string, list: BudgetItemProtocol[
 
   return (
     <div className="budget-list">
-      {list.map(item => <BudgetItem key={item.id} id={props.id} description={item.description} value={item.value} status={item.status} />)}
+      {list.map(item => <BudgetItem key={item.id} id={item.id} description={item.description} value={item.value} status={item.status} />)}
     </div>
   );
 }

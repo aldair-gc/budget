@@ -23,7 +23,7 @@
     background: #dea;
   }
 
-  .budget-lists {
+  .budget-month {
     display: flex;
     background: #ab8;
     height: 100%;
@@ -36,6 +36,13 @@
     height: 100%;
     width: 50%;
     text-align: center;
+  }
+
+  .budget-item {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    border: 1px solid #fff
   }
 
   .total-container {

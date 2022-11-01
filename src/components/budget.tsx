@@ -1,19 +1,17 @@
 import { FormEvent, useState } from "react";
-import BudgetItem from "./budget-item";
-import { BudgetList } from "./budget-list";
+import BudgetMonth from "./budget-month";
 import "./style.css";
 
 export default function Budget() {
   const [inputText, setInputText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState("expenditure");
-  const [incomeList, setIncomeList] = useState(new BudgetList("incomes"));
-  const [expenditureList, setExpenditureList] = useState(new BudgetList("incomes"));
+  const [budgetDate, setBudgetDate] = useState({year: new Date().getFullYear(), month: new Date().getMonth()});
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(inputText, inputValue, inputType);
-    (inputType === "expenditure" ? expenditureList : incomeList).addItem({ description: inputText, value: +inputValue, status: "pending" });
+    // (inputType === "expenditure" ? expenditureList : incomeList).addItem({ description: inputText, value: +inputValue, status: "pending" });
   }
 
   return (
@@ -21,8 +19,6 @@ export default function Budget() {
       <div className="header-container">Budget</div>
       <div className="month-container">
         <button>JAN</button>
-        <button>FEB</button>
-        <button>MAR</button>
       </div>
       <div className="input-container">
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -41,14 +37,7 @@ export default function Budget() {
           <input type="submit" value="add" />
         </form>
       </div>
-      <div className="budget-lists">
-        <div className="budget-list">
-          {incomeList.list.map(item => <BudgetItem key={item.description} />)}
-        </div>
-        <div className="budget-list">
-          {expenditureList.list.map(item => <BudgetItem key={item.description} />)}
-        </div>
-      </div>
+      <BudgetMonth year={budgetDate.year} month={budgetDate.month} />
       <div className="total-container">Total estimated</div>
     </div>
   );
