@@ -1,0 +1,8 @@
+[
+  {"id": 0, "type": "income", "description": "Test", "value":10, "status": "pending"},
+  {"id": 1, "type": "income", "description": "Test", "value":20, "status": "pending"},
+  {"id": 3, "type": "income", "description": "Test", "value":40, "status": "done"},
+  {"id": 4, "type": "expenditure", "description": "Test", "value":10, "status": "pending"},
+  {"id": 5, "type": "expenditure", "description": "Test", "value":20, "status": "done"},
+  {"id": 6, "type": "expenditure", "description": "Test", "value":30, "status": "pending"}
+]

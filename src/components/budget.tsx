@@ -1,25 +1,45 @@
-import { FormEvent, useState } from "react";
-import BudgetMonth from "./budget-month";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./style.css";
+import fileData from "./bd-test.json";
 
 export default function Budget() {
+  const [list, setList] = useState(fileData);
   const [inputText, setInputText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState("expenditure");
-  const [budgetDate, setBudgetDate] = useState({year: new Date().getFullYear(), month: new Date().getMonth()});
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    console.log(inputText, inputValue, inputType);
-    // (inputType === "expenditure" ? expenditureList : incomeList).addItem({ description: inputText, value: +inputValue, status: "pending" });
+    setList(list.concat([{ id: new Date().getTime(), type: inputType, description: inputText, value: +inputValue, status: "pending" }])
+    );
+  }
+
+  const toggleButton = (e: ChangeEvent) => {
+    const newList = [...list];
+    newList.map((item) => {
+      if (item.id.toString() === e.target.id) {
+        item.status = item.status === "pending" ? "done" : "pending";
+      }
+    });
+    setList(newList);
+  };
+
+  function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
+    return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
+  }
+
+  function totalStyle(type: "income" | "expenditure") {
+    return { width: ((totalEstimated(type, "done") * 100) / totalEstimated(type, "all")) + "%" };
   }
 
   return (
     <div id="budget-container">
       <div className="header-container">Budget</div>
+
       <div className="month-container">
         <button>JAN</button>
       </div>
+
       <div className="input-container">
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="text">Description</label>
@@ -37,8 +57,50 @@ export default function Budget() {
           <input type="submit" value="add" />
         </form>
       </div>
-      <BudgetMonth year={budgetDate.year} month={budgetDate.month} />
-      <div className="total-container">Total estimated</div>
+
+      <div className="budget-month">
+        <div className="budget-list income-list">
+          <h2>Incomes</h2>
+          {list.map(item =>item.type === "income" &&
+              <li key={item.id} className={"budget-item item-status-" + item.status}>
+                <div className="description">{item.description}</div>
+                <div className="value">{item.value}</div>
+                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
+              </li>
+          )}
+        </div>
+
+        <div className="budget-list expenditure-list">
+          <h2>Expenditures</h2>
+          {list.map(item => item.type === "expenditure" &&
+              <li key={item.id} className={"budget-item item-status-" + item.status}>
+                <div className="description">{item.description}</div>
+                <div className="value">{item.value}</div>
+                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
+              </li>
+          )}
+        </div>
+      </div>
+
+      <div className="total-container">
+        <div>
+          <div className="total-numbers">
+            <p>{totalEstimated("income", "done")} / {totalEstimated("income", "all")}</p>
+            <p>{Math.floor((totalEstimated("income", "done") * 100) / totalEstimated("income", "all")) + "%"}</p>
+          </div>
+          <div className="total-graph" style={totalStyle("income")} />
+        </div>
+        <div>
+          <div className="total-numbers">
+            <p>{totalEstimated("expenditure", "done")} / {totalEstimated("expenditure", "all")}</p>
+            <p>{Math.floor((totalEstimated("expenditure", "done") * 100) / totalEstimated("expenditure", "all")) + "%"}</p>
+          </div>
+          <div className="total-graph" style={totalStyle("expenditure")} />
+        </div>
+      </div>
+      <div className="total-estimated-container">
+        <h3>Total Estimated</h3><p>{totalEstimated("income", "all") - totalEstimated("expenditure", "all")}</p>
+      </div>
     </div>
   );
 }
