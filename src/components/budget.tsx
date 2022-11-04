@@ -1,6 +1,7 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import "./style.css";
 import fileData from "./bd-test.json";
+import { FaEdit, FaEraser } from "react-icons/fa";
 
 export default function Budget() {
   const [list, setList] = useState(fileData);
@@ -63,9 +64,11 @@ export default function Budget() {
           <h2>Incomes</h2>
           {list.map(item =>item.type === "income" &&
               <li key={item.id} className={"budget-item item-status-" + item.status}>
+                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
                 <div className="description">{item.description}</div>
                 <div className="value">{item.value}</div>
-                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
+                <FaEdit className="edit-item-btn"/>
+                <FaEraser className="delete-item-btn"/>
               </li>
           )}
         </div>
@@ -74,9 +77,11 @@ export default function Budget() {
           <h2>Expenditures</h2>
           {list.map(item => item.type === "expenditure" &&
               <li key={item.id} className={"budget-item item-status-" + item.status}>
+                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
                 <div className="description">{item.description}</div>
                 <div className="value">{item.value}</div>
-                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
+                <FaEdit className="edit-item-btn"/>
+                <FaEraser className="delete-item-btn"/>
               </li>
           )}
         </div>
