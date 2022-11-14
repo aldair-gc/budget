@@ -1,10 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import "./style.css";
-import fileData from "./bd-test.json";
 import { FaEdit, FaEraser } from "react-icons/fa";
 
 export default function Budget() {
-  const [list, setList] = useState(fileData);
+  const [list, setList] = useState([{}]);
   const [inputText, setInputText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState("expenditure");
@@ -34,7 +33,7 @@ export default function Budget() {
   }
 
   return (
-    <div id="budget-container">
+    <div>
       <div className="header-container">Budget</div>
 
       <div className="month-container">
