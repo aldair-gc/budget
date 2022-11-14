@@ -1,0 +1,4 @@
+configure react-redux, redux-persist
+
+configure register, login, manage account as components
+
