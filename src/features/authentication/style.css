@@ -36,16 +36,21 @@ h3 {
 }
 
 .user-container label {
+  margin-top: 10px;
   font-size: 13px;
 }
 
 .user-container input {
   padding: 5px;
-  margin-bottom: 10px;
 }
 
-button, input[type=submit] {
+.user-container input[type=submit] {
   padding: 10px;
   width: 200px;
   margin: 20px auto;
+}
+
+.user-container .input-message {
+  color: #a00;
+  text-align: right;
 }
