@@ -3,9 +3,9 @@ import isEmail from "validator/lib/isEmail";
 import { useAppDispatch } from "../../app/hooks";
 import axios from "../../services/axios";
 import { authFailure, authSuccess } from "./authSlice";
-import "./style.css";
+import { InputContainer } from "./style";
 
-export default function Login() {
+export default function Login(props: { position: (arg0: number) => void; }) {
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
@@ -45,28 +45,29 @@ export default function Login() {
         dispatch(authFailure());
         console.log("User login failure");
       }
-    } catch (error) {
+    } catch (error: any) {
       const errors = error.response.data.errors ?? [];
-      errors.map((err) => console.log(err));
+      errors.map((err: any) => console.log(err));
     }
   }
 
   return (
-    <div>
-      <div className="user-container">
-        <form onSubmit={(e) => handleSubmit(e)}>
+    <InputContainer>
+      <h1>Login</h1>
 
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
-          <small className="input-message transparent">Message</small>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+        <small className="input-message transparent">Message</small>
 
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
-          <small className="input-message transparent">Message</small>
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
+        <small className="input-message transparent">Message</small>
 
-          <input type="submit" value="Login" />
-        </form>
-      </div>
-    </div>
+        <input type="submit" value="Login" />
+      </form>
+
+      <h2 onClick={() => props.position(2)}>Register new user</h2>
+    </InputContainer>
   );
 }

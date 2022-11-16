@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import axios from "../../services/axios";
-import "./style.css";
+import { InputContainer } from "./style";
 
-export default function Register() {
+export default function Register(props: { position: (arg0: number) => void; }) {
   const [inputName, setInputName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
@@ -48,31 +48,33 @@ export default function Register() {
       } else {
         console.log("User register failure");
       }
-    } catch (error) {
+    } catch (error: any) {
       const errors = error.response.data.errors ?? [];
-      errors.map((err) => console.log(err));
+      errors.map((err: any) => console.log(err));
     }
   }
 
   return (
-    <div>
-      <div className="user-container">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" onChange={(e) => setInputName(e.target.value)}/>
-          <small className="input-message transparent">Message</small>
+    <InputContainer>
+      <h1>Register</h1>
 
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" onChange={(e) => setInputEmail(e.target.value)} />
-          <small className="input-message transparent">Message</small>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <label htmlFor="name">Name</label>
+        <input type="text" name="name" id="name" onChange={(e) => setInputName(e.target.value)}/>
+        <small className="input-message transparent">Message</small>
 
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" onChange={(e) => setInputPassword(e.target.value)} />
-          <small className="input-message transparent">Message</small>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email" onChange={(e) => setInputEmail(e.target.value)} />
+        <small className="input-message transparent">Message</small>
 
-          <input type="submit" value="Create" />
-        </form>
-      </div>
-    </div>
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" id="password" onChange={(e) => setInputPassword(e.target.value)} />
+        <small className="input-message transparent">Message</small>
+
+        <input type="submit" value="Create" />
+      </form>
+
+      <h2 onClick={() => props.position(1)}>Login already registered user</h2>
+    </InputContainer>
   );
 }
