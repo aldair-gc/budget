@@ -1,17 +1,56 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import "./style.css";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaEdit, FaEraser } from "react-icons/fa";
+import axios from "../../services/axios";
+import { Transaction } from "./interfaces";
+import "./style.css";
 
 export default function Budget() {
+  const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
   const [list, setList] = useState([{}]);
   const [inputText, setInputText] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [inputType, setInputType] = useState("expenditure");
+  const [expirationDay, setExpirationDay] = useState(0);
+  const [status, setStatus] = useState("pending");
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [repeat, setRepeat] = useState("0-1-1");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
+  useEffect(() => {
+    async function getData(): Promise<void> {
+      try {
+        const getList = await axios.get(`/transaction/${yearMonth.year}/${yearMonth.month}`);
+        if (getList.status === 200) {
+          setList(getList.data);
+        }
+      } catch (error: any) {
+        const errors = error.response.data.errors ?? [];
+        errors.map((err: any) => console.log(err));
+      }
+    }
+    getData();
+  }, []);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
-    setList(list.concat([{ id: new Date().getTime(), type: inputType, description: inputText, value: +inputValue, status: "pending" }])
-    );
+    const newTransaction: Transaction = {
+      type: inputType,
+      description: inputText,
+      value: inputValue,
+      expiration_day: expirationDay,
+      status,
+      year,
+      month,
+      repeat,
+    };
+    try {
+      const sendTransaction = await axios.post("/transaction", newTransaction);
+      if (sendTransaction.status === 200)
+        setList(list.concat([sendTransaction.data]));
+    } catch (error: any) {
+      const errors = error.response.data.errors ?? [];
+      errors.map((err: any) => console.log(err));
+    }
   }
 
   const toggleButton = (e: ChangeEvent) => {
@@ -43,16 +82,16 @@ export default function Budget() {
       <div className="input-container">
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="text">Description</label>
-          <input type="text" name="text" id="text" onChange={(e) => setInputText(e.target.value)}/>
+          <input type="text" name="text" id="text" onChange={(e) => setInputText(e.target.value)} value={inputText} />
 
           <label htmlFor="value">Value</label>
-          <input type="text" name="value" id="value" onChange={(e) => setInputValue(e.target.value)} />
+          <input type="text" name="value" id="value" onChange={(e) => setInputValue(e.target.value)} value={inputValue} />
 
           <label htmlFor="income">+</label>
-          <input type="radio" name="type" id="income" onChange={(e) => e.target.checked && setInputType("income")} />
+          <input type="radio" name="type" id="income" onChange={(e) => e.target.checked && setInputType("income")} defaultChecked={inputType === "income"} />
 
           <label htmlFor="expenditure">-</label>
-          <input type="radio" name="type" id="expenditure" defaultChecked onChange={(e) => e.target.checked && setInputType("expenditure")} />
+          <input type="radio" name="type" id="expenditure" onChange={(e) => e.target.checked && setInputType("expenditure")} defaultChecked={inputType === "expenditure"} />
 
           <input type="submit" value="add" />
         </form>
