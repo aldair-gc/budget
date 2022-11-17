@@ -1,20 +1,24 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { FaEdit, FaEraser } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import axios from "../../services/axios";
+import Input from "./input/input";
 import { Transaction } from "./interfaces";
+import BudgetList from "./list/list";
 import "./style.css";
 
 export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
-  const [list, setList] = useState([{}]);
-  const [inputText, setInputText] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [inputType, setInputType] = useState("expenditure");
-  const [expirationDay, setExpirationDay] = useState(0);
-  const [status, setStatus] = useState("pending");
+  const [list, setList] = useState([] as Transaction[]);
+  const [type, setType] = useState("expenditure" as "expenditure" | "income");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState(0);
+  const [expirationDay, setExpirationDay] = useState(0 as number);
+  const [status, setStatus] = useState("pending" as "pending" | "done");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [repeat, setRepeat] = useState("0-1-1");
+
+  const values: Transaction = { type, description, value, expiration_day: expirationDay, status, year, month, repeat };
+  const setters = { setType, setDescription, setValue, setExpirationDay, setStatus, setYear, setMonth, setRepeat };
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -30,38 +34,6 @@ export default function Budget() {
     }
     getData();
   }, []);
-
-  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
-    e.preventDefault();
-    const newTransaction: Transaction = {
-      type: inputType,
-      description: inputText,
-      value: inputValue,
-      expiration_day: expirationDay,
-      status,
-      year,
-      month,
-      repeat,
-    };
-    try {
-      const sendTransaction = await axios.post("/transaction", newTransaction);
-      if (sendTransaction.status === 200)
-        setList(list.concat([sendTransaction.data]));
-    } catch (error: any) {
-      const errors = error.response.data.errors ?? [];
-      errors.map((err: any) => console.log(err));
-    }
-  }
-
-  const toggleButton = (e: ChangeEvent) => {
-    const newList = [...list];
-    newList.map((item) => {
-      if (item.id.toString() === e.target.id) {
-        item.status = item.status === "pending" ? "done" : "pending";
-      }
-    });
-    setList(newList);
-  };
 
   function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
     return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
@@ -79,50 +51,11 @@ export default function Budget() {
         <button>JAN</button>
       </div>
 
-      <div className="input-container">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="text">Description</label>
-          <input type="text" name="text" id="text" onChange={(e) => setInputText(e.target.value)} value={inputText} />
-
-          <label htmlFor="value">Value</label>
-          <input type="text" name="value" id="value" onChange={(e) => setInputValue(e.target.value)} value={inputValue} />
-
-          <label htmlFor="income">+</label>
-          <input type="radio" name="type" id="income" onChange={(e) => e.target.checked && setInputType("income")} defaultChecked={inputType === "income"} />
-
-          <label htmlFor="expenditure">-</label>
-          <input type="radio" name="type" id="expenditure" onChange={(e) => e.target.checked && setInputType("expenditure")} defaultChecked={inputType === "expenditure"} />
-
-          <input type="submit" value="add" />
-        </form>
-      </div>
+      <Input values={values} setters={setters} list={list} setList={setList}/>
 
       <div className="budget-month">
-        <div className="budget-list income-list">
-          <h2>Incomes</h2>
-          {list.map(item =>item.type === "income" &&
-              <li key={item.id} className={"budget-item item-status-" + item.status}>
-                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
-                <div className="description">{item.description}</div>
-                <div className="value">{item.value}</div>
-                <FaEdit className="edit-item-btn"/>
-                <FaEraser className="delete-item-btn"/>
-              </li>
-          )}
-        </div>
-
-        <div className="budget-list expenditure-list">
-          <h2>Expenditures</h2>
-          {list.map(item => item.type === "expenditure" &&
-              <li key={item.id} className={"budget-item item-status-" + item.status}>
-                <input type="checkbox" id={item.id.toString()} onChange={toggleButton} checked={item.status === "done"} />
-                <div className="description">{item.description}</div>
-                <div className="value">{item.value}</div>
-                <FaEdit className="edit-item-btn"/>
-                <FaEraser className="delete-item-btn"/>
-              </li>
-          )}
-        </div>
+        <BudgetList list={list} setList={setList} type={"income"} />
+        <BudgetList list={list} setList={setList} type={"expenditure"} />
       </div>
 
       <div className="total-container">

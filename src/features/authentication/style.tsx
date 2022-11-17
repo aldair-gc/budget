@@ -81,6 +81,7 @@ export const UserButton = styled.div`
   gap: 10px;
   overflow: hidden;
   box-shadow: 0 0 2px rgba(0,0,0,0.8);
+  z-index: 15;
 
   #user-icon {
     font-size: 20px;
