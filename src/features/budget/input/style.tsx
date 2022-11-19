@@ -21,6 +21,16 @@ export const InputTitles = styled.div`
     float: left;
   }
 
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
   #income-title { background: #beb; }
   #expenditure-title { background: #ebb; }
 `;
@@ -28,7 +38,7 @@ export const InputTitles = styled.div`
 export const InputForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding-top: 10px;
 
   label:has(input:checked) {
     background: #aca;

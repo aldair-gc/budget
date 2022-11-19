@@ -4,8 +4,11 @@ export const MonthListContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 5px;
-  padding: 10px;
-  background: #dea;
+`;
+
+export const DateSelectorContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const MonthButtonStyle = styled.div`
@@ -22,4 +25,18 @@ export const MonthButtonStyle = styled.div`
   .month-selected {
     background-color: #cea;
   }
+`;
+
+export const YearButtonStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 40px;
+  border-radius: 5px;
+  cursor: default;
+  color: #ac8;
+
+  :hover { color: #bd9}
+  :active { color: #cea}
 `;

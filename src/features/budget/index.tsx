@@ -5,7 +5,8 @@ import MainHeader from "./header/header";
 import Input from "./input/input";
 import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
-import MonthList from "./monthList/monthList";
+import DateSelector from "./monthList/dateSelector";
+import { BudgetContainer, BudgetListsContainer } from "./style";
 import "./style.css";
 
 export default function Budget() {
@@ -47,17 +48,17 @@ export default function Budget() {
   }
 
   return (
-    <div>
+    <BudgetContainer>
       <MainHeader yearMonth={yearMonth}/>
 
-      <MonthList yearMonth={yearMonth} setYearMonth={setYearMonth} />
+      <DateSelector yearMonth={yearMonth} setYearMonth={setYearMonth} />
 
       <Input values={values} setters={setters} list={list} setList={setList}/>
 
-      <div className="budget-month">
+      <BudgetListsContainer>
         <BudgetList list={list} setList={setList} type={"income"} />
         <BudgetList list={list} setList={setList} type={"expenditure"} />
-      </div>
+      </BudgetListsContainer>
 
       <div className="total-container">
         <div>
@@ -78,6 +79,6 @@ export default function Budget() {
       <div className="total-estimated-container">
         <h3>Total Estimated</h3><p>{totalEstimated("income", "all") - totalEstimated("expenditure", "all")}</p>
       </div>
-    </div>
+    </BudgetContainer>
   );
 }

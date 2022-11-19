@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   position: relative;
+  height: 60px;
 
   h1 {
     padding: 10px;
