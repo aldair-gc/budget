@@ -65,7 +65,7 @@ export default function Input(props: Props) {
 
           <div className="input">
             <label htmlFor="repeat">Repeat:</label>
-            <input type="number" name="repeat" id="repeat" onChange={(e) => props.setters.setRepeat(`0-1-${e.target.value}`)} value={parseInt(props.values.repeat.split("-")[3]) ?? 0} />
+            <input type="number" name="repeat" id="repeat" onChange={(e) => props.setters.setRepeat(`0-1-${e.target.value || 0}`)} value={parseInt(props.values.repeat.split("-")[2])} />
           </div>
 
           <div>

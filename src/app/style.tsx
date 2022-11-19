@@ -4,8 +4,8 @@ export const Container = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 600px;
-    height: 700px;
+    width: 800px;
+    height: 800px;
     background: #fff;
     border-radius: 10px;
     padding: 20px;

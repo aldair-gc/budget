@@ -1,17 +1,3 @@
-  .header-container {
-    text-align: center;
-    font-size: 30px;
-    padding: 10px;
-  }
-
-  .month-container {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    padding: 10px;
-    background: #dea;
-  }
-
   .budget-month {
     display: flex;
     background: #ab8;

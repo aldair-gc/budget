@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import axios from "../../services/axios";
+import MainHeader from "./header/header";
 import Input from "./input/input";
 import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
+import MonthList from "./monthList/monthList";
 import "./style.css";
 
 export default function Budget() {
@@ -33,7 +36,7 @@ export default function Budget() {
       }
     }
     getData();
-  }, []);
+  }, [yearMonth]);
 
   function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
     return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
@@ -45,11 +48,9 @@ export default function Budget() {
 
   return (
     <div>
-      <div className="header-container">Budget</div>
+      <MainHeader yearMonth={yearMonth}/>
 
-      <div className="month-container">
-        <button>JAN</button>
-      </div>
+      <MonthList yearMonth={yearMonth} setYearMonth={setYearMonth} />
 
       <Input values={values} setters={setters} list={list} setList={setList}/>
 
