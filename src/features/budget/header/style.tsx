@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   position: relative;
   height: 60px;
+  flex: 0 0 auto;
 
   h1 {
     padding: 10px;

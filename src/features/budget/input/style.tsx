@@ -13,6 +13,7 @@ export const InputTitles = styled.div`
     gap: 10px;
     width: 50%;
     padding: 5px;
+    border-radius: 10px 10px 0 0;
   }
 
   .input-icon {

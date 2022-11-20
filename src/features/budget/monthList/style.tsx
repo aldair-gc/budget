@@ -4,6 +4,7 @@ export const MonthListContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 5px;
+  flex: 0 0 auto;
 `;
 
 export const DateSelectorContainer = styled.div`

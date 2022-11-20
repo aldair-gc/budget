@@ -40,6 +40,12 @@ export default class BudgetItem extends Component<Props, {description: string, v
     const editing = this.state.editing;
     const setEditing = (trueOrFalse: boolean) => this.setState({editing: trueOrFalse});
 
+    const resetItem = (): void => {
+      this.setState({ description: this.props.item.description });
+      this.setState({ value: this.props.item.value });
+      this.setState({ expiration_day: this.props.item.expiration_day });
+    };
+
     return (
       <Item className={`item-id-${item.id} item-status-${item.status}`}>
         <input type="checkbox" id={item.id?.toString()} onChange={() => item.id && this.toggleStatus(item.id)} checked={item.status === "done"} />
@@ -47,7 +53,7 @@ export default class BudgetItem extends Component<Props, {description: string, v
         R$ <input type="text" className="value" value={value} onChange={(e) => this.setState({ value: parseFloat(e.target.value) || 0 })} disabled />
         <input type="text" className="expiration_day" value={expiration_day} onChange={(e) => this.setState({ expiration_day: parseInt(e.target.value) || 0 })} disabled />
         {<EditItemButton item={item} editing={editing} setEditing={setEditing} />}
-        {<DeleteItemButton item={item} editing={editing} setEditing={setEditing} />}
+        {<DeleteItemButton item={item} editing={editing} setEditing={setEditing} resetItem={resetItem} />}
 
       </Item>
     );

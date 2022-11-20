@@ -5,20 +5,21 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  list-style: none;
-  background: rgba(200,255,200,0.3);
+  background: rgba(255,255,255,0.7);
   padding: 0 5px;
   margin: 5px;
   border-radius: 5px;
   width: calc(100% - 10px);
-  height: 25px;
   transition: all .3s;
 
-  :hover {
+  :hover, :has(.description:enabled) {
     width: calc(100% - 65px);
   }
 
-  input[type="text"] { font-size: 16px; }
+  input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+  }
 
   input[type="checkbox"] {
     width: 15px;
@@ -26,23 +27,29 @@ export const Item = styled.div`
   }
 
   .description {
-    width: 50%;
+    width: 100%;
     text-align: left;
     flex: 0 1 auto;
   }
 
   .value {
-    width: 30%;
+    width: 70px;
     flex: 1 0 auto;
   }
 
   .expiration_day {
-    width: 20px;
+    width: 30px;
     flex: 0 0 auto;
   }
 
   .description:disabled, .value:disabled, .expiration_day:disabled {
     background: none;
+    border: none;
+    color: #000;
+  }
+
+  .description:enabled, .value:enabled, .expiration_day:enabled {
+    background: #fff;
     border: none;
     color: #000;
   }
@@ -114,4 +121,12 @@ export const CancelButton = styled.button`
 
   :hover { color: #c00; }
   :active { color: #000; }
+`;
+
+export const ItemBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%
+  height: 100%;
 `;

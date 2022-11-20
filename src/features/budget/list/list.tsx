@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Transaction } from "../interfaces";
-import { ListContainer } from "./style";
+import { ItemList, ListBackground, ListContainer } from "./style";
 import axios from "../../../services/axios";
 import BudgetItem from "./item/item";
 
@@ -25,11 +25,23 @@ export default function BudgetList(props: Props) {
     }
   };
 
+  function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
+    return props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
+  }
+
+  function percentageDone(type: "income" | "expenditure"):number {
+    return Math.floor((totalEstimated(type, "done") * 100) / totalEstimated(type, "all"));
+  }
+
   return (
     <ListContainer>
-      {props.list.map(item =>item.type === props.type &&
-        <BudgetItem key={item.id} item={item} toggleStatus={toggleStatus} />
-      )}
+      <ItemList>
+        {props.list.map(item =>item.type === props.type &&
+          <BudgetItem key={item.id} item={item} toggleStatus={toggleStatus} />
+        )}
+      </ItemList>
+
+      <ListBackground style={{ height: `${percentageDone(props.type)}%`, background: props.type === "income" ? "#bfc" : "#fbc" }} />
     </ListContainer>
   );
 }

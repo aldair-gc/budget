@@ -8,6 +8,8 @@ import BudgetList from "./list/list";
 import DateSelector from "./monthList/dateSelector";
 import { BudgetContainer, BudgetListsContainer } from "./style";
 import "./style.css";
+import { Estimated } from "./totals/style";
+import TotalsContainer from "./totals/totals";
 
 export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
@@ -43,7 +45,7 @@ export default function Budget() {
     return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
   }
 
-  function totalStyle(type: "income" | "expenditure") {
+  function totalPercent(type: "income" | "expenditure") {
     return { width: ((totalEstimated(type, "done") * 100) / totalEstimated(type, "all")) + "%" };
   }
 
@@ -60,25 +62,11 @@ export default function Budget() {
         <BudgetList list={list} setList={setList} type={"expenditure"} />
       </BudgetListsContainer>
 
-      <div className="total-container">
-        <div>
-          <div className="total-numbers">
-            <p>{totalEstimated("income", "done")} / {totalEstimated("income", "all")}</p>
-            <p>{Math.floor((totalEstimated("income", "done") * 100) / totalEstimated("income", "all")) + "%"}</p>
-          </div>
-          <div className="total-graph" style={totalStyle("income")} />
-        </div>
-        <div>
-          <div className="total-numbers">
-            <p>{totalEstimated("expenditure", "done")} / {totalEstimated("expenditure", "all")}</p>
-            <p>{Math.floor((totalEstimated("expenditure", "done") * 100) / totalEstimated("expenditure", "all")) + "%"}</p>
-          </div>
-          <div className="total-graph" style={totalStyle("expenditure")} />
-        </div>
-      </div>
-      <div className="total-estimated-container">
+      <TotalsContainer totalEstimated={totalEstimated} totalPercent={totalPercent} />
+
+      <Estimated>
         <h3>Total Estimated</h3><p>{totalEstimated("income", "all") - totalEstimated("expenditure", "all")}</p>
-      </div>
+      </Estimated>
     </BudgetContainer>
   );
 }

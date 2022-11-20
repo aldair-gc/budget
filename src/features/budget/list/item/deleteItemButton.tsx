@@ -5,8 +5,8 @@ import { CancelButton, DeleteButton } from "./style";
 import axios from "../../../../services/axios";
 import { Transaction } from "../../interfaces";
 
-export default class DeleteItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}> {
-  constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}){
+export default class DeleteItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void }> {
+  constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void}){
     super(props);
   }
 
@@ -27,6 +27,7 @@ export default class DeleteItemButton extends Component<{item: Transaction, edit
     const inputs = itemOnApp.querySelectorAll("input[type=text]")as unknown as HTMLInputElement[];
     inputs.forEach(input => input.disabled = true);
     this.props.setEditing(false);
+    this.props.resetItem();
   }
 
   render() {

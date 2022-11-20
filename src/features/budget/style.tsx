@@ -4,6 +4,7 @@ export const BudgetContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex: 0 0 auto;
 `;
 
 export const BudgetListsContainer = styled.div`
