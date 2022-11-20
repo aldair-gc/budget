@@ -7,6 +7,9 @@ import Budget from "../features/budget";
 import Authentication from "../features/authentication/auth";
 
 export default function App() {
+
+  document.addEventListener("contextmenu", (event: any) => event.target.nodeName !== "INPUT" && event.preventDefault());
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

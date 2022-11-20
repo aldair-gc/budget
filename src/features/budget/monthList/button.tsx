@@ -4,7 +4,7 @@ import { MonthButtonStyle } from "./style";
 export default class MonthButton extends Component<ButtonInterface> {
   constructor(props: ButtonInterface) {
     super(props);
-    this.setYearMonth = this.setYearMonth.bind(this);
+    this.setYearMonth = this.props.setYearMonth.bind(this);
   }
 
   setYearMonth(yearMonth: YearMonthInterface):void {

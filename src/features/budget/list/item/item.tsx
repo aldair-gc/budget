@@ -41,9 +41,13 @@ export default class BudgetItem extends Component<Props, {description: string, v
     const setEditing = (trueOrFalse: boolean) => this.setState({editing: trueOrFalse});
 
     const resetItem = (): void => {
-      this.setState({ description: this.props.item.description });
-      this.setState({ value: this.props.item.value });
-      this.setState({ expiration_day: this.props.item.expiration_day });
+      try {
+        this.setState({ description: this.props.item.description });
+        this.setState({ value: this.props.item.value });
+        this.setState({ expiration_day: this.props.item.expiration_day });
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     return (

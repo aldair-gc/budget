@@ -7,7 +7,6 @@ import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
 import DateSelector from "./monthList/dateSelector";
 import { BudgetContainer, BudgetListsContainer } from "./style";
-import "./style.css";
 import { Estimated } from "./totals/style";
 import TotalsContainer from "./totals/totals";
 
