@@ -56,8 +56,19 @@ export default function Budget() {
   }
 
   function openProperties(id: number): void {
-    const findItem = list.findIndex(item => item.id === id );
-    findItem !== -1 && setPropItemId(findItem);
+    const index = list.findIndex(item => item.id === id );
+    if (index !== -1) {
+      const item = list[index];
+      setType(item.type);
+      setDescription(item.description);
+      setValue(item.value);
+      setExpirationDay(item.expiration_day);
+      setStatus(item.status);
+      setMonth(item.month);
+      setYear(item.year);
+      setRepeat(item.repeat);
+      setPropItemId(index);
+    }
   }
 
   return (
