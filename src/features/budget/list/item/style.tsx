@@ -5,7 +5,7 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.6);
   padding: 0 5px;
   margin: 5px;
   border-radius: 5px;
@@ -125,8 +125,9 @@ export const CancelButton = styled.button`
 
 export const ItemBackground = styled.div`
   position: absolute;
-  top: 0;
+  bottom: 0;
+  right: 0;
   left: 0;
-  width: 100%
-  height: 100%;
+  height: 15%;
+  border-radius: 5px;
 `;

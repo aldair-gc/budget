@@ -1,11 +1,12 @@
 TO DO
-
 - improve year/month selection
 - show coloured dots in months icons to indicate their status
-- each transaction will have as background it's graph
-- each list will have as background it's graph (maybe only in the main background)
-- the main background will have a graph that shows the two columns and and icon (rgb)
 - make a right click menu with properties option for items
 
 
-FIX - update state when edit or delete item
+FIX
+
+
+READ ABOUT:
+- bind
+

@@ -7,35 +7,40 @@ export const Container = styled.div`
 `;
 
 export const List = styled.div`
-  position:relative;
+  position: relative;
   width: 50%;
-  border: 1px solid #000;
+  background: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
 `;
 
 export const Numbers = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
-  color: #000;
-  padding: 0 5px;
+  padding: 2px 5px;
+  font-weight: 600;
+  z-index: 2;
 `;
 
 export const Graph = styled.div`
   position: absolute;
-  background: rgba(20,20,20,0.3);
+  background: #3a4;
   top: 0;
   left: 0;
   height: 100%;
   transition: all .3s;
+  z-index: 0;
 `;
 
 export const Estimated = styled.div`
   display: flex;
-  background: #ade;
-  height: 50px;
-  text-align: center;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  background: #ccc;
+  height: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
 `;

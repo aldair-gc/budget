@@ -49,8 +49,7 @@ export const InputForm = styled.form`
 export const InputHideable = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 10px;
+  gap: 40px;
   padding: 0 70px;
   height: 0px;
   overflow: hidden;
@@ -73,12 +72,21 @@ export const InputHideable = styled.div`
 
   input[type="submit"], input[type="button"] {
     font-size: 16px;
-    width: 150px;
+    height: 50px;
+    width: 100px;
     padding: 5px;
-    margin: 5px;
   }
 
-  .input:first-child {
-    margin-top: 20px;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 `;

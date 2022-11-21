@@ -48,6 +48,10 @@ export default function Budget() {
     return { width: ((totalEstimated(type, "done") * 100) / totalEstimated(type, "all")) + "%" };
   }
 
+  function result():number {
+    return totalEstimated("income", "all") - totalEstimated("expenditure", "all");
+  }
+
   return (
     <BudgetContainer>
       <MainHeader yearMonth={yearMonth}/>
@@ -64,7 +68,7 @@ export default function Budget() {
       <TotalsContainer totalEstimated={totalEstimated} totalPercent={totalPercent} />
 
       <Estimated>
-        <h3>Total Estimated</h3><p>{totalEstimated("income", "all") - totalEstimated("expenditure", "all")}</p>
+        <h3>Month Total Estimation</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{`$ ${result().toFixed(2)}`}</h2>
       </Estimated>
     </BudgetContainer>
   );

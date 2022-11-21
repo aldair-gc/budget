@@ -3,11 +3,21 @@ import { Transaction } from "../interfaces";
 import { ItemList, ListBackground, ListContainer } from "./style";
 import axios from "../../../services/axios";
 import BudgetItem from "./item/item";
+import { Component } from "react";
 
-export default function BudgetList(props: Props) {
-  const toggleStatus = (id: number) => {
+export default class BudgetList extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.setList = this.props.setList.bind(this);
+  }
+
+  setList(list: Transaction[]): void {
+    this.props.setList(list);
+  }
+
+  toggleStatus = (id: number) => {
     try {
-      const newList = [...props.list];
+      const newList = [...this.props.list];
       newList.map(async (item) => {
         if (item.id === id) {
           item.status = item.status === "pending" ? "done" : "pending";
@@ -18,32 +28,34 @@ export default function BudgetList(props: Props) {
           }
         }
       });
-      props.setList(newList);
+      this.setList(newList);
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
       errors.map((err: any) => console.log(err));
     }
   };
 
-  function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
-    return props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
+  totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
+    return this.props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
   }
 
-  function percentageDone(type: "income" | "expenditure"):number {
-    return Math.floor((totalEstimated(type, "done") * 100) / totalEstimated(type, "all"));
+  percentageDone(type: "income" | "expenditure"):number {
+    return Math.floor((this.totalEstimated(type, "done") * 100) / this.totalEstimated(type, "all"));
   }
 
-  return (
-    <ListContainer>
-      <ItemList>
-        {props.list.map(item =>item.type === props.type &&
-          <BudgetItem key={item.id} item={item} toggleStatus={toggleStatus} />
-        )}
-      </ItemList>
+  render() {
+    return (
+      <ListContainer>
+        <ItemList>
+          {this.props.list.map(item =>item.type === this.props.type &&
+            <BudgetItem key={item.id} item={item} toggleStatus={this.toggleStatus } list={this.props.list} setList={this.setList} />
+          )}
+        </ItemList>
 
-      <ListBackground style={{ height: `${percentageDone(props.type)}%`, background: props.type === "income" ? "#bfc" : "#fbc" }} />
-    </ListContainer>
-  );
+        <ListBackground style={{ height: `${this.percentageDone(this.props.type)}%`, background: this.props.type === "income" ? "#bfc" : "#fbc" }} />
+      </ListContainer>
+    );
+  }
 }
 
 interface Props {

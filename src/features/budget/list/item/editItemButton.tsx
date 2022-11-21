@@ -5,10 +5,15 @@ import { EditButton, SaveButton } from "./style";
 import axios from "../../../../services/axios";
 import { Transaction } from "../../interfaces";
 
-export default class EditItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}> {
-  constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}){
+export default class EditItemButton extends Component<EditItemButtonInterface> {
+  constructor(props: EditItemButtonInterface){
     super(props);
     this.setEditing = this.props.setEditing.bind(this);
+    this.setList = this.props.setList.bind(this);
+  }
+
+  setList(list: Transaction[]): void {
+    this.props.setList(list);
   }
 
   setEditing(trueOrFalse: boolean): void {
@@ -28,8 +33,17 @@ export default class EditItemButton extends Component<{item: Transaction, editin
 
   async saveItem(item: Transaction):Promise<void> {
     try {
-      const updateRequest = await axios.put(`/transaction/${item.id}`, { description: item.description, value: item.value, expiration_day: item.expiration_day });
-      if (updateRequest.status === 200) {
+      const updatedItem = await axios.put(`/transaction/${item.id}`, { description: item.description, value: item.value, expiration_day: item.expiration_day });
+      if (updatedItem.status === 200) {
+        const newList = [...this.props.list];
+        newList.forEach((item: Transaction) => {
+          if (item.id === updatedItem.data.id) {
+            item.description = updatedItem.data.description;
+            item.value = updatedItem.data.value;
+            item.expiration_day = updatedItem.data.expiration_day;
+          }
+        });
+        this.setList(newList);
         item.id && this.changeItem(item.id, false);
       }
     } catch (error: any) {
@@ -39,12 +53,11 @@ export default class EditItemButton extends Component<{item: Transaction, editin
   }
 
   render() {
-    const editing = this.props.editing;
     const item = this.props.item;
     return (
-      editing
+      this.props.editing
         ?
-        <SaveButton onClick={() => this.saveItem(item)}>
+        <SaveButton onClick={() => this.saveItem(this.props.item)}>
           <FaSave/>
         </SaveButton>
         :
@@ -53,4 +66,12 @@ export default class EditItemButton extends Component<{item: Transaction, editin
         </EditButton>
     );
   }
+}
+
+interface EditItemButtonInterface {
+  item: Transaction,
+  editing: boolean,
+  setEditing: (trueOrFalse: boolean) => void,
+  list: Transaction[],
+  setList: (list: Transaction[]) => void,
 }

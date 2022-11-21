@@ -16,6 +16,7 @@ export const ItemList = styled.div`
   overflow: hidden auto;
   background: rgba(0,0,0,0.2);
   z-index: 5;
+  border-radius: 0 0 10px 10px;
 `;
 
 export const ListBackground = styled.div`

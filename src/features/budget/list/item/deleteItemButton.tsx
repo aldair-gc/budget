@@ -5,11 +5,16 @@ import { CancelButton, DeleteButton } from "./style";
 import axios from "../../../../services/axios";
 import { Transaction } from "../../interfaces";
 
-export default class DeleteItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void }> {
-  constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void}){
+export default class DeleteItemButton extends Component<DeleteItemButtonInterface> {
+  constructor(props: DeleteItemButtonInterface){
     super(props);
     this.setEditing = this.props.setEditing.bind(this);
     this.resetItem = this.props.resetItem.bind(this);
+    this.setList = this.props.setList.bind(this);
+  }
+
+  setList(list: Transaction[]):void {
+    this.props.setList(list);
   }
 
   setEditing(trueOrFalse: boolean): void {
@@ -24,7 +29,13 @@ export default class DeleteItemButton extends Component<{item: Transaction, edit
     try {
       const deleteRequest = await axios.delete(`/transaction/${this.props.item.id}`);
       if (deleteRequest.status === 200) {
-        (document.querySelector(`.item-id-${this.props.item.id}`) as HTMLDivElement).classList.add("hidden");
+        const newList = [...this.props.list];
+
+        const deletedItemIndex = newList.findIndex((item) => item.id === this.props.item.id);
+
+        deleteRequest.data.transactionDeleted === true && newList.splice(deletedItemIndex, 1);
+
+        this.setList(newList);
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
@@ -55,4 +66,12 @@ export default class DeleteItemButton extends Component<{item: Transaction, edit
         </DeleteButton>
     );
   }
+}
+
+interface DeleteItemButtonInterface {
+  item: Transaction,
+  editing: boolean,
+  setEditing: (trueOrFalse: boolean) => void, resetItem: () => void,
+  list: Transaction[],
+  setList: (list: Transaction[]) => void,
 }

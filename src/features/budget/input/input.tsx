@@ -13,7 +13,7 @@ export default function Input(props: Props) {
   };
 
   const showInput = () => {
-    hideable.style.height = "210px";
+    hideable.style.height = "190px";
   };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
@@ -48,27 +48,29 @@ export default function Input(props: Props) {
         </InputTitles>
 
         <InputHideable id="input-hideable" style={{background: props.values.type === "income" ? "#beb" : "#ebb"}}>
-          <div className="input">
-            <label htmlFor="text">Description:</label>
-            <input type="text" name="text" id="text" onChange={(e) => props.setters.setDescription(e.target.value)} value={props.values.description} />
+          <div className="inputs">
+            <div className="input">
+              <label htmlFor="text">Description:</label>
+              <input type="text" name="text" id="text" onChange={(e) => props.setters.setDescription(e.target.value)} value={props.values.description} />
+            </div>
+
+            <div className="input">
+              <label htmlFor="value">Value:</label>
+              <input type="text" name="value" id="value" onChange={(e) => props.setters.setValue(parseFloat(e.target.value) || 0)} value={props.values.value} />
+            </div>
+
+            <div className="input">
+              <label htmlFor="expiration-day">Expiration day:</label>
+              <input type="number" name="expiration-day" id="expiration-day" onChange={(e) => props.setters.setExpirationDay(parseInt(e.target.value) || 0)} value={props.values.expiration_day} />
+            </div>
+
+            <div className="input">
+              <label htmlFor="repeat">Repeat:</label>
+              <input type="number" name="repeat" id="repeat" onChange={(e) => props.setters.setRepeat(`0-1-${e.target.value || 0}`)} value={parseInt(props.values.repeat.split("-")[2])} />
+            </div>
           </div>
 
-          <div className="input">
-            <label htmlFor="value">Value:</label>
-            <input type="text" name="value" id="value" onChange={(e) => props.setters.setValue(parseFloat(e.target.value) || 0)} value={props.values.value} />
-          </div>
-
-          <div className="input">
-            <label htmlFor="expiration-day">Expiration day:</label>
-            <input type="number" name="expiration-day" id="expiration-day" onChange={(e) => props.setters.setExpirationDay(parseInt(e.target.value) || 0)} value={props.values.expiration_day} />
-          </div>
-
-          <div className="input">
-            <label htmlFor="repeat">Repeat:</label>
-            <input type="number" name="repeat" id="repeat" onChange={(e) => props.setters.setRepeat(`0-1-${e.target.value || 0}`)} value={parseInt(props.values.repeat.split("-")[2])} />
-          </div>
-
-          <div>
+          <div className="buttons">
             <input type="submit" value="add" />
             <input type="button" value="cancel" onClick={closeInput} />
           </div>
