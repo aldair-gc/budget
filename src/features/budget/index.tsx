@@ -6,6 +6,8 @@ import Input from "./input/input";
 import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
 import DateSelector from "./monthList/dateSelector";
+import Properties from "./properties/properties";
+import RightClickMenu from "./rightClickMenu/rightClickMenu";
 import { BudgetContainer, BudgetListsContainer } from "./style";
 import { Estimated } from "./totals/style";
 import TotalsContainer from "./totals/totals";
@@ -21,6 +23,7 @@ export default function Budget() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [repeat, setRepeat] = useState("0-1-1");
+  const [propItemId, setPropItemId] = useState(0);
 
   const values: Transaction = { type, description, value, expiration_day: expirationDay, status, year, month, repeat };
   const setters = { setType, setDescription, setValue, setExpirationDay, setStatus, setYear, setMonth, setRepeat };
@@ -52,6 +55,11 @@ export default function Budget() {
     return totalEstimated("income", "all") - totalEstimated("expenditure", "all");
   }
 
+  function openProperties(id: number): void {
+    const findItem = list.findIndex(item => item.id === id );
+    findItem !== -1 && setPropItemId(findItem);
+  }
+
   return (
     <BudgetContainer>
       <MainHeader yearMonth={yearMonth}/>
@@ -70,6 +78,9 @@ export default function Budget() {
       <Estimated>
         <h3>Month Total Estimation</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{`$ ${result().toFixed(2)}`}</h2>
       </Estimated>
+
+      <RightClickMenu openProperties={openProperties}/>
+      <Properties propItemId={propItemId} setPropItemId={setPropItemId} values={values} setters={setters} list={list} setList={setList}/>
     </BudgetContainer>
   );
 }
