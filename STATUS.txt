@@ -1,11 +1,10 @@
 TO DO
 - improve year/month selection
 - show coloured dots in months icons to indicate their status
-- make a right click menu with properties option for items
 
 
 FIX
-
+- rightclick stop listening when clicked and restart listening on lose focus
 
 READ ABOUT:
 - bind

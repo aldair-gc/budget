@@ -7,6 +7,13 @@ import { Header, OptionsForm, Option, PropertiesContainer, Buttons } from "./sty
 
 export default function Properties(props: Props) {
   const closeProperties = ():void => {
+    props.setters.setDescription("");
+    props.setters.setValue(0);
+    props.setters.setExpirationDay(0);
+    props.setters.setStatus("pending");
+    props.setters.setYear(new Date().getFullYear());
+    props.setters.setMonth(new Date().getMonth());
+    props.setters.setRepeat("0-1-1");
     props.setPropItemId(0);
   };
 
@@ -17,16 +24,24 @@ export default function Properties(props: Props) {
     const newTransaction: Transaction = props.values;
 
     try {
-      const sendTransaction = await axios.post("/transaction", newTransaction);
-      if (sendTransaction.status === 200) {
-        props.setList(props.list.concat([sendTransaction.data]));
-        props.setters.setDescription("");
-        props.setters.setValue(0);
-        props.setters.setExpirationDay(0);
-        props.setters.setStatus("pending");
-        props.setters.setYear(new Date().getFullYear());
-        props.setters.setMonth(new Date().getMonth());
-        props.setters.setRepeat("0-1-1");
+      const selectedItem = await axios.put(`/transaction/${props.propItemId}`, newTransaction);
+      if (selectedItem.status === 200) {
+        const newList = [...props.list];
+        newList.forEach((item, index) => {
+          if (item.id === props.propItemId) {
+            if (item.month === selectedItem.data.month && item.year === selectedItem.data.year) {
+              item.type = selectedItem.data.type;
+              item.description = selectedItem.data.description;
+              item.value = selectedItem.data.value;
+              item.expiration_day = selectedItem.data.expiration_day;
+              item.repeat = selectedItem.data.repeat;
+            } else {
+              newList.splice(index, 1);
+            }
+          }
+        });
+        props.setList(newList);
+        closeProperties();
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
@@ -37,7 +52,7 @@ export default function Properties(props: Props) {
     props.propItemId === 0 ? <div/> :
       <PropertiesContainer>
         <Header>
-          <h1>Properties</h1>
+          <h1>Transaction {props.propItemId} - Properties</h1>
           <FaTimesCircle onClick={closeProperties}/>
         </Header>
 
