@@ -5,7 +5,7 @@ import MainHeader from "./header/header";
 import Input from "./input/input";
 import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
-import DateSelector from "./monthList/dateSelector";
+import DateSelector from "./monthList/DateSelector";
 import Properties from "./properties/properties";
 import RightClickMenu from "./rightClickMenu/rightClickMenu";
 import { BudgetContainer, BudgetListsContainer } from "./style";

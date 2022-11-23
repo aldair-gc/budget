@@ -45,7 +45,7 @@ export default class BudgetList extends Component<Props> {
 
   render() {
     return (
-      <ListContainer>
+      <ListContainer className="budget-list-container">
         <ItemList>
           {this.props.list.map(item =>item.type === this.props.type &&
             <BudgetItem key={item.id} item={item} toggleStatus={this.toggleStatus } list={this.props.list} setList={this.setList} />

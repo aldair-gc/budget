@@ -9,15 +9,27 @@ export const Item = styled.div`
   padding: 0 5px;
   margin: 5px;
   border-radius: 5px;
+  height: 28px;
   width: calc(100% - 10px);
   transition: all .3s;
 
-  :hover, :has(.description:enabled) {
-    width: calc(100% - 65px);
+  :hover, :has(.show-buttons) {
+    width: calc(100% - 80px);
   }
 
-  input[type="text"] {
-    padding: 5px;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+
+  input[type=text], input[type=number] {
+    padding: 5px 2px;
     font-size: 16px;
   }
 
@@ -29,16 +41,16 @@ export const Item = styled.div`
   .description {
     width: 100%;
     text-align: left;
-    flex: 0 1 auto;
   }
 
   .value {
-    width: 70px;
-    flex: 1 0 auto;
+    text-align: right;
+    width: 90px;
   }
 
   .expiration_day {
     width: 30px;
+    text-align: center;
     flex: 0 0 auto;
   }
 
@@ -67,60 +79,57 @@ export const Item = styled.div`
   }
 `;
 
-export const EditButton = styled.button`
+export const ButtonsContainer = styled.div`
   position: absolute;
-  right: -30px;
-  width: 30px;
-  height: 20px;
-  flex: 0 0 auto;
+  right: -75px;
+  display: flex;
+  gap: 5px;
+  padding: 0 5px 0 5px;
+  width: 75px;
   border: none;
-  background: none;
-  font-size: 20px;
+  height: 28px;
 
-  :hover { color: #00c; }
-  :active { color: #000; }
-`;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 16px;
+    height: 28px;
+  }
 
-export const DeleteButton = styled.button`
-  position: absolute;
-  right: -60px;
-  width: 30px;
-  height: 20px;
-  flex: 0 0 auto;
-  border: none;
-  background: none;
-  font-size: 20px;
+  .edit {
+    background: #44b;
+    :hover { background: #33c; }
+    :active { background: #22b; }
+  }
 
-  :hover { color: #c00; }
-  :active { color: #000; }
-`;
+  .delete {
+    background: #a33;
+    :hover { background: #b22; }
+    :active { background: #c11; }
+  }
 
-export const SaveButton = styled.button`
-  position: absolute;
-  right: -30px;
-  width: 30px;
-  height: 20px;
-  flex: 0 0 auto;
-  border: none;
-  background: none;
-  font-size: 20px;
+  .save {
+    background: #383;
+    :hover { background: #292; }
+    :active { background: #1a1; }
+  }
 
-  :hover { color: #0c0; }
-  :active { color: #000; }
-`;
+  .confirm {
+    background: #a33;
+    :hover { background: #b22; }
+    :active { background: #c11; }
+  }
 
-export const CancelButton = styled.button`
-  position: absolute;
-  right: -60px;
-  width: 30px;
-  height: 20px;
-  flex: 0 0 auto;
-  border: none;
-  background: none;
-  font-size: 20px;
-
-  :hover { color: #c00; }
-  :active { color: #000; }
+  .cancel {
+    background: #44b;
+    :hover { background: #33c; }
+    :active { background: #22d; }
+  }
 `;
 
 export const ItemBackground = styled.div`

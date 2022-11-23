@@ -1,4 +1,4 @@
-import MonthButton, { YearMonthInterface } from "./button";
+import MonthButton, { YearMonthInterface } from "./MonthButton";
 import { MonthListContainer } from "./style";
 
 export default function MonthList(props: Props) {

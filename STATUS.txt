@@ -1,10 +1,13 @@
 TO DO
 - improve year/month selection
 - show coloured dots in months icons to indicate their status
-
+- repeat existing item
+- show repetitions of item
+- edit only this one or also future ones
+- delete only this one or also future ones
+- add current ammount of cash
 
 FIX
-- rightclick stop listening when clicked and restart listening on lose focus
 
 READ ABOUT:
 - bind

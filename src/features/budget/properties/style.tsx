@@ -12,8 +12,8 @@ export const PropertiesContainer = styled.div`
   backdrop-filter: blur(15px);
   border: 0;
   border-radius: 10px;
-  min-width: 400px;
-  min-height: 400px;
+  min-width: 200px;
+  min-height: 200px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
   z-index: 51;
   overflow: hidden;
@@ -69,7 +69,14 @@ export const Option = styled.div`
 
   .radio {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 20px;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
   }
 `;
 

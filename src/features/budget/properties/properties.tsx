@@ -52,7 +52,7 @@ export default function Properties(props: Props) {
     props.propItemId === 0 ? <div/> :
       <PropertiesContainer>
         <Header>
-          <h1>Transaction {props.propItemId} - Properties</h1>
+          <h1>Properties: Transaction {props.propItemId}</h1>
           <FaTimesCircle onClick={closeProperties}/>
         </Header>
 
@@ -61,42 +61,56 @@ export default function Properties(props: Props) {
           <Option>
             <label>Type</label>
             <div className="radio">
-              <input type="radio" name="prop-type" id="prop-income" onChange={(e) => e.target.checked && props.setters.setType("income")} defaultChecked={props.values.type === "income"} />
-              <label htmlFor="prop-income">income</label>
+              <div>
+                <input type="radio" name="prop-type" id="prop-income"
+                  onChange={(e) => e.target.checked && props.setters.setType("income")}
+                  defaultChecked={props.values.type === "income"} />
+                <label htmlFor="prop-income">income</label>
+              </div>
 
-              <input type="radio" name="prop-type" id="prop-expenditure" onChange={(e) => e.target.checked && props.setters.setType("expenditure")} defaultChecked={props.values.type === "expenditure"} />
-              <label htmlFor="prop-expenditure">expenditure</label>
+              <div>
+                <input type="radio" name="prop-type" id="prop-expenditure"
+                  onChange={(e) => e.target.checked && props.setters.setType("expenditure")}
+                  defaultChecked={props.values.type === "expenditure"} />
+                <label htmlFor="prop-expenditure">expenditure</label>
+              </div>
             </div>
           </Option>
 
           <Option>
             <label htmlFor="name">Description</label>
-            <input type="text" name="description" id="prop-description" value={props.values.description} onChange={(e) => props.setters.setDescription(e.target.value)} />
+            <input type="text" name="description" id="prop-description" value={props.values.description}
+              onChange={(e) => props.setters.setDescription(e.target.value)} />
           </Option>
 
           <Option>
             <label htmlFor="value">Value</label>
-            <input type="number" name="value" id="prop-value" value={props.values.value} onChange={(e) => props.setters.setValue(parseFloat(e.target.value) || 0)} />
+            <input type="number" name="value" id="prop-value" value={props.values.value || ""}
+              onChange={(e) => props.setters.setValue(parseFloat(e.target.value) || 0)} />
           </Option>
 
           <Option>
             <label htmlFor="expiration-day">Expiration day</label>
-            <input type="number" name="expiration-day" id="prop-expiration-day" value={props.values.expiration_day} onChange={(e) => props.setters.setExpirationDay(parseInt(e.target.value) || 0)} />
+            <input type="number" name="expiration-day" id="prop-expiration-day" min={1} max={31} value={props.values.expiration_day}
+              onChange={(e) => props.setters.setExpirationDay(parseInt(e.target.value || "") || 0)} />
           </Option>
 
           <Option>
             <label htmlFor="month">Month</label>
-            <input type="number" name="month" id="prop-month" value={props.values.month} onChange={(e) => props.setters.setMonth(parseInt(e.target.value) || 0)} />
+            <input type="number" name="month" id="prop-month" min={1} max={12} value={props.values.month || ""}
+              onChange={(e) => props.setters.setMonth(parseInt(e.target.value) || 0)} />
           </Option>
 
           <Option>
             <label htmlFor="year">Year</label>
-            <input type="number" name="year" id="prop-year" value={props.values.year} onChange={(e) => props.setters.setYear(parseInt(e.target.value) || 0)} />
+            <input type="number" name="year" id="prop-year" min={2000} max={2100} value={props.values.year || ""}
+              onChange={(e) => props.setters.setYear(parseInt(e.target.value) || 0)} />
           </Option>
 
           <Option>
             <label htmlFor="repeat">Repeat</label>
-            <input type="text" name="repeat" id="prop-repeat" value={props.values.repeat} onChange={(e) => props.setters.setRepeat(e.target.value)} disabled />
+            <input type="text" name="repeat" id="prop-repeat" value={props.values.repeat}
+              onChange={(e) => props.setters.setRepeat(e.target.value)} disabled />
           </Option>
 
           <Buttons>

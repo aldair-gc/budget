@@ -4,6 +4,8 @@ export const ListContainer = styled.div`
   position: relative;
   height: 100%;
   width: 50%;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
 `;
 
 export const ItemList = styled.div`
@@ -16,14 +18,13 @@ export const ItemList = styled.div`
   overflow: hidden auto;
   background: rgba(0,0,0,0.2);
   z-index: 5;
-  border-radius: 0 0 10px 10px;
 `;
 
 export const ListBackground = styled.div`
   position: absolute;
   bottom: 0;
-  left: 50px;
-  right: 50px;
+  left: 0px;
+  right: 0px;
   z-index: 2;
   transition: all .3s;
 `;
