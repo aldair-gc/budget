@@ -2,14 +2,16 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   position: relative;
-  height: 60px;
+  height: 110px;
   flex: 0 0 auto;
 
   h1 {
     padding: 10px;
-    text-align: center;
+    text-align: Left;
     font-size: 30px;
   }
+
+  > div {position: absolute; top: 0; left: 50%; transform: translateX(-50%); }
 `;
 
 export const DateHeader = styled.div`

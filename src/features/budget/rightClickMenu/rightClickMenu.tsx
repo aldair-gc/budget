@@ -11,9 +11,9 @@ export default function RightClickMenu(props: {openProperties: (id: number) => v
   });
 
   document.addEventListener("contextmenu", (event):void => {
-    event.preventDefault();
     event.composedPath().forEach((child) => {
       if ((child as HTMLElement).className?.includes?.("item-id")) {
+        event.preventDefault();
         setClick({ x: event.clientX, y: event.clientY, display: "flex" });
         setSelectionId(parseInt((child as HTMLElement).children[0].id ));
       }

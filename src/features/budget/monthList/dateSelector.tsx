@@ -6,8 +6,8 @@ import YearMonthPicker from "./YearMonthPicker";
 
 export default function DateSelector(props: Props) {
   return (
-    <YearMonthPicker/>
-
+    // <YearMonthPicker/>
+    <div></div>
   // <DateSelectorContainer>
   //   <YearButtonStyle onClick={() => props.setYearMonth({year: props.yearMonth.year - 1, month: props.yearMonth.month})}>
   //     <FaArrowCircleLeft />

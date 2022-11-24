@@ -47,51 +47,48 @@ export const YearMonthPickerContainer = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  width: 400px;
-  height: 200px;
-  background: rgb(120,120,120);
+  width: 270px;
+  height: 100px;
+  background: rgb(70,70,70);
   overflow: hidden;
   z-index: 200;
 
   .year-picker, .month-picker {
     position: absolute;
-    top: calc(-50px - 24px);
     display: flex;
-    gap: 5px;
-    padding: 100px 0;
+    padding: calc(50px - 12.5px) 0;
     flex-direction: column;
     align-items: center;
-    background: #aaa;
-    width: 170px;
+    background: #ddd;
     z-index: 201;
+    width: 120px;
 
     p {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 19px;
+      height: 25px;
       width: 100%;
     }
   }
 
-  .year-picker { left: 20px; }
-  .month-picker { right: 20px; }
+  .year-picker { left: 10px; }
+  .month-picker { right: 10px; }
 `;
 
 export const PickerGlassEffect = styled.div`
   position: absolute;
   z-index: 202;
   top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
+  width: 120px;
+  height: 100px;
   background: linear-gradient(to bottom,
-    rgba(100,100,100,1) 10%,
-    rgba(100,100,100,0) 39%,
-    rgba(100,100,100,1) 40%,
-    rgba(100,100,100,0) 41%,
-    rgba(100,100,100,0) 59%,
-    rgba(100,100,100,1) 60%,
-    rgba(100,100,100,0) 61%,
-    rgba(100,100,100,1) 90%);
+    rgba(80,80,80,1) 5%,
+    rgba(80,80,80,0) 36%,
+    rgba(80,80,80,1) 37%,
+    rgba(80,80,80,0) 38%,
+    rgba(80,80,80,0) 62%,
+    rgba(80,80,80,1) 63%,
+    rgba(80,80,80,0) 64%,
+    rgba(80,80,80,1) 95%);
 `;
