@@ -12,3 +12,13 @@ export interface Transaction {
   updated_at?: string;
   user_id?: number;
 }
+
+export interface YearMonthInterface {
+  year: number,
+  month: number,
+}
+
+export interface SetYearMonthInterface {
+  setYearMonth: (yearMonth: YearMonthInterface) => void;
+}
+

@@ -1,5 +1,5 @@
 import MonthButton, { YearMonthInterface } from "./MonthButton";
-import { MonthListContainer } from "./style";
+import { MonthListContainer } from "../yearMonthPicker/style";
 
 export default function MonthList(props: Props) {
   return (

@@ -5,7 +5,6 @@ import MainHeader from "./header/header";
 import Input from "./input/input";
 import { Transaction } from "./interfaces";
 import BudgetList from "./list/list";
-import DateSelector from "./monthList/DateSelector";
 import Properties from "./properties/properties";
 import RightClickMenu from "./rightClickMenu/rightClickMenu";
 import { BudgetContainer, BudgetListsContainer } from "./style";
@@ -72,9 +71,9 @@ export default function Budget() {
 
   return (
     <BudgetContainer>
-      <MainHeader yearMonth={yearMonth}/>
+      <MainHeader yearMonth={yearMonth} setYearMonth={setYearMonth}/>
 
-      <DateSelector yearMonth={yearMonth} setYearMonth={setYearMonth} />
+      {/* <DateSelector yearMonth={yearMonth} setYearMonth={setYearMonth} /> */}
 
       <Input values={values} setters={setters} list={list} setList={setList}/>
 

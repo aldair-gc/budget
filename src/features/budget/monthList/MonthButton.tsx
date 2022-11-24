@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { MonthButtonStyle } from "./style";
+import { MonthButtonStyle } from "../yearMonthPicker/style";
 
 export default class MonthButton extends Component<ButtonInterface> {
   constructor(props: ButtonInterface) {
