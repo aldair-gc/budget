@@ -1,5 +1,4 @@
 TO DO
-- improve year/month selection
 - show coloured dots in months icons to indicate their status
 - repeat existing item
 - show repetitions of item

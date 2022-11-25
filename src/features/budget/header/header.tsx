@@ -1,20 +1,25 @@
 import YearMonthPicker from "../yearMonthPicker/YearMonthPicker";
-import { YearMonthInterface, SetYearMonthInterface } from "../interfaces";
+import { YearMonthInterface } from "../interfaces";
 import { HeaderContainer } from "./style";
-// import ThisDate from "./thisDate";
+import ButtonsYearMonth from "../yearMonthPicker/ButtonYearMonth";
 
 export default function MainHeader(props: Props) {
   return (
     <HeaderContainer>
-      {/* <ThisDate yearMonth={props.yearMonth} /> */}
       <h1>Budget</h1>
+
       <YearMonthPicker
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
         height={"55px"}
         width={"270px"}
         initialYear={2020}
-        finalYear={2029}
+        finalYear={2039}
+      />
+
+      <ButtonsYearMonth
+        yearMonth={props.yearMonth}
+        setYearMonth={props.setYearMonth}
       />
     </HeaderContainer>
   );
@@ -22,5 +27,5 @@ export default function MainHeader(props: Props) {
 
 interface Props {
   yearMonth: YearMonthInterface;
-  setYearMonth: SetYearMonthInterface;
+  setYearMonth: (yearMonth: YearMonthInterface) => void;
 }

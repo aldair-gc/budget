@@ -1,18 +1,18 @@
 import { Component } from "react";
-import { SetYearMonthInterface, YearMonthInterface } from "../interfaces";
-import { PickerGlassEffect, YearMonthPickerContainer } from "./style";
+import { YearMonthInterface } from "../interfaces";
+import { PickerFrontGlass, PickerGlassEffect, YearMonthPickerContainer } from "./style";
 
-export default class YearMonthPicker extends Component<Props, States> {
+export default class YearMonthPicker extends Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      year: props.yearMonth.year - props.initialYear,
-      month: props.yearMonth.month - 1,
-    };
+    this.setYearMonth = this.props.setYearMonth.bind(this);
+  }
+
+  setYearMonth(yearMonth: {year: number, month: number}): void {
+    this.props.setYearMonth(yearMonth);
   }
 
   render() {
-    // set the size from this properties
     const height = this.props.height;
     const width = this.props.width;
     const initialYear = this.props.initialYear;
@@ -21,7 +21,7 @@ export default class YearMonthPicker extends Component<Props, States> {
     function makeYearList() {
       const yearList: JSX.Element[] = [];
       for(let i = initialYear; i <= finalYear; i++) {
-        yearList.push(<p>{i}</p>);
+        yearList.push(<p key={i}>{i}</p>);
       }
       return yearList;
     }
@@ -30,35 +30,37 @@ export default class YearMonthPicker extends Component<Props, States> {
       <YearMonthPickerContainer style={{width, height}}>
         <div className="year-picker"
           style={{
-            top: "-50 - 12.5",
-            transform: `translateY(${this.state.year * -20}px)`,
+            transform: `translateY(${(this.props.yearMonth.year - initialYear) * -20}px)`,
             width: `calc((${width} / 2) - 15px)`,
             padding: `calc((${height} - 20px) / 2) 0`,
           }}>
 
           {makeYearList()}
-
         </div>
-        <PickerGlassEffect
-          style={{ left: "10px", width: "calc(50% - 5px)", height: this.props.height, }}
+
+        <PickerGlassEffect style={{ left: "10px", width: "calc(50% - 15px)", height: this.props.height, }} />
+
+        <PickerFrontGlass
+          style={{ left: "10px", width: "calc(50% - 15px)", height: this.props.height, }}
           onWheelCapture={(e) => {
             const scroll = e.nativeEvent.deltaY;
-            const selection = this.state.year;
+            const selection = this.props.yearMonth.year;
 
-            if (scroll > 0 && selection < 9) {
-              this.setState({year: selection + 1});
-            } else if (scroll < 0 && selection > 0) {
-              this.setState({year: selection - 1});
+            if (scroll > 0 && selection < finalYear) {
+              this.setYearMonth({year: selection + 1, month: this.props.yearMonth.month});
+            } else if (scroll < 0 && selection > initialYear) {
+              this.setYearMonth({year: selection - 1, month: this.props.yearMonth.month});
             }
-          }}/>
+          }}
+        />
 
         <div className="month-picker"
           style={{
-            top: "-50 - 12.5",
-            transform: `translateY(${this.state.month * -20}px)`,
+            transform: `translateY(${(this.props.yearMonth.month * -20) + 20}px)`,
             width: `calc((${width} / 2) - 15px)`,
             padding: `calc((${height} - 20px) / 2) 0`,
           }}>
+
           <p>January</p>
           <p>February</p>
           <p>March</p>
@@ -72,19 +74,24 @@ export default class YearMonthPicker extends Component<Props, States> {
           <p>November</p>
           <p>December</p>
         </div>
-        <PickerGlassEffect
-          style={{ right: "10px", width: "calc(50% - 5px)", height: this.props.height, }}
+
+        <PickerGlassEffect style={{ right: "10px", width: "calc(50% - 15px)", height: this.props.height, }} />
+
+        <PickerFrontGlass
+          style={{ right: "10px", width: "calc(50% - 15px)", height: this.props.height, }}
           onWheelCapture={(e) => {
             const scroll = e.nativeEvent.deltaY;
-            const selection = this.state.month;
+            const selection = this.props.yearMonth.month;
 
-            if (scroll > 0 && selection < 11) {
-              this.setState({month: selection + 1});
-            } else if (scroll < 0 && selection > 0) {
-              this.setState({month: selection - 1});
+            if (scroll > 0 && selection < 12) {
+              this.setYearMonth({year: this.props.yearMonth.year, month: selection + 1});
+            } else if (scroll < 0 && selection > 1) {
+              this.setYearMonth({year: this.props.yearMonth.year, month: selection - 1});
             }
-          }}/>
+          }}
+        />
 
+        <div className="border-effect" />
       </YearMonthPickerContainer>
     );
   }
@@ -96,10 +103,5 @@ interface Props {
   initialYear: number,
   finalYear: number,
   yearMonth: YearMonthInterface,
-  setYearMonth: SetYearMonthInterface,
-}
-
-interface States {
-  year: number,
-  month: number,
+  setYearMonth: (yearMonth: YearMonthInterface) => void,
 }
