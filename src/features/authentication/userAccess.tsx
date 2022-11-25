@@ -9,16 +9,10 @@ export default function UserAccess() {
 
   function toggleSize():void {
     const box = (document.querySelector("#user-access") as HTMLDivElement).style;
-    if (box.width !== "40px" && box.width !== "") {
-      box.width = "40px";
-      box.height = "40px";
-      box.borderRadius = "50%";
-      box.boxShadow = "0 0 2px rgba(0,0,0,0.8)";
+    if (box.width !== "50px" && box.width !== "") {
+      box.width = "50px";
     } else {
-      box.width = "160px";
-      box.height = "130px";
-      box.borderRadius = "5%";
-      box.boxShadow = "0 0 20px rgba(0,0,0,0.8)";
+      box.width = "200px";
     }
   }
 
@@ -29,9 +23,9 @@ export default function UserAccess() {
 
   return (
     <UserButton id="user-access" onClick={() => toggleSize()}>
-      <FaUser id="user-icon"/>
       <h3 onClick={logout}>Logout</h3>
-      <h3 onClick={() => console.log("Pending setup")}>Change password</h3>
+      <h3 onClick={() => console.log("Pending setup")}>Settings</h3>
+      <FaUser id="user-icon"/>
     </UserButton>
   );
 }

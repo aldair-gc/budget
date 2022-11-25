@@ -1,34 +1,60 @@
-import { Container, Graph, List, Numbers } from "./style";
+import { Transaction } from "../interfaces";
+import { TotalsContainer, CurrentBalance, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
 
-export default function TotalsContainer(props: Props) {
+export default function Totals(props: Props) {
 
-  function percentageDone(type: "income" | "expenditure"):number {
-    return Math.floor((props.totalEstimated(type, "done") * 100) / props.totalEstimated(type, "all"));
+  function totalOf(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
+    return props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
   }
 
+  function percentageDone(type: "income" | "expenditure"):number {
+    return Math.floor((totalOf(type, "done") * 100) / totalOf(type, "all"));
+  }
+
+  function result():number {
+    return totalOf("income", "all") - totalOf("expenditure", "all");
+  }
+
+  // function totalPercent(type: "income" | "expenditure") {
+  //   return { width: ((totalOf(type, "done") * 100) / totalOf(type, "all")) + "%" };
+  // }
+
   return (
-    <Container>
-      <List>
-        <Numbers>
-          <p>$ {props.totalEstimated("income", "done").toFixed(2)}</p>
-          <p>{Math.floor(((props.totalEstimated("income", "done") * 100) / props.totalEstimated("income", "all")) || 0) + "%"}</p>
-          <p>$ {props.totalEstimated("income", "all").toFixed(2)}</p>
-        </Numbers>
-        <Graph style={{ width: `${percentageDone("income")}%`, background: "#bdc" }} />
-      </List>
-      <List>
-        <Numbers>
-          <p>$ {props.totalEstimated("expenditure", "done").toFixed(2)}</p>
-          <p>{Math.floor(((props.totalEstimated("expenditure", "done") * 100) / props.totalEstimated("expenditure", "all")) || 0) + "%"}</p>
-          <p>$ {props.totalEstimated("expenditure", "all").toFixed(2)}</p>
-        </Numbers>
-        <Graph style={{ width: `${percentageDone("expenditure")}%`, background: "#dbc" }} />
-      </List>
-    </Container>
+    <TotalsContainer>
+      <div>
+        <TotalsLine>
+          <TotalsNumbers>
+            <p>$ {totalOf("income", "done").toFixed(2)}</p>
+            <p>{Math.floor(((totalOf("income", "done") * 100) / totalOf("income", "all")) || 0) + "%"}</p>
+            <p>$ {totalOf("income", "all").toFixed(2)}</p>
+          </TotalsNumbers>
+          <LineGraph style={{ width: `${percentageDone("income")}%`, background: "#bdc" }} />
+        </TotalsLine>
+
+        <TotalsLine>
+          <TotalsNumbers>
+            <p>$ {totalOf("expenditure", "done").toFixed(2)}</p>
+            <p>{Math.floor(((totalOf("expenditure", "done") * 100) / totalOf("expenditure", "all")) || 0) + "%"}</p>
+            <p>$ {totalOf("expenditure", "all").toFixed(2)}</p>
+          </TotalsNumbers>
+          <LineGraph style={{ width: `${percentageDone("expenditure")}%`, background: "#dbc" }} />
+        </TotalsLine>
+      </div>
+
+      <div>
+        <TotalsEstimation>
+          <h3>Month Estimation</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>$ {result().toFixed(2)}</h2>
+        </TotalsEstimation>
+
+        <CurrentBalance>
+          <h3>Current Balance</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>$ {(totalOf("income", "done") - totalOf("expenditure", "done")).toFixed(2)}</h2>
+        </CurrentBalance>
+      </div>
+
+    </TotalsContainer>
   );
 }
 
 interface Props {
-  totalEstimated: (type: "income" | "expenditure" | "all", status: "done" | "pending" | "all") => number,
-  totalPercent: (type: "income" | "expenditure") => { width: string },
+  list: Transaction[],
 }

@@ -1,9 +1,11 @@
 TO DO
-- repeat existing item
+- add icons to totals
+- set advices for current balance
 - show repetitions of item
+- repeat existing item
 - edit only this one or also future ones
 - delete only this one or also future ones
-- add current ammount of cash
+- invert yearMonth order
 
 FIX
 

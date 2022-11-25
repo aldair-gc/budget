@@ -67,43 +67,44 @@ export const InputContainer = styled.div`
 export const UserButton = styled.div`
   position: absolute;
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  jutify-content: baseline;
+  align-items: center;
+  justify-content: end;
   padding: 10px;
   top: 20px;
   right: 20px;
-  background: #aca;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  background: #aaa;
+  border-radius: 25px;
+  width: 50px;
+  height: 50px;
   transition: all 0.3s;
-  gap: 10px;
+  gap: 12px;
   overflow: hidden;
-  box-shadow: 0 0 2px rgba(0,0,0,0.8);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
   z-index: 500;
 
   #user-icon {
-    font-size: 20px;
+    font-size: 30px;
     flex: 0 0 auto;
+    color: #333;
   }
 
   h3 {
     text-align: center;
-    background: #dfd;
+    background: #fff;
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
-    width: 140px;
-    font-size: 15px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    color: #333;
   }
 
   h3:hover {
-    background: #efe;
+    background: #ddd;
   }
 
   h3:active {
-    background: #fff;
+    background: #ccc;
   }
 
 `;

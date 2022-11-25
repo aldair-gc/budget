@@ -1,23 +1,27 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const TotalsContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 10px;
-  padding: 10px 0;
-  overflow: hidden;
+  padding-top: 10px;
+
+  > div {
+    display: flex;
+    gap: 10px;
+  }
 `;
 
-export const List = styled.div`
+export const TotalsLine = styled.div`
   position: relative;
   width: 50%;
-  height: 30px;
+  height: 35px;
   background: #eee;
   border-radius: 10px;
   overflow: hidden;
 `;
 
-export const Numbers = styled.div`
+export const TotalsNumbers = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +39,7 @@ export const Numbers = styled.div`
   box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
 `;
 
-export const Graph = styled.div`
+export const LineGraph = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +48,7 @@ export const Graph = styled.div`
   z-index: 0;
 `;
 
-export const Estimated = styled.div`
+export const TotalsEstimation = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,4 +57,17 @@ export const Estimated = styled.div`
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
+  flex: 1 0 0;
+`;
+
+export const CurrentBalance = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #eee;
+  height: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
+  flex: 1 0 0;
 `;

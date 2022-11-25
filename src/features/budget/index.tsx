@@ -8,8 +8,7 @@ import BudgetList from "./list/list";
 import Properties from "./properties/properties";
 import RightClickMenu from "./rightClickMenu/rightClickMenu";
 import { BudgetContainer, BudgetListsContainer } from "./style";
-import { Estimated } from "./totals/style";
-import TotalsContainer from "./totals/totals";
+import Totals from "./totals/totals";
 
 export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
@@ -42,18 +41,6 @@ export default function Budget() {
     getData();
   }, [yearMonth]);
 
-  function totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
-    return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
-  }
-
-  function totalPercent(type: "income" | "expenditure") {
-    return { width: ((totalEstimated(type, "done") * 100) / totalEstimated(type, "all")) + "%" };
-  }
-
-  function result():number {
-    return totalEstimated("income", "all") - totalEstimated("expenditure", "all");
-  }
-
   function openProperties(id: number): void {
     if (list.findIndex(item => item.id === id ) !== -1) {
       const item = list[list.findIndex(item => item.id === id )];
@@ -82,11 +69,7 @@ export default function Budget() {
         <BudgetList list={list} setList={setList} type={"expenditure"} />
       </BudgetListsContainer>
 
-      <TotalsContainer totalEstimated={totalEstimated} totalPercent={totalPercent} />
-
-      <Estimated>
-        <h3>Month Total Estimation</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{`$ ${result().toFixed(2)}`}</h2>
-      </Estimated>
+      <Totals list={list} />
 
       <RightClickMenu openProperties={openProperties}/>
       <Properties propItemId={propItemId} setPropItemId={setPropItemId} values={values} setters={setters} list={list} setList={setList}/>
