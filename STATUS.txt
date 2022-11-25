@@ -1,5 +1,4 @@
 TO DO
-- show coloured dots in months icons to indicate their status
 - repeat existing item
 - show repetitions of item
 - edit only this one or also future ones
