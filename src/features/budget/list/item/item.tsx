@@ -1,97 +1,131 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from "react";
-import { Transaction } from "../../interfaces";
-import { Item, ItemBackground } from "./style";
-import HiddenButtons from "./hiddenButtons";
+import { TransactionInterface } from "../../interfaces";
+import { TransactionContainer, ItemBackground, ItemContainer } from "./style";
+import Options from "./options";
+import { FaCaretDown } from "react-icons/fa";
+import axios from "../../../../services/axios";
 
-export default class BudgetItem extends Component<Props, BudgetItemState> {
+export default class Transaction extends Component<Props, BudgetItemState> {
   constructor(props: Props){
     super(props);
-    this.toggleStatus = this.props.toggleStatus.bind(this);
     this.setList = this.props.setList.bind(this);
+    this.setSelection = this.props.setSelection.bind(this);
     this.state = {
       description: props.item.description,
       value: props.item.value,
       expiration_day: props.item.expiration_day,
       editing: false,
-      confirmDeletion: false,
+      deleting: false,
+      hasFutureRepetitions: parseInt(this.props.item.repeat.split("-")[1]) < parseInt(this.props.item.repeat.split("-")[2]),
     };
   }
 
-  setList(list: Transaction[]): void {
+  setSelection(selection: number): void {
+    this.props.setSelection(selection);
+  }
+
+  setList(list: TransactionInterface[]): void {
     this.props.setList(list);
   }
 
   toggleStatus(id: number) {
-    this.props.toggleStatus(id);
+    try {
+      const newList = [...this.props.list];
+      newList.map(async (item) => {
+        if (item.id === id) {
+          item.status = item.status === "pending" ? "done" : "pending";
+          const update = await axios.put(`/transaction/${item.id}`, { status: item.status });
+          if (update.status !== 200) {
+            item.status = item.status === "pending" ? "done" : "pending";
+          }
+        }
+      });
+      this.setList(newList);
+    } catch (error: any) {
+      const errors = error.response.data.errors ?? [];
+      errors.map((err: any) => console.log(err));
+    }
   }
 
   render() {
-    const item: Transaction = {
-      id: this.props.item.id,
-      description: this.state.description,
-      value: this.state.value,
-      expiration_day: this.state.expiration_day,
-      type: this.props.item.type,
-      status: this.props.item.status,
-      year: this.props.item.year,
-      month: this.props.item.month,
-      repeat: this.props.item.repeat,
-    };
+    const id = this.props.item.id ? this.props.item.id : 0;
     const description = this.state.description;
     const value = this.state.value;
     const expiration_day = this.state.expiration_day;
     const editing = this.state.editing;
-    const confirmDeletion = this.state.confirmDeletion;
-    const setEditing = (trueOrFalse: boolean) => this.setState({editing: trueOrFalse});
-    const setConfirmDeletion = (trueOrFalse: boolean) => this.setState({confirmDeletion: trueOrFalse});
+    const deleting = this.state.deleting;
+    const hasFutureRepetitions = this.state.hasFutureRepetitions;
+    const selection = this.props.selection;
+    const setEditing = (editing: boolean) => this.setState({editing});
+    const setDeleting = (deleting: boolean,) => this.setState({deleting});
+    const setSelection = (selection: number) => this.setSelection(selection === this.props.selection ? 0 : selection );
 
     const resetItem = (): void => {
       this.setState({ description: this.props.item.description });
       this.setState({ value: this.props.item.value });
       this.setState({ expiration_day: this.props.item.expiration_day });
+      setEditing(false);
+      setDeleting(false);
+      setSelection(0);
     };
 
     const listTotal = ():number => {
-      const total = this.props.list.reduce((sum, thisItem) => thisItem.type === item.type ? sum += thisItem.value : sum += 0, 0);
+      const total = this.props.list.reduce((sum, thisItem) => thisItem.type === this.props.item.type ? sum += thisItem.value : sum += 0, 0);
       return Math.round((100 / total) * value);
     };
 
     return (
-      <Item className={`budget-item item-id-${item.id} item-status-${item.status}`}>
-        <input type="checkbox" id={item.id?.toString()} onChange={() => item.id && this.toggleStatus(item.id)} checked={item.status === "done"} />
+      <ItemContainer style={this.props.selection === id ? { height: "56px" } : {}}>
+        <TransactionContainer
+          className={`budget-item item-id-${id} item-status-${this.props.item.status}`}>
+          <input type="checkbox" id={id?.toString()} onChange={() => id && this.toggleStatus(id)} checked={this.props.item.status === "done"} />
 
-        <input type="text" className="description"
-          value={description}
-          onChange={(e) => this.setState({ description: e.target.value })} disabled
+          <input type="text" className={`description ${editing}`}
+            value={description}
+            onChange={(e) => this.setState({ description: e.target.value })}
+            disabled={!(editing && selection === id)}
+          />
+
+          <input type="number" className={`value ${editing}`}
+            value={value}
+            onChange={(e) => this.setState({ value: e.target.valueAsNumber })}
+            disabled={!(editing && selection === id)}
+          />
+
+          <input type="text" className={`expiration_day ${editing}`}
+            value={expiration_day || ""}
+            onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
+            disabled={!(editing && selection === id)}
+          />
+
+          <FaCaretDown
+            className="item-opt-access"
+            style={ selection === id ? { transform: "rotate(0.5turn"} : {}}
+            onClick={() => {setEditing(false); setDeleting(false); resetItem(); setSelection(id); }}
+          />
+
+          <ItemBackground
+            className={`item-bg ${editing}`}
+            style={{ width: `${ selection === id ? 0 : listTotal()}%`, background: this.props.item.type === "income" ? "#3a4" : "#d34"}} />
+        </TransactionContainer>
+
+        <Options
+          list={this.props.list} setList={this.setList} item={{id, description, value, expiration_day }} resetItem={resetItem}
+          editing={editing} setEditing={setEditing} hasFutureRepetitions={hasFutureRepetitions}
+          deleting={deleting} setDeleting={setDeleting}
         />
-
-        <input type="number" className="value"
-          value={value}
-          onChange={(e) => this.setState({ value: e.target.valueAsNumber })} disabled
-        />
-
-        <input type="text" className="expiration_day"
-          value={expiration_day || ""}
-          onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })} disabled
-        />
-
-        <HiddenButtons
-          list={this.props.list} setList={this.setList} item={item} resetItem={resetItem}
-          editing={editing} setEditing={setEditing}
-          confirmDeletion={confirmDeletion} setConfirmDeletion={setConfirmDeletion}
-        />
-
-        <ItemBackground style={{ width: `${listTotal()}%`, background: item.type === "income" ? "#3a4" : "#d34"}} />
-      </Item>
+      </ItemContainer>
     );
   }
 }
 
 interface Props {
-  item: Transaction,
-  toggleStatus: (id: number) => void,
-  list: Transaction[],
-  setList: (list: Transaction[]) => void,
+  item: TransactionInterface,
+  list: TransactionInterface[],
+  setList: (list: TransactionInterface[]) => void,
+  selection: number,
+  setSelection: (selection: number) => void,
 }
 
 interface BudgetItemState {
@@ -99,5 +133,6 @@ interface BudgetItemState {
   value: number,
   expiration_day: number,
   editing: boolean,
-  confirmDeletion: boolean,
+  deleting: boolean,
+  hasFutureRepetitions: boolean,
 }

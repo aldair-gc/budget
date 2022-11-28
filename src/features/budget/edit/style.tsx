@@ -49,6 +49,14 @@ export const OptionsForm = styled.form`
   flex-direction: column;
   padding: 0 20px;
   gap: 10px;
+
+  i {
+    margin-top: 10px;
+    align-self: center;
+    width: 300px;
+    text-align: center;
+    font-size: 15px;
+  }
 `;
 
 export const Option = styled.div`
@@ -62,7 +70,6 @@ export const Option = styled.div`
 
   > input {
     width: 100%;
-    background: none;
     border: 1px solid #aaa;
     padding: 2px 5px;
   }
@@ -83,7 +90,7 @@ export const Option = styled.div`
 export const Buttons = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px auto;
+  margin: 10px auto 20px auto;
   gap: 20px;
   width: 100%;
 

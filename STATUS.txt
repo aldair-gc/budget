@@ -1,15 +1,16 @@
 TO DO
 - add icons to totals
 - set advices for current balance
-- show repetitions of item?
 - repeat existing item
--- edit only this one or also future ones
-- delete only this one or also future ones
 - invert yearMonth order
-- add support to order lists
+- add support for ordering lists
+- add support for undoing
+- add support for copying
+- add models
 
 FIX
 - validade user input before submiting
 
 READ ABOUT:
 - bind
+- why sometimes it's required to use async arrow functions in components
