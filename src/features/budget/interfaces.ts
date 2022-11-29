@@ -2,7 +2,7 @@ export interface TransactionInterface {
   id?: number;
   type: "income" | "expenditure";
   description: string;
-  value: number;
+  value: string | number;
   expiration_day: number;
   status: "pending" | "done";
   year: number;
@@ -17,7 +17,7 @@ export interface SimpleTransaction {
   id: number;
   type?: "income" | "expenditure";
   description: string;
-  value: number;
+  value: number | string;
   expiration_day: number;
   status?: "pending" | "done";
   year?: number;
@@ -37,7 +37,7 @@ export interface SetYearMonthInterface {
 export interface Setters {
   setType: (type: "income" | "expenditure") => void,
   setDescription: (description: string) => void,
-  setValue: (value: number) => void,
+  setValue: (value: string) => void,
   setExpirationDay: (expirationDay: number) => void,
   setStatus: (repeat: "done" | "pending") => void,
   setYear: (repeat: number) => void,

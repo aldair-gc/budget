@@ -1,5 +1,4 @@
 TO DO
-- show values as curency
 - add icons to totals
 - set advices for current balance
 - repeat existing item

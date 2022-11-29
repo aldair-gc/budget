@@ -5,6 +5,7 @@ import { TransactionContainer, ItemBackground, ItemContainer } from "./style";
 import Options from "./options";
 import { FaCaretDown } from "react-icons/fa";
 import axios from "../../../../services/axios";
+import { brl } from "../../currency";
 
 export default class Transaction extends Component<Props, BudgetItemState> {
   constructor(props: Props){
@@ -71,8 +72,8 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     };
 
     const listTotal = ():number => {
-      const total = this.props.list.reduce((sum, thisItem) => thisItem.type === this.props.item.type ? sum += thisItem.value : sum += 0, 0);
-      return Math.round((100 / total) * value);
+      const total = this.props.list.reduce((sum, thisItem) => thisItem.type === this.props.item.type ? sum += +thisItem.value : sum += 0, 0);
+      return Math.round((100 / total) * +value);
     };
 
     return (
@@ -87,14 +88,14 @@ export default class Transaction extends Component<Props, BudgetItemState> {
             disabled={!(editing && selection === id)}
           />
 
-          <input type="number" className={`value ${editing}`}
-            value={value}
-            onChange={(e) => this.setState({ value: e.target.valueAsNumber })}
+          <input type="text" className={`value ${editing}`} min={0}
+            value={ editing ? value.toString().replace(",", "").replace(".", ",") : brl.format(+value)}
+            onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
             disabled={!(editing && selection === id)}
           />
 
-          <input type="text" className={`expiration_day ${editing}`}
-            value={expiration_day || ""}
+          <input type="number" className={`expiration_day ${editing}`}
+            value={expiration_day || ""} min={0} max={31}
             onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
             disabled={!(editing && selection === id)}
           />
@@ -130,7 +131,7 @@ interface Props {
 
 interface BudgetItemState {
   description: string,
-  value: number,
+  value: string | number,
   expiration_day: number,
   editing: boolean,
   deleting: boolean,

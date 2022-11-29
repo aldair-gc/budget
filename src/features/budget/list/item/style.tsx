@@ -49,6 +49,7 @@ export const TransactionContainer = styled.div`
   .value {
     text-align: right;
     width: 90px;
+    flex: 0 0 auto;
   }
 
   .expiration_day {
