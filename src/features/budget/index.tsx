@@ -10,7 +10,10 @@ import Totals from "./totals/totals";
 
 export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
-  const [list, setList] = useState([] as TransactionInterface[]);
+  const [incomeList, setIncomeList] = useState([] as TransactionInterface[]);
+  const [expenditureList, setExpenditureList] = useState([] as TransactionInterface[]);
+  const [sortIncomeList, setSortIncomeList] = useState("none" as SorterValues);
+  const [sortExpenditureList, setSortExpenditureList] = useState("none" as SorterValues);
 
   const [type, setType] = useState("expenditure" as "expenditure" | "income");
   const [description, setDescription] = useState("");
@@ -26,12 +29,16 @@ export default function Budget() {
   const values: TransactionInterface = { type, description, value, expiration_day: expirationDay, status, year, month, repeat };
   const setters = { setType, setDescription, setValue, setExpirationDay, setStatus, setYear, setMonth, setRepeat };
 
+  const sortedIncomeList = sortList([...incomeList], sortIncomeList);
+  const sortedExpenditureList = sortList([...expenditureList], sortExpenditureList);
+
   useEffect(() => {
     async function getData(): Promise<void> {
       try {
         const getList = await axios.get(`/transaction/${yearMonth.year}/${yearMonth.month}`);
         if (getList.status === 200) {
-          setList(getList.data);
+          setIncomeList(((getList.data) as TransactionInterface[]).filter(item => item.type === "income"));
+          setExpenditureList(((getList.data) as TransactionInterface[]).filter(item => item.type === "expenditure"));
         }
       } catch (error: any) {
         const errors = error.response.data.errors ?? [];
@@ -41,18 +48,59 @@ export default function Budget() {
     getData();
   }, [yearMonth]);
 
+  function sortList(list: TransactionInterface[], type: string) {
+    switch (type) {
+    case "none": return list;
+    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
+    case "value-1": return list.sort((a,b) => a.value - b.value);
+    case "description-A": return list.sort((a,b) => {
+      if (a.description < b.description) return -1;
+      if (a.description > b.description) return 1;
+      return 0;
+    });
+    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
+    case "value-9": return list.sort((a,b) => b.value - a.value);
+    case "description-Z": return list.sort((a,b) => {
+      if (b.description < a.description) return -1;
+      if (b.description > a.description) return 1;
+      return 0;
+    });
+    default: return list;
+    }
+  }
+
   return (
     <BudgetContainer>
       <MainHeader yearMonth={yearMonth} setYearMonth={setYearMonth}/>
 
-      <Input values={values} setters={setters} list={list} setList={setList}/>
+      <Input
+        values={values}
+        setters={setters}
+        lists={{incomeList, expenditureList}}
+        setLists={{setIncomeList, setExpenditureList}}
+        setSortLists={{setSortIncomeList, setSortExpenditureList}}
+      />
 
       <BudgetListsContainer>
-        <BudgetList list={list} setList={setList} type={"income"} selection={selection} setSelection={setSelection} />
-        <BudgetList list={list} setList={setList} type={"expenditure"} selection={selection} setSelection={setSelection} />
+        <BudgetList
+          list={sortIncomeList === "none" ? incomeList : sortedIncomeList}
+          setList={setIncomeList}
+          type={"income"}
+          selection={selection}
+          setSelection={setSelection}
+        />
+        <BudgetList
+          list={sortExpenditureList === "none" ? expenditureList : sortedExpenditureList}
+          setList={setExpenditureList}
+          type={"expenditure"}
+          selection={selection}
+          setSelection={setSelection}
+        />
       </BudgetListsContainer>
 
-      <Totals list={list} />
+      <Totals lists={{incomeList, expenditureList}} />
     </BudgetContainer>
   );
 }
+
+type SorterValues = "none" | "description-A" | "value-1" | "expiration_day-1" | "description-Z" | "value-9" | "expiration_day-9";

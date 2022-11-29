@@ -26,12 +26,21 @@ export default class BudgetList extends Component<Props> {
     return (
       <ListContainer className="budget-list-container">
         <ItemList>
-          {this.props.list.map(item =>item.type === this.props.type &&
-            <Transaction key={item.id} item={item} selection={this.props.selection} setSelection={this.props.setSelection} list={this.props.list} setList={this.setList} />
+          {this.props.list.map(item =>
+            <Transaction
+              key={item.id}
+              item={item}
+              selection={this.props.selection}
+              setSelection={this.props.setSelection}
+              list={this.props.list}
+              setList={this.setList}
+            />
           )}
         </ItemList>
 
-        <ListBackground style={{ height: `${this.percentageDone(this.props.type)}%`, background: this.props.type === "income" ? "#bfc" : "#fbc" }} />
+        <ListBackground
+          style={{ height: `${this.percentageDone(this.props.type)}%`, background: this.props.type === "income" ? "#bfc" : "#fbc" }}
+        />
       </ListContainer>
     );
   }

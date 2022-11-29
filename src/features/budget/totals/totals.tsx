@@ -1,43 +1,40 @@
-import { Transaction } from "../interfaces";
+import { TransactionInterface } from "../interfaces";
 import { TotalsContainer, CurrentBalance, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
 
 export default function Totals(props: Props) {
 
-  function totalOf(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
-    return props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
+  function totalOf(list: TransactionInterface[], type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
+    return list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
   }
 
-  function percentageDone(type: "income" | "expenditure"):number {
-    return Math.floor((totalOf(type, "done") * 100) / totalOf(type, "all"));
+  function percentageDone(list: TransactionInterface[], type: "income" | "expenditure"):number {
+    return Math.floor((totalOf(list, type, "done") * 100) / totalOf(list, type, "all"));
   }
 
   function result():number {
-    return totalOf("income", "all") - totalOf("expenditure", "all");
+    return totalOf((props.lists.incomeList.concat(props.lists.expenditureList)), "income", "all")
+    - totalOf(props.lists.incomeList.concat(props.lists.expenditureList), "expenditure", "all");
   }
-
-  // function totalPercent(type: "income" | "expenditure") {
-  //   return { width: ((totalOf(type, "done") * 100) / totalOf(type, "all")) + "%" };
-  // }
 
   return (
     <TotalsContainer>
       <div>
         <TotalsLine>
           <TotalsNumbers>
-            <p>$ {totalOf("income", "done").toFixed(2)}</p>
-            <p>{Math.floor(((totalOf("income", "done") * 100) / totalOf("income", "all")) || 0) + "%"}</p>
-            <p>$ {totalOf("income", "all").toFixed(2)}</p>
+            <p>$ {totalOf(props.lists.incomeList, "income", "done").toFixed(2)}</p>
+            <p>{Math.floor(((totalOf(props.lists.incomeList, "income", "done") * 100) / totalOf(props.lists.incomeList, "income", "all")) || 0) + "%"}</p>
+            <p>$ {totalOf(props.lists.incomeList, "income", "all").toFixed(2)}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone("income")}%`, background: "#bdc" }} />
+          <LineGraph style={{ width: `${percentageDone(props.lists.incomeList, "income")}%`, background: "#bdc" }} />
         </TotalsLine>
 
         <TotalsLine>
           <TotalsNumbers>
-            <p>$ {totalOf("expenditure", "done").toFixed(2)}</p>
-            <p>{Math.floor(((totalOf("expenditure", "done") * 100) / totalOf("expenditure", "all")) || 0) + "%"}</p>
-            <p>$ {totalOf("expenditure", "all").toFixed(2)}</p>
+            <p>$ {totalOf(props.lists.expenditureList, "expenditure", "done").toFixed(2)}</p>
+            <p>{Math.floor(((totalOf(props.lists.expenditureList, "expenditure", "done") * 100) / totalOf(props.lists.expenditureList, "expenditure", "all")) || 0) + "%"}</p>
+            <p>$ {totalOf(props.lists.expenditureList, "expenditure", "all").toFixed(2)}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone("expenditure")}%`, background: "#dbc" }} />
+          <LineGraph style={{ width: `${percentageDone(props.lists.expenditureList, "expenditure")}%`, background: "#dbc" }} />
         </TotalsLine>
       </div>
 
@@ -47,7 +44,10 @@ export default function Totals(props: Props) {
         </TotalsEstimation>
 
         <CurrentBalance>
-          <h3>Current Balance</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>$ {(totalOf("income", "done") - totalOf("expenditure", "done")).toFixed(2)}</h2>
+          <h3>Current Balance</h3>
+          <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>
+            $ {(totalOf(props.lists.incomeList, "income", "done") - totalOf(props.lists.expenditureList, "expenditure", "done")).toFixed(2)}
+          </h2>
         </CurrentBalance>
       </div>
 
@@ -56,5 +56,5 @@ export default function Totals(props: Props) {
 }
 
 interface Props {
-  list: Transaction[],
+  lists: {incomeList: TransactionInterface[], expenditureList: TransactionInterface[]},
 }

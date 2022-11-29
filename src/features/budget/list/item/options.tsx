@@ -109,9 +109,9 @@ export default class Options extends Component<Props, State> {
           <button className="edit" onClick={() => this.setEditing(true)}>
             <FaEdit/> Edit
           </button>
-          <button className="edit" onClick={() => this.setEditing(true)}>
+          {/* <button className="edit" onClick={() => this.setEditing(true)}>
             <FaRegCopy/> Copy
-          </button>
+          </button> */}
           <button className="delete" onClick={() => this.setDeleting(true)}>
             <FaRegTrashAlt/> Delete
           </button>
