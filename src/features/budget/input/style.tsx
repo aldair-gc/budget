@@ -40,7 +40,7 @@ export const InputTitles = styled.div`
     }
   }
 
-  #income-title { background: #beb; }
+  #income-title { background: #ade; }
   #expenditure-title { background: #ebb; }
 `;
 

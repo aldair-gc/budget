@@ -93,7 +93,7 @@ export default function Input(props: Props) {
           </div>
         </InputTitles>
 
-        <InputHideable id="input-hideable" style={{background: props.values.type === "income" ? "#beb" : "#ebb"}}>
+        <InputHideable id="input-hideable" style={{background: props.values.type === "income" ? "#ade" : "#ebb"}}>
           <div className="inputs">
             <div className="input-column">
               <div className="input">

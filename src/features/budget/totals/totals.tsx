@@ -1,6 +1,7 @@
 import { TransactionInterface } from "../interfaces";
 import { TotalsContainer, CurrentBalance, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
 import { brl, brlPercent } from "../currency";
+import { FaMoneyCheckAlt, FaWallet } from "react-icons/fa";
 
 export default function Totals(props: Props) {
 
@@ -26,7 +27,7 @@ export default function Totals(props: Props) {
             <p>{brlPercent.format((totalOf(props.lists.incomeList, "income", "done") / totalOf(props.lists.incomeList, "income", "all")) || 0)}</p>
             <p>{brl.format(totalOf(props.lists.incomeList, "income", "all"))}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone(props.lists.incomeList, "income")}%`, background: "#bdc" }} />
+          <LineGraph style={{ width: `${percentageDone(props.lists.incomeList, "income")}%`, background: "#ade" }} />
         </TotalsLine>
 
         <TotalsLine>
@@ -35,17 +36,18 @@ export default function Totals(props: Props) {
             <p>{brlPercent.format(totalOf(props.lists.expenditureList, "expenditure", "done") / totalOf(props.lists.expenditureList, "expenditure", "all") || 0)}</p>
             <p>{brl.format(totalOf(props.lists.expenditureList, "expenditure", "all"))}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone(props.lists.expenditureList, "expenditure")}%`, background: "#dbc" }} />
+          <LineGraph style={{ width: `${percentageDone(props.lists.expenditureList, "expenditure")}%`, background: "#ebb" }} />
         </TotalsLine>
       </div>
 
       <div>
         <TotalsEstimation>
-          <h3>Month Estimation</h3><h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(result())}</h2>
+          <h3><FaMoneyCheckAlt/> Month Estimation</h3>
+          <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(result())}</h2>
         </TotalsEstimation>
 
         <CurrentBalance>
-          <h3>Current Balance</h3>
+          <h3><FaWallet/> Current Balance</h3>
           <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>
             {brl.format((totalOf(props.lists.incomeList, "income", "done") - totalOf(props.lists.expenditureList, "expenditure", "done")))}
           </h2>

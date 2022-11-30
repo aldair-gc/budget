@@ -1,5 +1,6 @@
 TO DO
 - add icons to totals
+- bring balance from last month
 - set advices for current balance
 - repeat existing item
 - add support for undoing
@@ -8,7 +9,6 @@ TO DO
 - add loading
 - add dark model
 - add support for mobile
-- bring balance from last month
 
 FIX
 - fix login

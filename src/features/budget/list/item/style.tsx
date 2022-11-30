@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ItemContainer = styled.div`
   position: relative;
   height: 28px;
-  width: 100%;
   transition: all .3s;
   overflow: hidden;
   flex: 0 0 auto;
@@ -19,7 +18,6 @@ export const TransactionContainer = styled.div`
   height: 28px;
   min-height: 28px;
   overflow: hidden;
-  width: 100%;
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -37,28 +35,28 @@ export const TransactionContainer = styled.div`
   }
 
   input[type="checkbox"] {
-    flex: 1 0 content;
+    flex: 1 0 auto;
   }
 
   .description {
-    // width: 100%;
-    text-align: left;
-    flex: 1 0 content;
+    width: 100%;
+    flex: 1 1 auto;
   }
 
   .value {
     text-align: right;
-    flex: 0 1 0;
+    width: 100px;
+    flex: 1 1 content;
   }
 
   .expiration_day {
     width: 30px;
     text-align: center;
-    flex: 1 0 content;
+    flex: 1 0 auto;
   }
 
   .description:disabled, .value:disabled, .expiration_day:disabled {
-    background: #555;
+    background: none;
     border: none;
     color: #000;
   }
