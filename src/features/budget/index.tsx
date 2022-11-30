@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../app/hooks";
 import axios from "../../services/axios";
+import { authLogout } from "../authentication/authSlice";
 import MainHeader from "./header/header";
 import Input from "./input/input";
 import { TransactionInterface } from "./interfaces";
@@ -9,6 +11,8 @@ import { BudgetContainer, BudgetListsContainer } from "./style";
 import Totals from "./totals/totals";
 
 export default function Budget() {
+  const dispatch = useAppDispatch();
+
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
   const [incomeList, setIncomeList] = useState([] as TransactionInterface[]);
   const [expenditureList, setExpenditureList] = useState([] as TransactionInterface[]);
@@ -41,7 +45,11 @@ export default function Budget() {
           setExpenditureList(((getList.data) as TransactionInterface[]).filter(item => item.type === "expenditure"));
         }
       } catch (error: any) {
-        const errors = error.response.data.errors ?? [];
+        if (error.response.status === 401) {
+          dispatch(authLogout());
+          delete axios.defaults.headers.common["Authorization"];
+        }
+        const errors = error.response?.data?.errors ?? [];
         errors.map((err: any) => console.log(err));
       }
     }
@@ -52,14 +60,14 @@ export default function Budget() {
     switch (type) {
     case "none": return list;
     case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
-    case "value-1": return list.sort((a,b) => a.value - b.value);
+    case "value-1": return list.sort((a,b) => +a.value - +b.value);
     case "description-A": return list.sort((a,b) => {
       if (a.description < b.description) return -1;
       if (a.description > b.description) return 1;
       return 0;
     });
     case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
-    case "value-9": return list.sort((a,b) => b.value - a.value);
+    case "value-9": return list.sort((a,b) => +b.value - +a.value);
     case "description-Z": return list.sort((a,b) => {
       if (b.description < a.description) return -1;
       if (b.description > a.description) return 1;

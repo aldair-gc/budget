@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { useAppDispatch } from "../../app/hooks";
@@ -10,12 +11,13 @@ export default function Login(props: { position: (arg0: number) => void; }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let formErrors = false;
-    const emailMsg = (document.querySelector("#email") as HTMLElement).nextElementSibling!;
-    const passwordMsg = (document.querySelector("#password") as HTMLElement).nextElementSibling!;
+    const emailMsg = (document.querySelector("#email") as HTMLElement).nextElementSibling as HTMLElement;
+    const passwordMsg = (document.querySelector("#password") as HTMLElement).nextElementSibling as HTMLElement;
 
     if (!isEmail(email)) {
       formErrors = true;
@@ -40,14 +42,14 @@ export default function Login(props: { position: (arg0: number) => void; }) {
       if (loginRequest.data.token) {
         dispatch(authSuccess(loginRequest.data));
         axios.defaults.headers.common["Authorization"] = `Bearer ${loginRequest.data.token}`;
-        console.log("User logged in");
+        setResponse("User logged in");
       } else {
         dispatch(authFailure());
-        console.log("User login failure");
+        setResponse("Authentication failure");
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
-      errors.map((err: any) => console.log(err));
+      errors.map((err: any) => setResponse(err));
     }
   }
 
@@ -56,12 +58,12 @@ export default function Login(props: { position: (arg0: number) => void; }) {
       <h1>Login</h1>
 
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="login-email">Email</label>
+        <input type="email" name="login-email" id="login-email" onChange={(e) => setEmail(e.target.value)} />
         <small className="input-message transparent">Message</small>
 
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} />
+        <label htmlFor="login-password">Password</label>
+        <input type="password" name="login-password" id="login-password" onChange={(e) => setPassword(e.target.value)} />
         <small className="input-message transparent">Message</small>
 
         <input type="submit" value="Login" />

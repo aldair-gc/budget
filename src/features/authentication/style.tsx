@@ -9,17 +9,29 @@ export const Evidence = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
+  background: rgba(255,255,255,0.5);
   backdrop-filter: blur(10px);
-  z-index: 10;
+  z-index: 900;
+`;
+
+export const Container = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 export const DoubleWideBox = styled.div`
   display: flex;
   min-width: 200%;
-  height: 450px;
+  height: 100%;
   background: #fff;
-  box-shadow: 0 0 20px rgba(0,0,0,0.8);
-  transform: translateX(25%);
+  transform: translateX(0%);
   transition: all 0.3s;
 `;
 
@@ -30,13 +42,12 @@ export const InputContainer = styled.div`
   justify-content: space-between;
   width: 50%;
   padding: 20px;
-  gap: 20px;
 
   form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 300px;
+    width: 80%;
   }
 
   label {
@@ -44,12 +55,12 @@ export const InputContainer = styled.div`
   }
 
   input {
-    padding: 5px;
+    padding: 3px 5px;
   }
 
   input[type=submit] {
     padding: 10px;
-    width: 200px;
+    width: 60%;
     margin: 10px auto;
   }
 
@@ -61,6 +72,7 @@ export const InputContainer = styled.div`
 
   h2 {
     cursor: pointer;
+    font-size: 16px;
   }
 `;
 
