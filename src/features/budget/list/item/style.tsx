@@ -18,8 +18,8 @@ export const TransactionContainer = styled.div`
   border-radius: 2px;
   height: 28px;
   min-height: 28px;
-  width: 100%;
   overflow: hidden;
+  width: 100%;
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -37,29 +37,28 @@ export const TransactionContainer = styled.div`
   }
 
   input[type="checkbox"] {
-    width: 15px;
-    flex: 0 0 auto;
+    flex: 1 0 content;
   }
 
   .description {
-    width: 100%;
+    // width: 100%;
     text-align: left;
+    flex: 1 0 content;
   }
 
   .value {
     text-align: right;
-    width: 90px;
-    flex: 0 0 auto;
+    flex: 0 1 0;
   }
 
   .expiration_day {
     width: 30px;
     text-align: center;
-    flex: 0 0 auto;
+    flex: 1 0 content;
   }
 
   .description:disabled, .value:disabled, .expiration_day:disabled {
-    background: none;
+    background: #555;
     border: none;
     color: #000;
   }

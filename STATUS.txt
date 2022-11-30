@@ -7,7 +7,8 @@ TO DO
 - add models
 - add loading
 - add dark model
-- add support for mobiles
+- add support for mobile
+- bring balance from last month
 
 FIX
 - fix login

@@ -1,6 +1,6 @@
 import { TransactionInterface } from "../interfaces";
 import { TotalsContainer, CurrentBalance, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
-import { brl } from "../currency";
+import { brl, brlPercent } from "../currency";
 
 export default function Totals(props: Props) {
 
@@ -9,7 +9,7 @@ export default function Totals(props: Props) {
   }
 
   function percentageDone(list: TransactionInterface[], type: "income" | "expenditure"):number {
-    return Math.floor((totalOf(list, type, "done") * 100) / totalOf(list, type, "all"));
+    return Math.round((totalOf(list, type, "done") * 100) / totalOf(list, type, "all"));
   }
 
   function result():number {
@@ -23,7 +23,7 @@ export default function Totals(props: Props) {
         <TotalsLine>
           <TotalsNumbers>
             <p>{brl.format(totalOf(props.lists.incomeList, "income", "done"))}</p>
-            <p>{Math.round(((totalOf(props.lists.incomeList, "income", "done") * 100) / totalOf(props.lists.incomeList, "income", "all")) || 0) + "%"}</p>
+            <p>{brlPercent.format((totalOf(props.lists.incomeList, "income", "done") / totalOf(props.lists.incomeList, "income", "all")) || 0)}</p>
             <p>{brl.format(totalOf(props.lists.incomeList, "income", "all"))}</p>
           </TotalsNumbers>
           <LineGraph style={{ width: `${percentageDone(props.lists.incomeList, "income")}%`, background: "#bdc" }} />
@@ -32,7 +32,7 @@ export default function Totals(props: Props) {
         <TotalsLine>
           <TotalsNumbers>
             <p>{brl.format(totalOf(props.lists.expenditureList, "expenditure", "done"))}</p>
-            <p>{Math.round(((totalOf(props.lists.expenditureList, "expenditure", "done") * 100) / totalOf(props.lists.expenditureList, "expenditure", "all")) || 0) + "%"}</p>
+            <p>{brlPercent.format(totalOf(props.lists.expenditureList, "expenditure", "done") / totalOf(props.lists.expenditureList, "expenditure", "all") || 0)}</p>
             <p>{brl.format(totalOf(props.lists.expenditureList, "expenditure", "all"))}</p>
           </TotalsNumbers>
           <LineGraph style={{ width: `${percentageDone(props.lists.expenditureList, "expenditure")}%`, background: "#dbc" }} />

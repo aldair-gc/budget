@@ -131,7 +131,7 @@ interface Props {
 
 interface BudgetItemState {
   description: string,
-  value: string | number,
+  value: string,
   expiration_day: number,
   editing: boolean,
   deleting: boolean,

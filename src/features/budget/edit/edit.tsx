@@ -2,7 +2,7 @@
 import { Component, FormEvent } from "react";
 import { FaTimesCircle } from "react-icons/fa";
 import axios from "../../../services/axios";
-import { EditOptionsInterface, SetEditOptionsInterface, Transaction } from "../interfaces";
+import { EditOptionsInterface, SetEditOptionsInterface, TransactionInterface } from "../interfaces";
 import { Header, OptionsForm, Option, PropertiesContainer, Buttons } from "./style";
 
 export default class Edit extends Component<Props, EditState> {
@@ -15,12 +15,12 @@ export default class Edit extends Component<Props, EditState> {
     this.state = {
       type: "expenditure",
       description: "",
-      value: 0,
+      value: "",
       expiration_day: 0,
     };
   }
 
-  setList(list: Transaction[]) { this.props.setList(list); }
+  setList(list: TransactionInterface[]) { this.props.setList(list); }
   setId(id: number) { this.props.setEditOptions.setId(id); }
   setUpdateFutureOnes(updateFutureOnes: boolean) { this.props.setEditOptions.setUpdateFutureOnes(updateFutureOnes); }
   setOpenEditor(openEditor: boolean) { this.props.setEditOptions.setOpenEditor(openEditor); }
@@ -39,7 +39,7 @@ export default class Edit extends Component<Props, EditState> {
   closeProperties = ():void => {
     this.setState({description: ""});
     this.setState({type: "expenditure"});
-    this.setState({value: 0});
+    this.setState({value: ""});
     this.setState({expiration_day: 0});
     this.setOpenEditor(false);
     this.setId(0);
@@ -50,7 +50,7 @@ export default class Edit extends Component<Props, EditState> {
       const relatedTransactions = await axios.get(`/transaction/${this.props.editOptions.id}`);
       if (relatedTransactions.status !== 200) return;
 
-      (relatedTransactions.data as Array<Transaction>).forEach(async (transaction) => {
+      (relatedTransactions.data as Array<TransactionInterface>).forEach(async (transaction) => {
         if (transaction.year > new Date().getFullYear() || (transaction.year === new Date().getFullYear() && (transaction.month >= new Date().getMonth() + 1)))
           transaction.id && await this.updateTransaction(transaction.id);
       });
@@ -147,7 +147,7 @@ export default class Edit extends Component<Props, EditState> {
           <Option>
             <label htmlFor="value">Value:</label>
             <input type="number" name="value" id="prop-value" value={value || ""}
-              onChange={(e) => this.setState({value: (parseFloat(e.target.value) || 0)})} />
+              onChange={(e) => this.setState({value: e.target.value})} />
           </Option>
 
           <Option>
@@ -172,13 +172,13 @@ export default class Edit extends Component<Props, EditState> {
 interface Props {
   editOptions: EditOptionsInterface,
   setEditOptions: SetEditOptionsInterface,
-  list: Transaction[],
-  setList: (list: Transaction[]) => void,
+  list: TransactionInterface[],
+  setList: (list: TransactionInterface[]) => void,
 }
 
 interface EditState {
   type: "expenditure" | "income",
   description: string,
-  value: number,
+  value: string,
   expiration_day: number,
 }

@@ -2,7 +2,7 @@ export interface TransactionInterface {
   id?: number;
   type: "income" | "expenditure";
   description: string;
-  value: string | number;
+  value: string;
   expiration_day: number;
   status: "pending" | "done";
   year: number;
@@ -17,7 +17,7 @@ export interface SimpleTransaction {
   id: number;
   type?: "income" | "expenditure";
   description: string;
-  value: number | string;
+  value: string;
   expiration_day: number;
   status?: "pending" | "done";
   year?: number;

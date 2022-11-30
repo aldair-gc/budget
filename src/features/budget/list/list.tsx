@@ -15,7 +15,7 @@ export default class BudgetList extends Component<Props> {
   }
 
   totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
-    return this.props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? item.value : 0, 0);
+    return this.props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? +item.value : 0, 0);
   }
 
   percentageDone(type: "income" | "expenditure"):number {

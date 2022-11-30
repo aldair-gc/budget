@@ -37,7 +37,7 @@ export default function Input(props: Props) {
           ? props.setLists.setIncomeList(props.lists.incomeList.concat([sendTransaction.data]))
           : props.setLists.setExpenditureList(props.lists.expenditureList.concat([sendTransaction.data]));
         props.setters.setDescription("");
-        props.setters.setValue(0);
+        props.setters.setValue("");
         props.setters.setExpirationDay(0);
         props.setters.setRepeat("0-1-1");
         showInput(false);
@@ -106,7 +106,7 @@ export default function Input(props: Props) {
               <div className="input">
                 <label htmlFor="value">Value:</label>
                 <input type="number" name="value" id="value" autoComplete="off" step={"0.01"} min={0}
-                  onChange={(e) => props.setters.setValue(parseFloat(e.target.value) || 0)}
+                  onChange={(e) => props.setters.setValue(e.target.value)}
                   value={props.values.value || ""} />
               </div>
             </div>
@@ -143,7 +143,7 @@ interface Props {
   setters: {
     setType: (type: "income" | "expenditure") => void,
     setDescription: (description: string) => void,
-    setValue: (value: number) => void,
+    setValue: (value: string) => void,
     setExpirationDay: (expirationDay: number) => void,
     setRepeat: (repeat: string) => void,
   },

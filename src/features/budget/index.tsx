@@ -19,9 +19,9 @@ export default function Budget() {
   const [sortIncomeList, setSortIncomeList] = useState("none" as SorterValues);
   const [sortExpenditureList, setSortExpenditureList] = useState("none" as SorterValues);
 
-  const [type, setType] = useState("expenditure" as "expenditure" | "income");
+  const [type, setType] = useState("expenditure" as "income" | "expenditure");
   const [description, setDescription] = useState("");
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState("");
   const [expirationDay, setExpirationDay] = useState(0);
   const [status, setStatus] = useState("pending" as "pending" | "done");
   const [year, setYear] = useState(new Date().getFullYear());
