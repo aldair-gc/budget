@@ -11,6 +11,7 @@ TO DO
 - add support for mobile
 
 FIX
+- build directory
 - fix login
 - validade user input before submiting
 - check sort > create bug
