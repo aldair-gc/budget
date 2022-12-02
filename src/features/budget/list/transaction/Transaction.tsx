@@ -112,9 +112,16 @@ export default class Transaction extends Component<Props, BudgetItemState> {
         </TransactionContainer>
 
         <Options
-          list={this.props.list} setList={this.setList} item={{id, description, value, expiration_day }} resetItem={resetItem}
-          editing={editing} setEditing={setEditing} hasFutureRepetitions={hasFutureRepetitions}
-          deleting={deleting} setDeleting={setDeleting}
+          list={this.props.list}
+          setList={this.setList}
+          item={{id, description, value, expiration_day }}
+          resetItem={resetItem}
+          editing={editing}
+          setEditing={setEditing}
+          hasFutureRepetitions={hasFutureRepetitions}
+          deleting={deleting}
+          setDeleting={setDeleting}
+          setUserInput={this.props.setUserInput}
         />
       </ItemContainer>
     );
@@ -127,6 +134,7 @@ interface Props {
   setList: (list: TransactionInterface[]) => void,
   selection: number,
   setSelection: (selection: number) => void,
+  setUserInput: (selection: number) => void,
 }
 
 interface BudgetItemState {

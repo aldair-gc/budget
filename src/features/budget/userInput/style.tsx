@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PropertiesContainer = styled.div`
+export const WindowContainer = styled.div`
   position: fixed;
   left: 50%;
   top: 50%;
@@ -19,7 +19,7 @@ export const PropertiesContainer = styled.div`
   overflow: hidden;
 `;
 
-export const Header = styled.div`
+export const WindowHeaderContainer = styled.div`
   position: relative;
   width: 100%;
   border-bottom: 1px solid #aaa;
@@ -42,6 +42,10 @@ export const Header = styled.div`
       color: #a00;
     }
   }
+`;
+
+export const WindowBodyContainer = styled.div`
+  padding: 10px;
 `;
 
 export const OptionsForm = styled.form`

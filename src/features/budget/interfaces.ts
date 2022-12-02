@@ -13,6 +13,28 @@ export interface TransactionInterface {
   user_id?: number;
 }
 
+export interface ApiNewTransactionInterface {
+  type: "income" | "expenditure";
+  description: string;
+  value: number;
+  expiration_day: number;
+  status: "pending" | "done";
+  year: number;
+  month: number;
+  repeat: string;
+}
+
+export interface ApiUpdateTransactionInterface {
+  type?: "income" | "expenditure";
+  description?: string;
+  value?: number;
+  expiration_day?: number;
+  status?: "pending" | "done";
+  year?: number;
+  month?: number;
+  repeat?: string;
+}
+
 export interface SimpleTransaction {
   id: number;
   type?: "income" | "expenditure";
@@ -34,7 +56,7 @@ export interface SetYearMonthInterface {
   setYearMonth: (yearMonth: YearMonthInterface) => void;
 }
 
-export interface Setters {
+export interface SettersInterface {
   setType: (type: "income" | "expenditure") => void,
   setDescription: (description: string) => void,
   setValue: (value: string) => void,

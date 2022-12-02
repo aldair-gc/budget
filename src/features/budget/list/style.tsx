@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+
+export const ListHeaderContainer = styled.form`
+  width: 100%;
+`;
+
 export const ListContainer = styled.div`
   position: relative;
   width: 50%;
@@ -8,12 +13,8 @@ export const ListContainer = styled.div`
 `;
 
 export const ItemList = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
+  height: 100%;
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);

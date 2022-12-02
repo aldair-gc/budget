@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "../../services/axios";
 import { authLogout } from "../authentication/authSlice";
 import MainHeader from "./header/header";
+import Input from "./list/header/ListHeader";
 import { TransactionInterface } from "./interfaces";
 import BudgetList from "./list/list";
 import { BudgetContainer, BudgetListsContainer } from "./style";
@@ -18,9 +19,28 @@ export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
   const [incomeList, setIncomeList] = useState([] as TransactionInterface[]);
   const [expenditureList, setExpenditureList] = useState([] as TransactionInterface[]);
+
+  const [sortIncomeList, setSortIncomeList] = useState("none" as SorterValues);
+  const [sortExpenditureList, setSortExpenditureList] = useState("none" as SorterValues);
+
+  const [type, setType] = useState("expenditure" as "income" | "expenditure");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [expirationDay, setExpirationDay] = useState(0);
+  const [status, setStatus] = useState("pending" as "pending" | "done");
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [repeat, setRepeat] = useState("0-1-1");
+
   const [selection, setSelection] = useState(0);
+
   const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open filfilled with its data.
-  const [showSorter, setShowSorter] = useState("none" as "none" | "income" | "expenditure");
+
+  const values: TransactionInterface = { type, description, value, expiration_day: expirationDay, status, year, month, repeat };
+  const setters = { setType, setDescription, setValue, setExpirationDay, setStatus, setYear, setMonth, setRepeat };
+
+  const sortedIncomeList = sortList([...incomeList], sortIncomeList);
+  const sortedExpenditureList = sortList([...expenditureList], sortExpenditureList);
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -42,9 +62,38 @@ export default function Budget() {
     isLoggedIn ? getData() : dispatch(authLogout());
   }, [yearMonth, isLoggedIn]);
 
+  function sortList(list: TransactionInterface[], type: string) {
+    switch (type) {
+    case "none": return list;
+    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
+    case "value-1": return list.sort((a,b) => +a.value - +b.value);
+    case "description-A": return list.sort((a,b) => {
+      if (a.description < b.description) return -1;
+      if (a.description > b.description) return 1;
+      return 0;
+    });
+    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
+    case "value-9": return list.sort((a,b) => +b.value - +a.value);
+    case "description-Z": return list.sort((a,b) => {
+      if (b.description < a.description) return -1;
+      if (b.description > a.description) return 1;
+      return 0;
+    });
+    default: return list;
+    }
+  }
+
   return (
     <BudgetContainer>
       <MainHeader yearMonth={yearMonth} setYearMonth={setYearMonth}/>
+
+      <Input
+        values={values}
+        setters={setters}
+        lists={{incomeList, expenditureList}}
+        setLists={{setIncomeList, setExpenditureList}}
+        setSortLists={{setSortIncomeList, setSortExpenditureList}}
+      />
 
       <InputWindow show={userInput}>
         <InputForm
@@ -57,24 +106,20 @@ export default function Budget() {
 
       <BudgetListsContainer>
         <BudgetList
-          list={incomeList}
+          list={sortIncomeList === "none" ? incomeList : sortedIncomeList}
           setList={setIncomeList}
           type={"income"}
           selection={selection}
           setSelection={setSelection}
           setUserInput={setUserInput}
-          showSorter={showSorter}
-          changeShowSorter={setShowSorter}
         />
         <BudgetList
-          list={expenditureList}
+          list={sortExpenditureList === "none" ? expenditureList : sortedExpenditureList}
           setList={setExpenditureList}
           type={"expenditure"}
           selection={selection}
           setSelection={setSelection}
           setUserInput={setUserInput}
-          showSorter={showSorter}
-          changeShowSorter={setShowSorter}
         />
       </BudgetListsContainer>
 
@@ -82,3 +127,5 @@ export default function Budget() {
     </BudgetContainer>
   );
 }
+
+type SorterValues = "none" | "description-A" | "value-1" | "expiration_day-1" | "description-Z" | "value-9" | "expiration_day-9";

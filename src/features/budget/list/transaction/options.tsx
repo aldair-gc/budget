@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from "react";
-import { FaEdit, FaExclamationTriangle, FaRegClone, FaRegSave, FaRegSquare, FaRegTrashAlt, FaTimes } from "react-icons/fa";
+import { FaEdit, FaExclamationTriangle, FaRegClone, FaRegCopy, FaRegSave, FaRegSquare, FaRegTrashAlt, FaTimes } from "react-icons/fa";
 import axios from "../../../../services/axios";
 import { SimpleTransaction, TransactionInterface } from "../../interfaces";
 import { ButtonsContainer } from "./style";
@@ -12,7 +12,12 @@ export default class Options extends Component<Props, State> {
     this.setDeleting = this.props.setDeleting.bind(this);
     this.setList = this.props.setList.bind(this);
     this.resetItem = this.props.resetItem.bind(this);
+    this.setUserInput = this.props.setUserInput.bind(this);
     this.state = { willUpdate: "question"};
+  }
+
+  setUserInput(userInput: number): void {
+    this.props.setUserInput(userInput);
   }
 
   setList(list: TransactionInterface[]): void {
@@ -109,9 +114,9 @@ export default class Options extends Component<Props, State> {
           <button className="edit" onClick={() => this.setEditing(true)}>
             <FaEdit/> Edit
           </button>
-          {/* <button className="edit" onClick={() => this.setEditing(true)}>
+          <button className="edit" onClick={() => this.setUserInput(this.props.item.id)}>
             <FaRegCopy/> Copy
-          </button> */}
+          </button>
           <button className="delete" onClick={() => this.setDeleting(true)}>
             <FaRegTrashAlt/> Delete
           </button>
@@ -164,6 +169,7 @@ interface Props {
   deleting: boolean,
   setDeleting: (trueOrFalse: boolean) => void,
   hasFutureRepetitions: boolean,
+  setUserInput: (userInput: number) => void,
 }
 
 interface State {
