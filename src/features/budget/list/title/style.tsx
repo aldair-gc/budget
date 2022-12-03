@@ -35,6 +35,10 @@ export const InputTitles = styled.div`
     }
   }
 
+  svg {
+    transition: all .3s;
+  }
+
   #income-title { background: #ade; }
   #expenditure-title { background: #ebb; }
 `;

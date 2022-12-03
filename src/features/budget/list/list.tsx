@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TransactionInterface } from "../interfaces";
-import { ItemList, ListBackground, ListContainer, ListInputContainer } from "./style";
+import { Evidence, ItemList, ListBackground, ListContainer, ListInputContainer } from "./style";
 import Transaction from "./transaction/Transaction";
 import { Component } from "react";
 import ListTitle from "./title/ListTitle";
@@ -63,13 +63,17 @@ export default class BudgetList extends Component<Props, State> {
           changeSorter={this.changeSorter}
           showSorter={this.props.showSorter}
           changeShowSorter={this.props.changeShowSorter}
+          userInput={this.state.userInput}
           toggleUserInput={this.toggleUserInput}
         />
 
-        <ListInputContainer style={{height: this.state.userInput === 0 ? "200px" : "0"}}>
+        <Evidence style={{
+          display: this.state.userInput === 0 ? "block" : "none",
+        }}/>
+        <ListInputContainer style={{height: this.state.userInput === 0 ? "213px" : "0"}}>
           <InputForm
             userInput={this.state.userInput}
-            setUserInput={() => this.toggleUserInput}
+            setUserInput={this.toggleUserInput}
             list={this.props.list}
             setList={(type: "income" | "expenditure", list: TransactionInterface[]) => this.props.setList(list)}
             options={{

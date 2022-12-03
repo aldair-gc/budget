@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const Evidence = styled.div`
+position: absolute;
+top: 75px;
+bottom: 120px;
+left: 0;
+right: 0;
+background: rgba(255,255,255,0.5);
+backdrop-filter: blur(5px);
+z-index: 950;
+`;
+
 export const WindowContainer = styled.div`
   position: fixed;
   left: 50%;
@@ -15,7 +26,7 @@ export const WindowContainer = styled.div`
   min-width: 200px;
   min-height: 200px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  z-index: 51;
+  z-index: 951;
   overflow: hidden;
 `;
 
@@ -25,7 +36,6 @@ export const WindowHeaderContainer = styled.div`
   border-bottom: 1px solid #aaa;
   background: #fff;
   text-align: center;
-  margin-bottom: 10px;
 
   h1 {
     font-size: 16px;
@@ -45,13 +55,13 @@ export const WindowHeaderContainer = styled.div`
 `;
 
 export const WindowBodyContainer = styled.div`
-  padding: 10px;
+
 `;
 
 export const OptionsForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 20px;
   gap: 10px;
 
   i {
@@ -94,7 +104,7 @@ export const Option = styled.div`
 export const Buttons = styled.div`
   display: flex;
   justify-content: center;
-  margin: 10px auto 20px auto;
+  margin: 10px auto 0 auto;
   gap: 20px;
   width: 100%;
 

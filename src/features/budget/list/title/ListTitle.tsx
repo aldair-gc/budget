@@ -5,7 +5,10 @@ import { InputTitles, SortContainer, SortOption } from "./style";
 export default function ListTitle(props: Props) {
   return(
     <InputTitles>
-      <FaPlus onClick={props.toggleUserInput}/>
+      <FaPlus
+        style={{transform: props.userInput === 0 ? "rotateZ(45deg)" : ""}}
+        onClick={props.toggleUserInput}
+      />
       <h2>{props.type}</h2>
       <div
         className="sorter-icon-container"
@@ -30,6 +33,7 @@ export default function ListTitle(props: Props) {
 interface Props {
   type: "income" | "expenditure",
   showSorter: ShowType
+  userInput: number,
   changeSorter: (sorter: SorterType) => void;
   changeShowSorter: (showSorter: ShowType) => void;
   toggleUserInput: () => void;

@@ -32,14 +32,14 @@ export default function InputForm(props: Props){
 
   const cleanAndExit = ():void => {
     props.setUserInput(-1);
-    setType([false, "expenditure"]);
-    setDescription([false, ""]);
-    setValue([false, ""]);
-    setStatus([false, "pending"]);
-    setYear([false, 0]);
-    setMonth([false, 0]);
-    setExpiration_day([false, 0]);
-    setRepeat([false, ""]);
+    setType([type[0], "expenditure"]);
+    setDescription([description[0], ""]);
+    setValue([value[0], ""]);
+    setStatus([status[0], "pending"]);
+    setYear([year[0], 0]);
+    setMonth([month[0], 0]);
+    setExpiration_day([expiration_day[0], 0]);
+    setRepeat([repeat[0], ""]);
   };
 
   async function submitTransaction(): Promise<void> {
