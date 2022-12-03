@@ -6,14 +6,18 @@ export default function ListTitle(props: Props) {
   return(
     <InputTitles>
       <FaPlus
+        className="title-icons"
         style={{transform: props.userInput === 0 ? "rotateZ(45deg)" : ""}}
         onClick={props.toggleUserInput}
       />
+
       <h2>{props.type}</h2>
-      <div
-        className="sorter-icon-container"
+
+      <FaSort
+        className="title-icons"
         onClick={() => props.changeShowSorter(props.type !== props.showSorter ? props.type : "none")}
-      ><i id="income-sorter-icon"></i><FaSort/></div>
+      />
+
       <SortContainer
         style={{display: props.showSorter === props.type ? "flex" : "none"}}
         onMouseUpCapture={() => props.changeShowSorter("none")}

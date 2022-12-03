@@ -8,7 +8,6 @@ export const InputTitles = styled.div`
   gap: 10px;
   width: 100%;
   padding: 5px 10px;
-  border-radius: 10px 10px 0 0;
   font-size: 16px;
   background: #aaa;
 
@@ -17,30 +16,18 @@ export const InputTitles = styled.div`
     font-weight: 500;
   }
 
-  label, .sorter-icon-container {
+  .title-icons {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
     width: 25px;
-
-    i {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 20;
-    }
-  }
-
-  svg {
+    padding: 5px;
     transition: all .3s;
-  }
 
-  #income-title { background: #ade; }
-  #expenditure-title { background: #ebb; }
+    :hover { color: #33a }
+  }
 `;
 
 export const SortContainer = styled.div`

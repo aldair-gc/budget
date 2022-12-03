@@ -11,7 +11,7 @@ export const Evidence = styled.div`
   z-index: 50;
 `;
 
-export const ListInputContainer = styled.form`
+export const ListInputContainer = styled.div`
   position: absolute;
   top: 35px;
   left: 0;
@@ -30,8 +30,9 @@ export const ListInputContainer = styled.form`
 export const ListContainer = styled.div`
   position: relative;
   width: 50%;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
   overflow: hidden;
+  height: 100%;
 `;
 
 export const ItemList = styled.div`
