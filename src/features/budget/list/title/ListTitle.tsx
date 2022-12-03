@@ -2,10 +2,10 @@
 import { FaPlus, FaSort, FaSortAlphaDown, FaSortAlphaDownAlt, FaSortNumericDown, FaSortNumericDownAlt } from "react-icons/fa";
 import { InputTitles, SortContainer, SortOption } from "./style";
 
-export default function ListHeader(props: Props) {
+export default function ListTitle(props: Props) {
   return(
     <InputTitles>
-      <FaPlus/>
+      <FaPlus onClick={props.toggleUserInput}/>
       <h2>{props.type}</h2>
       <div
         className="sorter-icon-container"
@@ -32,6 +32,7 @@ interface Props {
   showSorter: ShowType
   changeSorter: (sorter: SorterType) => void;
   changeShowSorter: (showSorter: ShowType) => void;
+  toggleUserInput: () => void;
 }
 
 type ShowType = "none" | "income" | "expenditure";

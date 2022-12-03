@@ -1,8 +1,17 @@
 import styled from "styled-components";
 
 
-export const ListHeaderContainer = styled.form`
+export const ListInputContainer = styled.form`
+  position: absolute;
+  top: 35px;
+  left: 0;
   width: 100%;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  transition: all 0.3s;
+  height: 0px;
+  overflow: hidden;
 `;
 
 export const ListContainer = styled.div`

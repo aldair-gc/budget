@@ -22,6 +22,11 @@ export default function Budget() {
   const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open filfilled with its data.
   const [showSorter, setShowSorter] = useState("none" as "none" | "income" | "expenditure");
 
+  function setList(type: "income" | "expenditure", list: TransactionInterface[]): void {
+    type === "expenditure" && setExpenditureList(list);
+    type === "income" && setIncomeList(list);
+  }
+
   useEffect(() => {
     async function getData(): Promise<void> {
       try {
@@ -50,8 +55,18 @@ export default function Budget() {
         <InputForm
           userInput={userInput}
           setUserInput={setUserInput}
-          lists={{incomeList, expenditureList}}
-          setLists={{setIncomeList, setExpenditureList}}
+          list={incomeList.concat(expenditureList)}
+          setList={setList}
+          options={{
+            type: [false, "expenditure"],
+            description: [false, ""],
+            value: [false, ""],
+            status: [false, "pending"],
+            year: [false, new Date().getFullYear()],
+            month: [false, new Date().getMonth()],
+            expiration_day: [false, 0],
+            repeat: [false, ""],
+          }}
         />
       </InputWindow>
 

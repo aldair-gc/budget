@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TransactionInterface } from "../interfaces";
-import { ItemList, ListBackground, ListContainer } from "./style";
+import { ItemList, ListBackground, ListContainer, ListInputContainer } from "./style";
 import Transaction from "./transaction/Transaction";
 import { Component } from "react";
-import ListHeader from "./header/ListHeader";
+import ListTitle from "./title/ListTitle";
+import InputForm from "../userInput/InputForm";
 
 export default class BudgetList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.changeSorter = this.changeSorter.bind(this);
+    this.toggleUserInput = this.toggleUserInput.bind(this);
     this.state = {
       sorter: "none",
+      userInput: -1,
     };
   }
 
@@ -18,24 +21,28 @@ export default class BudgetList extends Component<Props, State> {
     this.setState({sorter: sorter});
   }
 
+  toggleUserInput(): void {
+    this.setState({userInput: this.state.userInput === 0 ? -1 : 0});
+  }
+
   sorter(list: TransactionInterface[], type: string) {
     switch (type) {
-    case "none": return list;
-    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
-    case "value-1": return list.sort((a,b) => +a.value - +b.value);
+    case "none": return this.props.list; break;
+    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day); break;
+    case "value-1": return list.sort((a,b) => +a.value - +b.value); break;
     case "description-A": return list.sort((a,b) => {
       if (a.description < b.description) return -1;
       if (a.description > b.description) return 1;
       return 0;
-    });
-    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
-    case "value-9": return list.sort((a,b) => +b.value - +a.value);
+    }); break;
+    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day); break;
+    case "value-9": return list.sort((a,b) => +b.value - +a.value); break;
     case "description-Z": return list.sort((a,b) => {
       if (b.description < a.description) return -1;
       if (b.description > a.description) return 1;
       return 0;
-    });
-    default: return list;
+    }); break;
+    default: return this.props.list;
     }
   }
 
@@ -48,15 +55,34 @@ export default class BudgetList extends Component<Props, State> {
   }
 
   render() {
-    const list = this.state.sorter === "none" ? this.props.list : this.sorter(this.props.list, this.state.sorter);
+    const list = this.sorter(this.props.list, this.state.sorter);
     return (
       <ListContainer className="budget-list-container">
-        <ListHeader
+        <ListTitle
           type={this.props.type}
           changeSorter={this.changeSorter}
           showSorter={this.props.showSorter}
           changeShowSorter={this.props.changeShowSorter}
+          toggleUserInput={this.toggleUserInput}
         />
+
+        <ListInputContainer style={{height: this.state.userInput === 0 ? "200px" : "0"}}>
+          <InputForm
+            userInput={this.state.userInput}
+            setUserInput={() => this.toggleUserInput}
+            list={this.props.list}
+            setList={(type: "income" | "expenditure", list: TransactionInterface[]) => this.props.setList(list)}
+            options={{
+              type: [true, this.props.type],
+              description: [false, ""],
+              value: [false, ""],
+              status: [true, "pending"],
+              year: [true, new Date().getFullYear()],
+              month: [true, new Date().getMonth()],
+              expiration_day: [false, 0],
+              repeat: [false, ""],
+            }}/>
+        </ListInputContainer>
 
         <ItemList>
           {list.map(item =>
@@ -93,6 +119,7 @@ interface Props {
 
 interface State {
   sorter: SorterType,
+  userInput: number,
 }
 
 type ShowType = "none" | "income" | "expenditure";

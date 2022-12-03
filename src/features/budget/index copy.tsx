@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "../../services/axios";
 import { authLogout } from "../authentication/authSlice";
 import MainHeader from "./header/header";
-import Input from "./list/header/ListHeader";
+import Input from "./list/title/ListTitle";
 import { TransactionInterface } from "./interfaces";
 import BudgetList from "./list/list";
 import { BudgetContainer, BudgetListsContainer } from "./style";
