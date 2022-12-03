@@ -23,7 +23,7 @@ export const ListInputContainer = styled.div`
   height: 0px;
   overflow: hidden;
   margin: 0 10px;
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 `;
 
@@ -36,7 +36,9 @@ export const ListContainer = styled.div`
 `;
 
 export const ItemList = styled.div`
+  position: absolute;
   display: flex;
+  width: 100%;
   height: 100%;
   flex-direction: column;
   overflow-y: auto;

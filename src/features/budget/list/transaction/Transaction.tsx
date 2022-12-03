@@ -108,7 +108,7 @@ export default class Transaction extends Component<Props, BudgetItemState> {
 
           <ItemBackground
             className={`item-bg ${editing}`}
-            style={{ width: `${ selection === id ? 0 : listTotal()}%`, background: this.props.item.type === "income" ? "#3a4" : "#d34"}} />
+            style={{ width: `${ selection === id ? 0 : listTotal()}%`, background: this.props.item.type === "income" ? "#34d" : "#d34"}} />
         </TransactionContainer>
 
         <Options

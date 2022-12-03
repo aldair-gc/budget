@@ -74,6 +74,7 @@ export default class BudgetList extends Component<Props, State> {
           <InputForm
             userInput={this.state.userInput}
             setUserInput={this.toggleUserInput}
+            yearMonth={this.props.yearMonth}
             list={this.props.list}
             setList={(type: "income" | "expenditure", list: TransactionInterface[]) => this.props.setList(list)}
             options={{
@@ -81,10 +82,10 @@ export default class BudgetList extends Component<Props, State> {
               description: [false, ""],
               value: [false, ""],
               status: [true, "pending"],
-              year: [true, new Date().getFullYear()],
-              month: [true, new Date().getMonth()],
+              year: [true, this.props.yearMonth.year],
+              month: [true, this.props.yearMonth.month],
               expiration_day: [false, 0],
-              repeat: [false, ""],
+              repeat: [false, "0-1-1"],
             }}/>
         </ListInputContainer>
 
@@ -103,7 +104,10 @@ export default class BudgetList extends Component<Props, State> {
         </ItemList>
 
         <ListBackground
-          style={{ height: `${this.percentageDone(this.props.type)}%`, background: this.props.type === "income" ? "#adf" : "#fbc" }}
+          style={{
+            height: `${this.percentageDone(this.props.type)}%`,
+            background: this.props.type === "income" ? "#adf" : "#fbc"
+          }}
         />
       </ListContainer>
     );
@@ -114,6 +118,7 @@ interface Props {
   list: TransactionInterface[],
   setList: (list: TransactionInterface[]) => void,
   type: "income" | "expenditure",
+  yearMonth: {year: number, month: number},
   selection: number,
   setSelection: (id: number) => void,
   setUserInput: (userInput: number) => void,

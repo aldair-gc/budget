@@ -1,8 +1,6 @@
 TO DO
-- devide new inputs
 - bring balance from last month
 - set advices for current balance
-- repeat existing item
 - add support for undoing
 - add models
 - add loading

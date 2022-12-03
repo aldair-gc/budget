@@ -29,6 +29,13 @@ export default function InputForm(props: Props){
     }
   }, [props.userInput, type, status]);
 
+  useEffect(() => {
+    if (props.userInput === 0) {
+      setYear(props.options.year);
+      setMonth(props.options.month);
+    }
+  }, [props.userInput]);
+
 
   const cleanAndExit = ():void => {
     props.setUserInput(-1);
@@ -39,14 +46,14 @@ export default function InputForm(props: Props){
     setYear([year[0], 0]);
     setMonth([month[0], 0]);
     setExpiration_day([expiration_day[0], 0]);
-    setRepeat([repeat[0], ""]);
+    setRepeat([repeat[0], "0-1-1"]);
   };
 
   async function submitTransaction(): Promise<void> {
     const newTransaction = {
       type: type[1],
       description: description[1],
-      value: value[1],
+      value: parseInt(value[1]),
       status: status[1],
       year: year[1],
       month: month[1],
@@ -55,8 +62,9 @@ export default function InputForm(props: Props){
     };
     try {
       const submit = await axios.post("/transaction/", newTransaction);
-      if (submit.status === 200) {
-        props.setList(type[1], props.list);
+      if ((submit.status === 200) && (year[1] === props.yearMonth.year) && (month[1] === props.yearMonth.month)) {
+        const newList = [...props.list, submit.data];
+        props.setList(type[1], newList);
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
@@ -166,6 +174,7 @@ interface Props {
   setUserInput: (userInput: number) => void,
   list: TransactionInterface[],
   setList: (type: "income" | "expenditure", list: TransactionInterface[]) => void,
+  yearMonth: {year: number, month: number},
   options: {
     type: OptionalType,
     description: OptionalDescription,

@@ -9,7 +9,8 @@ export const InputTitles = styled.div`
   width: 100%;
   padding: 5px 10px;
   font-size: 16px;
-  background: #aaa;
+  background: rgba(0,0,0,0.3);
+  z-index: 5;
 
   h2 {
     font-size: 18px;
@@ -26,7 +27,7 @@ export const InputTitles = styled.div`
     padding: 5px;
     transition: all .3s;
 
-    :hover { color: #33a }
+    :hover { color: #eee }
   }
 `;
 

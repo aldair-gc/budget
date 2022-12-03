@@ -57,13 +57,14 @@ export default function Budget() {
           setUserInput={setUserInput}
           list={incomeList.concat(expenditureList)}
           setList={setList}
+          yearMonth={yearMonth}
           options={{
             type: [false, "expenditure"],
             description: [false, ""],
             value: [false, ""],
             status: [false, "pending"],
-            year: [false, new Date().getFullYear()],
-            month: [false, new Date().getMonth()],
+            year: [false, yearMonth.year],
+            month: [false, yearMonth.month],
             expiration_day: [false, 0],
             repeat: [false, ""],
           }}
@@ -74,6 +75,7 @@ export default function Budget() {
         <BudgetList
           list={incomeList}
           setList={setIncomeList}
+          yearMonth={yearMonth}
           type={"income"}
           selection={selection}
           setSelection={setSelection}
@@ -84,6 +86,7 @@ export default function Budget() {
         <BudgetList
           list={expenditureList}
           setList={setExpenditureList}
+          yearMonth={yearMonth}
           type={"expenditure"}
           selection={selection}
           setSelection={setSelection}
