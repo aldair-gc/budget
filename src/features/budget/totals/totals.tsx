@@ -1,5 +1,5 @@
 import { TransactionInterface } from "../interfaces";
-import { TotalsContainer, CurrentBalance, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
+import { TotalsContainer, TotalsEstimation, LineGraph, TotalsLine, TotalsNumbers } from "./style";
 import { brl, brlPercent } from "../currency";
 import { FaMoneyCheckAlt, FaWallet } from "react-icons/fa";
 
@@ -14,8 +14,8 @@ export default function Totals(props: Props) {
   }
 
   function result():number {
-    return totalOf((props.lists.incomeList.concat(props.lists.expenditureList)), "income", "all")
-    - totalOf(props.lists.incomeList.concat(props.lists.expenditureList), "expenditure", "all");
+    return totalOf((props.incomeList.concat(props.expenditureList)), "income", "all")
+    - totalOf(props.incomeList.concat(props.expenditureList), "expenditure", "all");
   }
 
   return (
@@ -23,35 +23,43 @@ export default function Totals(props: Props) {
       <div>
         <TotalsLine>
           <TotalsNumbers>
-            <p>{brl.format(totalOf(props.lists.incomeList, "income", "done"))}</p>
-            <p>{brlPercent.format((totalOf(props.lists.incomeList, "income", "done") / totalOf(props.lists.incomeList, "income", "all")) || 0)}</p>
-            <p>{brl.format(totalOf(props.lists.incomeList, "income", "all"))}</p>
+            <p>{brl.format(totalOf(props.incomeList, "income", "done"))}</p>
+            <p>{brlPercent.format((totalOf(props.incomeList, "income", "done") / totalOf(props.incomeList, "income", "all")) || 0)}</p>
+            <p>{brl.format(totalOf(props.incomeList, "income", "all"))}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone(props.lists.incomeList, "income")}%`, background: "#ade" }} />
+          <LineGraph style={{ width: `${percentageDone(props.incomeList, "income")}%`, background: "#add" }} />
         </TotalsLine>
 
         <TotalsLine>
           <TotalsNumbers>
-            <p>{brl.format(totalOf(props.lists.expenditureList, "expenditure", "done"))}</p>
-            <p>{brlPercent.format(totalOf(props.lists.expenditureList, "expenditure", "done") / totalOf(props.lists.expenditureList, "expenditure", "all") || 0)}</p>
-            <p>{brl.format(totalOf(props.lists.expenditureList, "expenditure", "all"))}</p>
+            <p>{brl.format(totalOf(props.expenditureList, "expenditure", "done"))}</p>
+            <p>{brlPercent.format(totalOf(props.expenditureList, "expenditure", "done") / totalOf(props.expenditureList, "expenditure", "all") || 0)}</p>
+            <p>{brl.format(totalOf(props.expenditureList, "expenditure", "all"))}</p>
           </TotalsNumbers>
-          <LineGraph style={{ width: `${percentageDone(props.lists.expenditureList, "expenditure")}%`, background: "#ebb" }} />
+          <LineGraph style={{ width: `${percentageDone(props.expenditureList, "expenditure")}%`, background: "#adf" }} />
         </TotalsLine>
       </div>
 
       <div>
         <TotalsEstimation>
-          <h3><FaMoneyCheckAlt/> Month Estimation</h3>
+          <FaMoneyCheckAlt/>
+          <h3>Last Month Balance</h3>
+          <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(props.lastMonthBalance)}</h2>
+        </TotalsEstimation>
+
+        <TotalsEstimation>
+          <FaMoneyCheckAlt/>
+          <h3>Month Estimation</h3>
           <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(result())}</h2>
         </TotalsEstimation>
 
-        <CurrentBalance>
-          <h3><FaWallet/> Current Balance</h3>
+        <TotalsEstimation>
+          <FaWallet/>
+          <h3>Current Balance</h3>
           <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>
-            {brl.format((totalOf(props.lists.incomeList, "income", "done") - totalOf(props.lists.expenditureList, "expenditure", "done")))}
+            {brl.format(totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance)}
           </h2>
-        </CurrentBalance>
+        </TotalsEstimation>
       </div>
 
     </TotalsContainer>
@@ -59,5 +67,7 @@ export default function Totals(props: Props) {
 }
 
 interface Props {
-  lists: {incomeList: TransactionInterface[], expenditureList: TransactionInterface[]},
+  incomeList: TransactionInterface[],
+  expenditureList: TransactionInterface[],
+  lastMonthBalance: number,
 }

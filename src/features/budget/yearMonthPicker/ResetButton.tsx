@@ -1,6 +1,6 @@
 import { FaRegDotCircle } from "react-icons/fa";
 import { YearMonthInterface } from "../interfaces";
-import { ResetButtons } from "./style";
+import { SideButtons } from "./style";
 
 export default function ResetButton(props: Props) {
   function resetYM (): void {
@@ -8,9 +8,9 @@ export default function ResetButton(props: Props) {
   }
 
   return (
-    <ResetButtons>
+    <SideButtons>
       <button onClick={() => resetYM()}><FaRegDotCircle/></button>
-    </ResetButtons>
+    </SideButtons>
   );
 }
 

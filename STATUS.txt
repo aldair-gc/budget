@@ -1,14 +1,13 @@
 TO DO
-- bring balance from last month
-- set advices for current balance
+- disable last month for months other then the next one ?
+- add loading ?
+- add support for mobile
+- add dark model
 - add support for undoing
 - add models
-- add loading
-- add dark model
-- add support for mobile
 - make point of equilibrium graph
-- call attention to expiration
 - ecrypt user data
+- make user config to change name, pw and email
 
 FIX
 - build directory

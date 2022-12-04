@@ -1,13 +1,15 @@
 import YearMonthPicker from "../yearMonthPicker/YearMonthPicker";
 import { YearMonthInterface } from "../interfaces";
-import { HeaderContainer } from "./style";
+import { HeaderContainer, MainTitleContainer } from "./style";
 import ButtonsYearMonth from "../yearMonthPicker/ButtonYearMonth";
 import ResetButton from "../yearMonthPicker/ResetButton";
 
 export default function MainHeader(props: Props) {
   return (
     <HeaderContainer>
-      <h1>Budget</h1>
+      <MainTitleContainer>
+        Budget
+      </MainTitleContainer>
 
       <ResetButton
         setYearMonth={props.setYearMonth}
@@ -26,7 +28,6 @@ export default function MainHeader(props: Props) {
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
       />
-      <h1></h1>
     </HeaderContainer>
   );
 }

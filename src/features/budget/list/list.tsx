@@ -108,7 +108,7 @@ export default class BudgetList extends Component<Props, State> {
         <ListBackground
           style={{
             height: `${this.percentageDone(this.props.type)}%`,
-            background: this.props.type === "income" ? "#adf" : "#fbc"
+            background: this.props.type === "income" ? "#add" : "#adf"
           }}
         />
       </ListContainer>

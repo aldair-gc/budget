@@ -76,6 +76,8 @@ export default class Transaction extends Component<Props, BudgetItemState> {
       return Math.round((100 / total) * +value);
     };
 
+    const today = new Date().getDate();
+
     return (
       <ItemContainer style={this.props.selection === id ? { height: "56px" } : {}}>
         <TransactionContainer
@@ -94,7 +96,12 @@ export default class Transaction extends Component<Props, BudgetItemState> {
             disabled={!(editing && selection === id)}
           />
 
-          <input type="number" className={`expiration_day ${editing}`}
+          <input type="number"
+            className={`
+              expiration_day ${editing}
+              ${(this.props.item.status === "pending") && (expiration_day > (today + 5)) && (expiration_day < today + 10) ? " atention" : ""}
+              ${(this.props.item.status === "pending") && (expiration_day < (today + 5)) ? " danger" : ""}
+            `}
             value={expiration_day || ""} min={0} max={31}
             onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
             disabled={!(editing && selection === id)}

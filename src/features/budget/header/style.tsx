@@ -4,15 +4,20 @@ export const HeaderContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   min-height: 55px;
   margin-bottom: 10px;
 
-  h1 {
-    padding: 10px;
-    text-align: Left;
-    font-size: 30px;
-    flex: 1 0 0;
-    color: #333;
+  @media (max-width: 600px) {
+    padding: 70px 0 10px 0;
   }
+`;
+
+export const MainTitleContainer = styled.h1`
+  position: absolute;
+  top: 10px;
+  left: 0;
+  font-size: 30px;
+  color: #555;
 `;

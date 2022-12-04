@@ -34,6 +34,10 @@ export const ListContainer = styled.div`
   overflow: hidden;
   height: 100%;
   z-index: 3;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const ItemList = styled.div`
@@ -44,6 +48,7 @@ export const ItemList = styled.div`
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(10px);
   padding: 5px;
   gap: 5px;
   z-index: 5;

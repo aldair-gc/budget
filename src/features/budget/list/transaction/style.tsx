@@ -55,6 +55,9 @@ export const TransactionContainer = styled.div`
     flex: 1 0 auto;
   }
 
+  :has(.atention) { background: rgba(250,150,150,0.6); }
+  :has(.danger) { background: rgba(250,250,150,0.6); }
+
   .description:disabled, .value:disabled, .expiration_day:disabled {
     background: none;
     border: none;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const YearMonthPickerContainer = styled.div`
   position: relative;
-  flex: 0 0 auto;
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -69,10 +68,8 @@ export const PickerFrontGlass = styled.div`
 
 export const SideButtons = styled.div`
   display: flex;
-  align-items: start;
   justify-content: center;
   height: 100%;
-  flex: 1 0 auto;
   flex-direction: column;
   gap: 5px;
   z-index: 211;
@@ -88,33 +85,12 @@ export const SideButtons = styled.div`
     color: #555;
     font-size: 15px;
     background: #fff;
-  }
 
-  button:hover {color: #777; }
-  button:active {color: #999; }
-`;
-
-export const ResetButtons = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  height: 100%;
-  flex: 1 0 auto;
-  flex-direction: column;
-  gap: 5px;
-  z-index: 211;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border: 0px solid #555;
-    border-radius: 50%;
-    color: #555;
-    font-size: 15px;
-    background: #fff;
+    @media (max-width: 600px) {
+      font-size: 25px;
+      width: 35px;
+      height: 35px;
+    }
   }
 
   button:hover {color: #777; }

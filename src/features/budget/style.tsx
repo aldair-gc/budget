@@ -12,4 +12,8 @@ export const BudgetListsContainer = styled.div`
   height: 100%;
   gap: 10px;
   flex: 1 1 auto;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;

@@ -49,25 +49,39 @@ export const LineGraph = styled.div`
 `;
 
 export const TotalsEstimation = styled.div`
+  position: relative;
   display: flex;
+  flex-direction: column;
+  gap: 5px;
   align-items: center;
   justify-content: space-between;
   background: #eee;
-  height: 50px;
+  height: 75px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
   flex: 1 0 0;
-`;
 
-export const CurrentBalance = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #eee;
-  height: 50px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
-  flex: 1 0 0;
+  h3 {
+    @media (max-width: 600px) {
+      font-size: 14px;
+      z-index: 2;
+    }
+  }
+
+  h2 {
+    @media (max-width: 600px) {
+      font-size: 16px;
+      z-index: 2;
+    }
+  }
+  svg {
+    @media (max-width: 600px) {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      color: #ccc;
+      z-index: 1;
+    }
+  }
 `;
