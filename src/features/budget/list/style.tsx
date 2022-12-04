@@ -33,6 +33,7 @@ export const ListContainer = styled.div`
   border-radius: 10px;
   overflow: hidden;
   height: 100%;
+  z-index: 3;
 `;
 
 export const ItemList = styled.div`

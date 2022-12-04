@@ -27,22 +27,22 @@ export default class BudgetList extends Component<Props, State> {
 
   sorter(list: TransactionInterface[], type: string) {
     switch (type) {
-    case "none": return this.props.list; break;
-    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day); break;
-    case "value-1": return list.sort((a,b) => +a.value - +b.value); break;
+    case "none": return list;
+    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
+    case "value-1": return list.sort((a,b) => +a.value - +b.value);
     case "description-A": return list.sort((a,b) => {
       if (a.description < b.description) return -1;
       if (a.description > b.description) return 1;
       return 0;
-    }); break;
-    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day); break;
-    case "value-9": return list.sort((a,b) => +b.value - +a.value); break;
+    });
+    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
+    case "value-9": return list.sort((a,b) => +b.value - +a.value);
     case "description-Z": return list.sort((a,b) => {
       if (b.description < a.description) return -1;
       if (b.description > a.description) return 1;
       return 0;
-    }); break;
-    default: return this.props.list;
+    });
+    default: return list;
     }
   }
 
@@ -55,7 +55,9 @@ export default class BudgetList extends Component<Props, State> {
   }
 
   render() {
-    const list = this.sorter(this.props.list, this.state.sorter);
+    const originalList = this.props.list;
+    const sortedList = this.sorter([...this.props.list], this.state.sorter);
+    const list = this.state.sorter === "none" ? originalList : sortedList;
     return (
       <ListContainer className="budget-list-container">
         <ListTitle

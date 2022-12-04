@@ -7,12 +7,13 @@ TO DO
 - add dark model
 - add support for mobile
 - make point of equilibrium graph
+- call attention to expiration
+- ecrypt user data
 
 FIX
 - build directory
 - validade user input before submiting
 - check sort > create bug
-- sort back
 
 READ ABOUT:
 - bind

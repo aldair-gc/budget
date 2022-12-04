@@ -47,6 +47,18 @@ export default function Budget() {
     isLoggedIn ? getData() : dispatch(authLogout());
   }, [yearMonth, isLoggedIn]);
 
+  async function getLastMonthsBalance(): Promise<number> {
+    const prevMonth = yearMonth.month === 1 ? 12 : yearMonth.month - 1;
+    const prevYear = yearMonth.month === 1 ? yearMonth.year - 1 : yearMonth.year;
+    const requestList = await axios.get(`/transaction/${prevYear}/${prevMonth}`);
+    if (requestList.status !== 200) return 0;
+    const lastMonthList = requestList.data as TransactionInterface[];
+
+    const incomeDone = lastMonthList.reduce((sum, item) => sum += ((item.type === "income") && (item.status === "done")) ? +item.value : 0, 0);
+    const expenditureDone = lastMonthList.reduce((sum, item) => sum += ((item.type === "expenditure") && (item.status === "done")) ? +item.value : 0, 0);
+    return incomeDone - expenditureDone;
+  }
+
   return (
     <BudgetContainer>
       <MainHeader yearMonth={yearMonth} setYearMonth={setYearMonth}/>

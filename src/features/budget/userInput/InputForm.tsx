@@ -121,6 +121,7 @@ export default function InputForm(props: Props){
           value={expiration_day[1] || ""} min={0} max={31}
           onChange={(e) => setExpiration_day([expiration_day[0], (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0])}
         />
+        <label htmlFor="expiration-day"> </label>
       </Option>
 
       <Option style={{display: status[0] ? "none" : "flex"}}>
@@ -155,10 +156,11 @@ export default function InputForm(props: Props){
       </Option>
 
       <Option style={{display: repeat[0] ? "none" : "flex"}}>
-        <label htmlFor="repeat">Repeat:</label>
+        <label htmlFor="repeat">Repeat for:</label>
         <input type="number" name="repeat" id="repeat" min={1} max={24} autoComplete="off"
           onChange={(e) => setRepeat([repeat[0], `0-1-${e.target.value || 0}`])}
           value={parseInt(repeat[1].split("-")[2]) || ""} />
+        <label htmlFor="repeat">month(s)</label>
       </Option>
 
       <Buttons>

@@ -10,11 +10,12 @@ export const InputTitles = styled.div`
   padding: 5px 10px;
   font-size: 16px;
   background: rgba(0,0,0,0.3);
-  z-index: 5;
+  z-index: 6;
 
   h2 {
     font-size: 18px;
     font-weight: 500;
+    text-transform: capitalize;
   }
 
   .title-icons {
@@ -34,7 +35,7 @@ export const InputTitles = styled.div`
 export const SortContainer = styled.div`
 position: absolute;
 top: 100%;
-right: 0;
+right: 5px;;
 display: none;
 flex-direction: column;
 background: rgba(255,255,255,0.6);
@@ -45,7 +46,7 @@ padding: 5px;
 min-width: 100px;
 min-height: 10px;
 box-shadow: 0 0 10px rgba(0,0,0,0.5);
-z-index: 50;
+z-index: 7;
 `;
 
 export const SortOption = styled.button`
