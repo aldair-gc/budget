@@ -95,6 +95,7 @@ export default function Budget() {
           setUserInput={setUserInput}
           showSorter={showSorter}
           changeShowSorter={setShowSorter}
+          lastMonthBalance={lastMonthBalance}
         />
         <BudgetList
           list={expenditureList}
@@ -106,6 +107,7 @@ export default function Budget() {
           setUserInput={setUserInput}
           showSorter={showSorter}
           changeShowSorter={setShowSorter}
+          lastMonthBalance={lastMonthBalance}
         />
       </BudgetListsContainer>
 

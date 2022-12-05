@@ -29,6 +29,8 @@ export const ListInputContainer = styled.div`
 
 export const ListContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 50%;
   border-radius: 10px;
   overflow: hidden;
@@ -41,10 +43,11 @@ export const ListContainer = styled.div`
 `;
 
 export const ItemList = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
+  flex: 0 1 auto;
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);

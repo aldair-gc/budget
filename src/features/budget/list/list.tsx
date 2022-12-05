@@ -5,6 +5,7 @@ import Transaction from "./transaction/Transaction";
 import { Component } from "react";
 import ListTitle from "./title/ListTitle";
 import InputForm from "../userInput/InputForm";
+import TotalsLine from "../totals/TotalsLine";
 
 export default class BudgetList extends Component<Props, State> {
   constructor(props: Props) {
@@ -111,6 +112,8 @@ export default class BudgetList extends Component<Props, State> {
             background: this.props.type === "income" ? "#add" : "#adf"
           }}
         />
+
+        <TotalsLine list={this.props.list} lastMonthBalance={this.props.lastMonthBalance}/>
       </ListContainer>
     );
   }
@@ -126,6 +129,7 @@ interface Props {
   setUserInput: (userInput: number) => void,
   showSorter: ShowType,
   changeShowSorter: (showType: ShowType) => void,
+  lastMonthBalance: number,
 }
 
 interface State {
