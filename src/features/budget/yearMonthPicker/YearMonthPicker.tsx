@@ -61,18 +61,18 @@ export default class YearMonthPicker extends Component<Props> {
             padding: `calc((${height} - 20px) / 2) 0`,
           }}>
 
-          <p>January</p>
-          <p>February</p>
-          <p>March</p>
-          <p>April</p>
-          <p>May</p>
-          <p>June</p>
-          <p>July</p>
-          <p>August</p>
-          <p>September</p>
-          <p>October</p>
-          <p>November</p>
-          <p>December</p>
+          <p>{window.screen.width >= 600 ? "January" : "JAN"}</p>
+          <p>{window.screen.width >= 600 ? "February" : "FEB"}</p>
+          <p>{window.screen.width >= 600 ? "March" : "MAR"}</p>
+          <p>{window.screen.width >= 600 ? "April" : "APR"}</p>
+          <p>{window.screen.width >= 600 ? "May" : "MAY"}</p>
+          <p>{window.screen.width >= 600 ? "June" : "JUN"}</p>
+          <p>{window.screen.width >= 600 ? "July" : "JUL"}</p>
+          <p>{window.screen.width >= 600 ? "August" : "AUG"}</p>
+          <p>{window.screen.width >= 600 ? "September" : "SEP"}</p>
+          <p>{window.screen.width >= 600 ? "October" : "OCT"}</p>
+          <p>{window.screen.width >= 600 ? "November" : "NOV"}</p>
+          <p>{window.screen.width >= 600 ? "December" : "DEC"}</p>
         </div>
 
         <PickerGlassEffect style={{ right: "10px", width: "calc(50% - 15px)", height: this.props.height, }} />

@@ -87,9 +87,9 @@ export const SideButtons = styled.div`
     background: #fff;
 
     @media (max-width: 600px) {
-      font-size: 25px;
-      width: 35px;
-      height: 35px;
+      font-size: 20px;
+      width: 30px;
+      height: 30px;
     }
   }
 

@@ -16,7 +16,7 @@ export const Container = styled.div`
     @media (max-width: 600px) {
       height: 100vh;
       width: 100vw;
-      border-radius: -10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+      border-radius: 0;
+      padding: 10px;
     }
 `;

@@ -8,9 +8,9 @@ export const BudgetContainer = styled.div`
 
 export const BudgetListsContainer = styled.div`
   display: flex;
-  height: 100%;
+  height: 50%;
   gap: 10px;
-  flex: 0 1 auto;
+  flex: auto;
 
   @media (max-width: 600px) {
     flex-direction: column;

@@ -19,7 +19,7 @@ export default function MainHeader(props: Props) {
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
         height={"55px"}
-        width={"270px"}
+        width={window.screen.width >= 600 ? "270px" : "150px"}
         initialYear={2020}
         finalYear={2039}
       />

@@ -5,7 +5,7 @@ export const ItemContainer = styled.div`
   height: 28px;
   transition: all .3s;
   overflow: hidden;
-  flex: 0 0 auto;
+  flex: none;
 `;
 
 export const TransactionContainer = styled.div`

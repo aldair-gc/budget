@@ -119,4 +119,7 @@ export const UserButton = styled.div`
     background: #ccc;
   }
 
+  @media (max-width: 600px) {
+    top: 17px;
+  }
 `;

@@ -4,13 +4,14 @@ export const TotalsContainer = styled.div`
   display: flex;
   gap: 10px;
   padding-top: 10px;
+  flex: none;
 `;
 
 export const TotalsLineContainer = styled.div`
   position: relative;
   width: 100%;
   height: 30px;
-  flex: 0 0 auto;
+  flex: none;
   background: #ddd;
   border-radius: 5px;
   overflow: hidden;
@@ -31,6 +32,10 @@ export const TotalsNumbers = styled.div`
   border-radius: 10px;
   z-index: 2;
   color: #444;
+
+  p:first-child { width: 40%}
+  p:nth-child(2) { width: 20%; text-align: center; }
+  p:last-child { width: 40%; text-align: right; }
 `;
 
 export const LineGraph = styled.div`
@@ -49,27 +54,34 @@ export const TotalsEstimation = styled.div`
   gap: 5px;
   align-items: center;
   justify-content: center;
-  background: #ccc;
+  background: #ddd;
   height: 75px;
   padding: 5px;
   border-radius: 5px;
-  flex: 1 0 0;
+  flex: 0 1 33%;
 
   h3 {
     z-index: 2;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   h2 {
     z-index: 2;
-    font-size: 16px;
+    font-size: 22px;
+  }
+
+  @media (max-width: 600px) {
+    h3, h2 {
+      z-index: 2;
+      font-size: 16px;
+    }
   }
 
   svg {
     position: absolute;
     width: 80%;
     height: 80%;
-    color: #ddd;
+    color: #eee;
     z-index: 1;
   }
 `;

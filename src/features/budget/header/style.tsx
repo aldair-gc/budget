@@ -10,7 +10,7 @@ export const HeaderContainer = styled.div`
   margin-bottom: 10px;
 
   @media (max-width: 600px) {
-    padding: 70px 0 10px 0;
+    margin-bottom: 5px;
   }
 `;
 
@@ -20,4 +20,9 @@ export const MainTitleContainer = styled.h1`
   left: 0;
   font-size: 30px;
   color: #555;
+
+  @media (max-width: 600px) {
+    top: 19px;
+    font-size: 22px;
+  }
 `;
