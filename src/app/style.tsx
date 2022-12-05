@@ -11,6 +11,7 @@ export const Container = styled.div`
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    overflow: hidden;
 
     @media (max-width: 600px) {
       height: 100%;

@@ -28,6 +28,10 @@ export default createGlobalStyle`
   user-select: none;
 }
 
+input {
+  font-size: 16px;
+}
+
 body {
   position: relative;
   display: flex;

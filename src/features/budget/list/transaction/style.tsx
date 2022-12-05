@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled.div.attrs((props: {selected: boolean}) => props)`
   position: relative;
-  height: 28px;
+  height: ${(props) => props.selected ? "56px" : "28px"};
   transition: all .3s;
   overflow: hidden;
   flex: none;
+
+  @media (max-width: 600px) {
+    height: ${(props) => props.selected ? "72px" : "36px"};
+  }
 `;
 
 export const TransactionContainer = styled.div`
@@ -18,6 +22,18 @@ export const TransactionContainer = styled.div`
   height: 28px;
   min-height: 28px;
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    height: 36px;
+    min-height: 36px;
+  }
+
+  :has(input:checked) {
+    .description, .value, .expiration_day {
+      color: #666;
+      text-decoration-line: line-through;
+    }
+  }
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -55,9 +71,6 @@ export const TransactionContainer = styled.div`
     flex: 1 0 auto;
   }
 
-  :has(.atention) { background: rgba(250,150,150,0.6); }
-  :has(.danger) { background: rgba(250,250,150,0.6); }
-
   .description:disabled, .value:disabled, .expiration_day:disabled {
     background: none;
     border: none;
@@ -76,6 +89,10 @@ export const TransactionContainer = styled.div`
     width: 15px;
     flex: 0 0 auto;
     transition: all .3s;
+
+    @media (max-width: 600px) {
+      width: 18px;
+    }
   }
 `;
 
@@ -100,6 +117,10 @@ export const ButtonsContainer = styled.div`
   height: 28px;
   flex: 0 0 0;
 
+  @media (max-width: 600px) {
+    top: 36px;
+    height: 36px;
+  }
 
   button {
     display: flex;
@@ -116,5 +137,9 @@ export const ButtonsContainer = styled.div`
     :hover {
       background: #28d;
       color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 16px;
     }
 `;

@@ -49,6 +49,16 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     }
   }
 
+  highlight(): string {
+    const exp = this.props.item.expiration_day;
+    const today = new Date().getDate();
+    if (this.props.item.status !== "pending") return "";
+    if (exp === 0) return "";
+    if (exp <= today + 1) return "rgba(250,150,150,0.6)";
+    if ((exp > today) && (exp <= (today + 5))) return "rgba(250,250,150,0.6)";
+    return "";
+  }
+
   render() {
     const id = this.props.item.id ? this.props.item.id : 0;
     const description = this.state.description;
@@ -76,11 +86,10 @@ export default class Transaction extends Component<Props, BudgetItemState> {
       return Math.round((100 / total) * +value);
     };
 
-    const today = new Date().getDate();
-
     return (
-      <ItemContainer style={this.props.selection === id ? { height: "56px" } : {}}>
+      <ItemContainer selected={this.props.selection === id}>
         <TransactionContainer
+          style={{background: this.highlight()}}
           className={`budget-item item-id-${id} item-status-${this.props.item.status}`}>
           <input type="checkbox" id={id?.toString()} onChange={() => id && this.toggleStatus(id)} checked={this.props.item.status === "done"} />
 
@@ -97,11 +106,7 @@ export default class Transaction extends Component<Props, BudgetItemState> {
           />
 
           <input type="number"
-            className={`
-              expiration_day ${editing}
-              ${(this.props.item.status === "pending") && (expiration_day > (today + 5)) && (expiration_day < today + 10) ? " atention" : ""}
-              ${(this.props.item.status === "pending") && (expiration_day < (today + 5)) ? " danger" : ""}
-            `}
+            className={`expiration_day ${editing}`}
             value={expiration_day || ""} min={0} max={31}
             onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
             disabled={!(editing && selection === id)}

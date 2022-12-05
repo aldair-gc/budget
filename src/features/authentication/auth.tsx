@@ -1,8 +1,9 @@
 import { useAppSelector } from "../../app/hooks";
 import Login from "./login";
 import Register from "./register";
-import { Container, DoubleWideBox, Evidence } from "./style";
-import UserAccess from "./userAccess";
+import { Container, DoubleWideBox } from "./style";
+import UserAccess from "../userAccess/userAccess";
+import { LayerContainer } from "../../common/Layer/style";
 
 export default function Authentication() {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
@@ -19,13 +20,13 @@ export default function Authentication() {
   return isLoggedIn ? (
     <UserAccess/>
   ) : (
-    <Evidence>
+    <LayerContainer>
       <Container>
         <DoubleWideBox id="wide-box" >
           <Login position={changePosition}/>
           <Register position={changePosition}/>
         </DoubleWideBox>
       </Container>
-    </Evidence>
+    </LayerContainer>
   );
 }

@@ -1,26 +1,12 @@
 import styled from "styled-components";
 
-export const Evidence = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(10px);
-  z-index: 900;
-`;
-
 export const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 400px;
+  width: 350px;
+  height: 450px;
   box-shadow: 0 0 25px rgba(0,0,0,0.8);
   border-radius: 10px;
   overflow: hidden;
@@ -39,10 +25,8 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   width: 50%;
-  padding: 20px;
-
+  padding-bottom: 10px;
   form {
     display: flex;
     flex-direction: column;
@@ -50,76 +34,44 @@ export const InputContainer = styled.div`
     width: 80%;
   }
 
+  h2 { padding: 15px; }
+
   label {
     font-size: 13px;
   }
 
   input {
-    padding: 3px 5px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 5px;
   }
 
   input[type=submit] {
-    padding: 10px;
+    padding: 5px;
     width: 60%;
     margin: 10px auto;
+    background: #ddd;
+    color: #555;
   }
 
-  .input-message {
+  small {
     color: #a00;
     text-align: right;
     font-size: 13px;
+    height: 20px;
   }
 
-  h2 {
-    cursor: pointer;
-    font-size: 16px;
-  }
-`;
-
-export const UserButton = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  padding: 10px;
-  top: 20px;
-  right: 20px;
-  background: #aaa;
-  border-radius: 25px;
-  width: 50px;
-  height: 50px;
-  transition: all 0.3s;
-  gap: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
-  z-index: 500;
-
-  #user-icon {
-    font-size: 30px;
-    flex: 0 0 auto;
-    color: #333;
+  small:last-child {
+    position: absolute;
+    bottom: 5px;
+    text-align: center;
   }
 
   h3 {
-    text-align: center;
-    background: #fff;
-    padding: 5px;
-    border-radius: 5px;
+    position: absolute;
+    bottom: 30px;
     cursor: pointer;
-    font-size: 14px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-    color: #333;
-  }
-
-  h3:hover {
-    background: #ddd;
-  }
-
-  h3:active {
-    background: #ccc;
-  }
-
-  @media (max-width: 600px) {
-    top: 17px;
+    font-size: 16px;
+    color: #555;
   }
 `;

@@ -18,7 +18,7 @@ export default function MainHeader(props: Props) {
       <YearMonthPicker
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
-        height={"55px"}
+        height={"50px"}
         width={window.screen.width >= 600 ? "270px" : "150px"}
         initialYear={2020}
         finalYear={2039}

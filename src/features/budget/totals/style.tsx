@@ -9,6 +9,8 @@ export const TotalsContainer = styled.div`
 
 export const TotalsLineContainer = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 30px;
   flex: none;

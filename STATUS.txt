@@ -1,7 +1,6 @@
 TO DO
 - disable last month for months other then the next one ?
 - add loading ?
-- add support for mobile
 - add dark model
 - add support for undoing
 - add models
