@@ -10,7 +10,6 @@ TO DO
 - make user config to change name, pw and email
 
 FIX
-- build directory
 - validade user input before submiting
 - check sort > create bug
 
