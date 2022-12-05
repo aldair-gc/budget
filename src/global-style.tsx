@@ -14,6 +14,12 @@ export default createGlobalStyle`
   -webkit-text-size-adjust: 100%;
 }
 
+@media (max-width: 600px) {
+  #root {
+    height: 100%;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,10 +31,15 @@ export default createGlobalStyle`
 body {
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  justify-content: center;
+  height: 100vh;
   background: #aaa;
+
+  @media (max-width: 600px) {
+    background: #fff;
+    height: 100vh;
+  }
 }
 
 .hidden {

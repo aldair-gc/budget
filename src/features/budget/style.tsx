@@ -8,11 +8,12 @@ export const BudgetContainer = styled.div`
 
 export const BudgetListsContainer = styled.div`
   display: flex;
-  height: 50%;
+  height: 100%;
   gap: 10px;
-  flex: auto;
 
   @media (max-width: 600px) {
     flex-direction: column;
+    height: 50%;
+    flex: auto;
   }
 `;
