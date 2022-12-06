@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
-import Logo from "../../common/Logo/Logo";
+import { LoadingContext } from "../../app/App";
 import axios from "../../services/axios";
 import { InputContainer } from "../authentication/style";
 
-export default function Register(props: { position: (arg0: number) => void; }) {
+export default function UpdateUser() {
   const [name, setName] = useState({active: false, value: ""});
   const [email, setEmail] = useState({active: false, value: ""});
   const [password, setPassword] = useState({active: false, value: ""});
@@ -34,8 +34,7 @@ export default function Register(props: { position: (arg0: number) => void; }) {
     }
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(setLoading: (status: string) => void) {
     verify();
     if (msgName && msgEmail && msgPassword) {
       setResponse("Check the fields above and try again.");
@@ -47,51 +46,55 @@ export default function Register(props: { position: (arg0: number) => void; }) {
     password.active && Object.defineProperty(fieldsSelected, "password", password.value);
 
     if (name.active || email.active || password.active) try {
+      setLoading("loading");
       const registerRequest = await axios.put("/user", fieldsSelected);
       if (registerRequest.status === 200) {
-        //call message result
+        setLoading("success");
       } else {
-        //call message result
+        setLoading("failure");
       }
     } catch (error: any) {
+      setLoading("failure");
       const errors = error.response.data.errors ?? [];
       errors.map((err: any) => setResponse(err));
     }
   }
 
   return (
-    <InputContainer>
-      <Logo/>
-      <h2>Register</h2>
+    <LoadingContext.Consumer>
+      {({setStatus}) => (
+        <InputContainer>
+          <h2>Update</h2>
 
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name"
-          autoComplete="name" placeholder="Your Name" required
-          onChange={(e) => setName({active: true, value: e.target.value})}
-        />
-        <small>{msgName}</small>
+          <form>
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" id="name" value={name.value}
+              autoComplete="name" placeholder="Your Name"
+              onChange={(e) => setName({active: true, value: e.target.value})}
+            />
+            <small>{msgName}</small>
 
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"
-          autoComplete="email" placeholder="your@email.com" required
-          onChange={(e) => setEmail({active: true, value: e.target.value})}
-        />
-        <small>{msgEmail}</small>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" value={email.value}
+              autoComplete="email" placeholder="your@email.com"
+              onChange={(e) => setEmail({active: true, value: e.target.value})}
+            />
+            <small>{msgEmail}</small>
 
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password"
-          autoComplete="new-password" placeholder="*****" required
-          onChange={(e) => setPassword({active: true, value: e.target.value})}
-        />
-        <small>{msgPassword}</small>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" value={password.value}
+              autoComplete="new-password" placeholder="*****"
+              onChange={(e) => setPassword({active: true, value: e.target.value})}
+            />
+            <small>{msgPassword}</small>
 
-        <input type="submit" value="Create" />
+            <input type="submit" value="Create" onClick={() => handleSubmit(setStatus)} />
+          </form>
 
-      </form>
+          <small>{response}</small>
+        </InputContainer>
+      )}
+    </LoadingContext.Consumer>
 
-      <h3 onClick={() => props.position(1)}>Login registered user</h3>
-      <small>{response}</small>
-    </InputContainer>
   );
 }

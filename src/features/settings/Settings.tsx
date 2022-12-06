@@ -1,10 +1,13 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { WindowBodyContainer, WindowContainer, WindowHeaderContainer } from "../../common/commonStyles";
 import { LayerContainer } from "../../common/Layer/style";
 import { SettingsContainer } from "./style";
+import UpdateUser from "./UpdateUser";
+
+type SettingsTypes = "none" | "updateUser";
 
 export default function Settings(){
-  // const [selection, setSelection] = useState(0);
+  const [selection, setSelection] = useState("updateUser" as SettingsTypes);
 
   return (
     <LayerContainer>
@@ -19,6 +22,7 @@ export default function Settings(){
             <div>Edit user password</div>
             <div>Delete user account</div>
             <div>Download user data</div>
+            {selection === "updateUser" && <UpdateUser/>}
           </SettingsContainer>
         </WindowBodyContainer>
       </WindowContainer>

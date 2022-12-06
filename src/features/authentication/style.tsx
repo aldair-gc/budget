@@ -46,7 +46,7 @@ export const InputContainer = styled.div`
     padding: 5px;
   }
 
-  input[type=submit] {
+  input[type=submit], button {
     padding: 5px;
     width: 60%;
     margin: 10px auto;

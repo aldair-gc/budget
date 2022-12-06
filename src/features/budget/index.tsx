@@ -18,8 +18,8 @@ export default function Budget() {
   const [yearMonth, setYearMonth] = useState({year: new Date().getFullYear(), month: new Date().getMonth() + 1});
   const [incomeList, setIncomeList] = useState([] as TransactionInterface[]);
   const [expenditureList, setExpenditureList] = useState([] as TransactionInterface[]);
-  const [selection, setSelection] = useState(0);
-  const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open filfilled with its data.
+  const [selection, setSelection] = useState(0); // which transaction is selected
+  const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open fulfilled with its data.
   const [showSorter, setShowSorter] = useState("none" as "none" | "income" | "expenditure");
   const [lastMonthBalance, setLastMonthBalance] = useState(0);
 
