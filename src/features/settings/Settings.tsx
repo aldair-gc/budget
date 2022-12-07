@@ -19,7 +19,7 @@ export default function Settings(props: { close: () => void; }){
           </button>
           <h1>Settings</h1>
         </WindowHeaderContainer>
-        <WindowBodyContainer width={"350px"} height={"500px"}>
+        <WindowBodyContainer width={"350px"} height={"400px"}>
           <SettingsContainer>
             {selection === "none" &&
               <MenuContainer>

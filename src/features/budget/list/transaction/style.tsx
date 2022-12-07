@@ -22,6 +22,7 @@ export const TransactionContainer = styled.div`
   height: 28px;
   min-height: 28px;
   overflow: hidden;
+  color: #000;
 
   @media (max-width: 600px) {
     height: 36px;

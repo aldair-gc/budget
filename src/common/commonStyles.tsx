@@ -20,25 +20,33 @@ export const WindowContainer = styled.div`
 
 export const WindowHeaderContainer = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   border-bottom: 1px solid #aaa;
-  background: #fff;
-  text-align: center;
+  background: #eee;
+  height: 40px;
 
-  h1 {
-    font-size: 16px;
-    padding: 10px 0;
+  h1 { font-size: 18px; }
+
+  button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
   }
 
   svg {
-    position: absolute;
-    left: 5px;
-    top: 5px;
-    color: #a88;
+    color: #555;
+    width: 100%;
+    height: 100%;
 
-    :hover {
-      color: #a00;
-    }
+    :hover { color: #444; }
+    :active { color: #333; }
   }
 `;
 
