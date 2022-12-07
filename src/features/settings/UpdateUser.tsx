@@ -2,12 +2,15 @@
 import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { LoadingContext } from "../../app/App";
+import { useAppSelector } from "../../app/hooks";
 import axios from "../../services/axios";
 import { InputContainer } from "../authentication/style";
 
 export default function UpdateUser() {
-  const [name, setName] = useState({active: false, value: ""});
-  const [email, setEmail] = useState({active: false, value: ""});
+  const user = useAppSelector(state => state.auth.user);
+
+  const [name, setName] = useState({active: false, value: user.name});
+  const [email, setEmail] = useState({active: false, value: user.email});
   const [password, setPassword] = useState({active: false, value: ""});
   const [response, setResponse] = useState("");
   const [msgName, setMsgName] = useState("");
@@ -41,11 +44,12 @@ export default function UpdateUser() {
       return;
     }
     const fieldsSelected = {};
-    name.active && Object.defineProperty(fieldsSelected, "name", name.value);
-    email.active && Object.defineProperty(fieldsSelected, "email", email.value);
-    password.active && Object.defineProperty(fieldsSelected, "password", password.value);
+    name.active && Object.defineProperty(fieldsSelected, "name", { value: name.value });
+    email.active && Object.defineProperty(fieldsSelected, "email", { value: email.value });
+    password.active && Object.defineProperty(fieldsSelected, "password", { value: password.value });
 
     if (name.active || email.active || password.active) try {
+      console.log(fieldsSelected);
       setLoading("loading");
       const registerRequest = await axios.put("/user", fieldsSelected);
       if (registerRequest.status === 200) {
@@ -61,40 +65,63 @@ export default function UpdateUser() {
   }
 
   return (
-    <LoadingContext.Consumer>
-      {({setStatus}) => (
-        <InputContainer>
-          <h2>Update</h2>
+    <InputContainer>
+      <h2>Update</h2>
+      <p>Select what you want to update</p>
 
+      <LoadingContext.Consumer>
+        {({setStatus}) => (
           <form>
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" value={name.value}
-              autoComplete="name" placeholder="Your Name"
-              onChange={(e) => setName({active: true, value: e.target.value})}
-            />
+            <div className="select-if-update">
+              <input
+                type="checkbox" name="nameSelect" id="nameSelect" defaultChecked={name.active}
+                onChange={(e) => setName({active: e.target.checked, value: name.value})}
+              />
+
+              <input
+                type="text" name="name" id="name" value={name.value}
+                autoComplete="name" placeholder="Your Name" disabled={!name.active}
+                onChange={(e) => setName({active: true, value: e.target.value})}
+              />
+            </div>
             <small>{msgName}</small>
 
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" value={email.value}
-              autoComplete="email" placeholder="your@email.com"
-              onChange={(e) => setEmail({active: true, value: e.target.value})}
-            />
+            <div className="select-if-updade">
+              <input
+                type="checkbox" name="emailSelect" id="emailSelect" defaultChecked={email.active}
+                onChange={(e) => setEmail({active: e.target.checked, value: name.value})}
+              />
+              <input type="email" name="email" id="email" value={email.value}
+                autoComplete="email" placeholder="your@email.com" disabled={!email.active}
+                onChange={(e) => setEmail({active: true, value: e.target.value})}
+              />
+            </div>
             <small>{msgEmail}</small>
 
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" value={password.value}
-              autoComplete="new-password" placeholder="*****"
-              onChange={(e) => setPassword({active: true, value: e.target.value})}
-            />
+            <div className="update">
+              <input
+                type="checkbox" name="passwordSelect" id="passwordSelect" defaultChecked={password.active}
+                onChange={(e) => setPassword({active: e.target.checked, value: name.value})}
+              />
+              <input type="password" name="password" id="password" value={password.value}
+                autoComplete="new-password" placeholder="*****" disabled={!password.active}
+                onChange={(e) => setPassword({active: true, value: e.target.value})}
+              />
+            </div>
             <small>{msgPassword}</small>
 
-            <input type="submit" value="Create" onClick={() => handleSubmit(setStatus)} />
+            <input type="submit" value="Confirm" onClick={(e) => {
+              e.preventDefault();
+              handleSubmit(setStatus);
+            }} />
           </form>
+        )}
+      </LoadingContext.Consumer>
 
-          <small>{response}</small>
-        </InputContainer>
-      )}
-    </LoadingContext.Consumer>
-
+      <small>{response}</small>
+    </InputContainer>
   );
 }

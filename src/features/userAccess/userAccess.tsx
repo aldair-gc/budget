@@ -34,7 +34,7 @@ export default function UserAccess() {
         <FaUser id="user-icon"/>
       </UserButtonContainer>
 
-      {settings && <Settings/>}
+      {settings && <Settings close={() => setSettings(false)}/>}
     </UserContainer>
   );
 }

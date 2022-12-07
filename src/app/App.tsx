@@ -9,7 +9,6 @@ import { ThemeProvider } from "styled-components";
 import { light } from "../themes/light";
 import { createContext, useState } from "react";
 import Loading from "../common/Loading/Loading";
-import Settings from "../features/settings/Settings";
 
 export const MessageContext = createContext({type: "idle", message: "no description"});
 export const LoadingContext = createContext({status: "idle", setStatus: (status: string) => {status;} });
@@ -31,7 +30,6 @@ export default function App() {
                 <Authentication/>
                 <Budget/>
                 <Loading/>
-                <Settings/>
               </Container>
             </LoadingContext.Provider>
           </MessageContext.Provider>
