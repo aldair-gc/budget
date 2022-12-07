@@ -15,7 +15,6 @@ export const TotalsLineContainer = styled.div`
   height: 30px;
   flex: none;
   background: #ddd;
-  border-radius: 5px;
   overflow: hidden;
 `;
 
@@ -31,22 +30,12 @@ export const TotalsNumbers = styled.div`
   padding: 5px;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 10px;
   z-index: 2;
   color: #444;
 
   p:first-child { width: 40%}
   p:nth-child(2) { width: 20%; text-align: center; }
   p:last-child { width: 40%; text-align: right; }
-`;
-
-export const LineGraph = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  transition: all .3s;
-  z-index: 0;
 `;
 
 export const TotalsEstimation = styled.div`
