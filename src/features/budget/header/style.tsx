@@ -6,23 +6,17 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  min-height: 55px;
+  min-height: 50px;
   margin-bottom: 10px;
-
-  @media (max-width: 600px) {
-    margin-bottom: 5px;
-  }
+  flex: 0;
 `;
 
 export const MainTitleContainer = styled.h1`
-  position: absolute;
-  top: 10px;
-  left: 0;
   font-size: 30px;
   color: #555;
+  flex: 1;
 
   @media (max-width: 600px) {
-    top: 19px;
     font-size: 22px;
   }
 `;

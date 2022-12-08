@@ -4,7 +4,6 @@ export const YearMonthPickerContainer = styled.div`
   position: relative;
   display: flex;
   gap: 10px;
-  justify-content: center;
   background: #aaa;
   overflow: hidden;
   z-index: 200;
@@ -51,12 +50,12 @@ export const PickerGlassEffect = styled.div`
   top: 0;
   background: linear-gradient(to bottom,
     rgba(200,200,200,1) 0%,
-    rgba(200,200,200,0) calc(50% - 11px),
+    rgba(200,200,200,0.2) calc(50% - 11px),
     rgba(100,100,100,1) calc(50% - 10px),
     rgba(100,100,100,0) calc(50% - 9px),
     rgba(100,100,100,0) calc(50% + 9px),
     rgba(100,100,100,1) calc(50% + 10px),
-    rgba(200,200,200,0) calc(50% + 11px),
+    rgba(200,200,200,0.2) calc(50% + 11px),
     rgba(200,200,200,1) 100%);
 `;
 
@@ -80,9 +79,9 @@ export const SideButtons = styled.div`
     justify-content: center;
     width: 20px;
     height: 20px;
-    border: 0px solid #555;
+    border: none;
     border-radius: 50%;
-    color: #555;
+    color: #777;
     font-size: 15px;
     background: #fff;
 
@@ -93,6 +92,6 @@ export const SideButtons = styled.div`
     }
   }
 
-  button:hover {color: #777; }
+  button:hover {color: #888; }
   button:active {color: #999; }
 `;

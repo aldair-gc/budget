@@ -7,7 +7,8 @@ export const UserContainer = styled.div`
   right: 20px;
 
   @media (max-width: 600px) {
-    top: 17px;
+    top: 10px;
+    right: 10px;
   }
 `;
 
@@ -23,7 +24,7 @@ export const UserButtonContainer = styled.div`
   transition: all 0.3s;
   gap: 20px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset, 0 0 5px 3px #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
 
   #user-icon {
     font-size: 30px;

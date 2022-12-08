@@ -17,7 +17,7 @@ export default function UserAccess() {
     if (box.width !== "50px" && box.width !== "") {
       box.width = "50px";
     } else {
-      box.width = "300px";
+      box.width = "310px";
     }
   }
 

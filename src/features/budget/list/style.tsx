@@ -47,7 +47,7 @@ export const ItemList = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  flex: 0 1 auto;
+  flex: auto;
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);

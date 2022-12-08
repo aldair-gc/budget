@@ -28,6 +28,7 @@ export default function MainHeader(props: Props) {
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
       />
+      <MainTitleContainer/>
     </HeaderContainer>
   );
 }
