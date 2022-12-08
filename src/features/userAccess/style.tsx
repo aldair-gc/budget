@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const UserContainer = styled.div`
   position: absolute;
   z-index: 500;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
 
   @media (max-width: 600px) {
     top: 10px;

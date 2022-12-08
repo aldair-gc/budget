@@ -6,9 +6,6 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  min-height: 50px;
-  margin-bottom: 10px;
-  flex: 0;
 `;
 
 export const MainTitleContainer = styled.h1`

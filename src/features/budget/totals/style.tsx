@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const TotalsContainer = styled.div`
   display: flex;
   gap: 10px;
-  padding-top: 10px;
-  flex: none;
 `;
 
 export const TotalsLineContainer = styled.div`

@@ -32,13 +32,14 @@ export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
+  height: 100%;
   border-radius: 10px;
   overflow: hidden;
-  height: 100%;
   z-index: 3;
 
   @media (max-width: 600px) {
     width: 100%;
+    height: 100%;
   }
 `;
 
@@ -46,8 +47,7 @@ export const ItemList = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  height: 100%;
-  flex: auto;
+  height: 570px;
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);
@@ -55,6 +55,10 @@ export const ItemList = styled.div`
   padding: 5px;
   gap: 5px;
   z-index: 5;
+
+  @media (max-width: 600px) {
+    height: 100%;
+  }
 `;
 
 export const ListBackground = styled.div`
