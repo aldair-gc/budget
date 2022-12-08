@@ -31,13 +31,13 @@ export const YearMonthPickerContainer = styled.div`
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     transition: all .3s;
 
-
     p {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 20px;
       width: 100%;
+      color: #333;
     }
   }
 
@@ -50,14 +50,14 @@ export const PickerGlassEffect = styled.div`
   z-index: 202;
   top: 0;
   background: linear-gradient(to bottom,
-    rgba(200,200,200,1) 5%,
-    rgba(200,200,200,0) 28%,
-    rgba(50,50,50,1) 29%,
-    rgba(200,200,200,0) 30%,
-    rgba(200,200,200,0) 70%,
-    rgba(50,50,50,1) 71%,
-    rgba(200,200,200,0) 72%,
-    rgba(200,200,200,1) 95%);
+    rgba(200,200,200,1) 0%,
+    rgba(200,200,200,0) calc(50% - 11px),
+    rgba(100,100,100,1) calc(50% - 10px),
+    rgba(100,100,100,0) calc(50% - 9px),
+    rgba(100,100,100,0) calc(50% + 9px),
+    rgba(100,100,100,1) calc(50% + 10px),
+    rgba(200,200,200,0) calc(50% + 11px),
+    rgba(200,200,200,1) 100%);
 `;
 
 export const PickerFrontGlass = styled.div`
