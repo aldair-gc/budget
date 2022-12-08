@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     position: relative;
     width: 800px;
-    max-width: 100vw;
     height: 800px;
+    max-width: 100vw;
+    max-height: 100vh;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);

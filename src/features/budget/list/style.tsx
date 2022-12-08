@@ -31,9 +31,9 @@ export const ListContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   z-index: 3;
 
@@ -47,7 +47,7 @@ export const ItemList = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  height: 570px;
+  height: 100%;
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);

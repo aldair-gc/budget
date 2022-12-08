@@ -5,15 +5,16 @@ export const BudgetContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  height: inherit;
 `;
 
 export const BudgetListsContainer = styled.div`
   display: flex;
+  flex: auto;
   gap: 10px;
+  height: calc(100% - 150px);
 
   @media (max-width: 600px) {
     flex-direction: column;
-    height: 100%;
-    flex: 0 1 auto;
   }
 `;

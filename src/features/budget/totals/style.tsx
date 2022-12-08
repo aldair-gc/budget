@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const TotalsContainer = styled.div`
   display: flex;
+  flex: 0;
+  height: 100px;
   gap: 10px;
 `;
 
