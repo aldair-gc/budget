@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import axios from "../../services/axios";
-import { authLogout } from "../authentication/authSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import axios from "../services/axios";
+import { authLogout } from "../features/authentication/authSlice";
 import MainHeader from "./header/header";
 import { TransactionInterface } from "./interfaces";
 import BudgetList from "./list/list";

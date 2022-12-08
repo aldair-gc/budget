@@ -4,7 +4,7 @@ import { TransactionInterface } from "../../interfaces";
 import { TransactionContainer, ItemBackground, ItemContainer } from "./style";
 import Options from "./options";
 import { FaCaretDown } from "react-icons/fa";
-import axios from "../../../../services/axios";
+import axios from "../../../services/axios";
 import { brl } from "../../currency";
 
 export default class Transaction extends Component<Props, BudgetItemState> {

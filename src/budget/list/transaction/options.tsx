@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from "react";
 import { FaEdit, FaExclamationTriangle, FaRegClone, FaRegCopy, FaRegSave, FaRegSquare, FaRegTrashAlt, FaTimes } from "react-icons/fa";
-import axios from "../../../../services/axios";
+import axios from "../../../services/axios";
 import { SimpleTransaction, TransactionInterface } from "../../interfaces";
 import { ButtonsContainer } from "./style";
 

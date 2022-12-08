@@ -74,4 +74,31 @@ export const TotalsEstimation = styled.div`
     color: #eee;
     z-index: 1;
   }
+
+  :hover i { display: block; }
+
+  i {
+    position: absolute;
+    display: none;
+    bottom: calc(100% + 5px);
+    z-index: 5;
+    text-align: center;
+    background: #eea;
+    border: 2px dotted #555;
+    border-radius: 10px;
+    padding: 5px;
+
+    :after {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      bottom: -7px;
+      height: 10px;
+      width: 10px;
+      content: "";
+      background: #eea;
+      border-bottom: 2px dotted #555;
+      border-right: 2px dotted #555;
+    }
+  }
 `;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useEffect, useState } from "react";
-import axios from "../../../services/axios";
+import axios from "../../services/axios";
 import { TransactionInterface } from "../interfaces";
 import { OptionsForm, Option, Buttons } from "./style";
 

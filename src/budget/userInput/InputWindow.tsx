@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from "react";
-import { WindowContainer, WindowHeaderContainer, WindowBodyContainer } from "../../../common/commonStyles";
-import { LayerContainer } from "../../../common/Layer/style";
+import { WindowContainer, WindowHeaderContainer, WindowBodyContainer } from "../../common/commonStyles";
+import { LayerContainer } from "../../common/Layer/style";
 
 export default function InputWindow(props: Props) {
 

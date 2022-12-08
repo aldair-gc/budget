@@ -3,7 +3,7 @@ import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { Container } from "./style";
-import Budget from "../features/budget";
+import Budget from "../budget";
 import Authentication from "../features/authentication/auth";
 import { ThemeProvider } from "styled-components";
 import { light } from "../themes/light";
