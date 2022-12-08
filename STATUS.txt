@@ -5,7 +5,7 @@ TO DO
 - add support for undoing
 - add models
 - make point of equilibrium graph
-- ecrypt user data
+- encrypt user data
 
 FIX
 - validade user input before submiting
