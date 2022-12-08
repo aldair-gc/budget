@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const TotalsContainer = styled.div`
   display: flex;
   flex: 0;
-  height: 100px;
+  height: 50px;
   gap: 10px;
 `;
 
@@ -42,11 +42,10 @@ export const TotalsEstimation = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5px;
   align-items: center;
   justify-content: center;
   background: #ddd;
-  height: 75px;
+  height: 100%;
   padding: 5px;
   border-radius: 5px;
   flex: 0 1 33%;
@@ -58,7 +57,7 @@ export const TotalsEstimation = styled.div`
 
   h2 {
     z-index: 2;
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @media (max-width: 600px) {

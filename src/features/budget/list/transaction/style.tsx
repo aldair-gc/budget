@@ -15,6 +15,7 @@ export const ItemContainer = styled.div.attrs((props: {selected: boolean}) => pr
 export const TransactionContainer = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   gap: 5px;
   background: rgba(255,255,255,0.6);
   padding: 3px 5px;

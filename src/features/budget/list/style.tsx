@@ -36,11 +36,6 @@ export const ListContainer = styled.div`
   border-radius: 5px;
   overflow: hidden;
   z-index: 3;
-
-  @media (max-width: 600px) {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export const ItemList = styled.div`
@@ -55,10 +50,6 @@ export const ItemList = styled.div`
   padding: 5px;
   gap: 5px;
   z-index: 5;
-
-  @media (max-width: 600px) {
-    height: 100%;
-  }
 `;
 
 export const ListBackground = styled.div`

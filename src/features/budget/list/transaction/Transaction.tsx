@@ -99,7 +99,7 @@ export default class Transaction extends Component<Props, BudgetItemState> {
             disabled={!(editing && selection === id)}
           />
 
-          <input type="text" className={`value ${editing}`} min={0}
+          <input type="text" className={`value ${editing}`} min={0} inputMode="decimal"
             value={ editing ? value.toString().replace(",", "").replace(".", ",") : brl.format(+value)}
             onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
             disabled={!(editing && selection === id)}
@@ -107,7 +107,7 @@ export default class Transaction extends Component<Props, BudgetItemState> {
 
           <input type="number"
             className={`expiration_day ${editing}`}
-            value={expiration_day || ""} min={0} max={31}
+            value={expiration_day || ""} min={0} max={31} inputMode="numeric"
             onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
             disabled={!(editing && selection === id)}
           />

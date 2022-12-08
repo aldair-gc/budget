@@ -6,7 +6,6 @@ TO DO
 - add models
 - make point of equilibrium graph
 - ecrypt user data
-- make user config to change name, pw and email
 
 FIX
 - validade user input before submiting

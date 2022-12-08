@@ -109,7 +109,7 @@ export default function InputForm(props: Props){
 
       <Option style={{display: value[0] ? "none" : "flex"}}>
         <label htmlFor="value">Value:</label>
-        <input type="text" min={0}
+        <input type="text" min={0} inputMode="decimal"
           value={ value[1].toString().replace(",", "").replace(".", ",")}
           onChange={(e) => setValue([value[0], e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".")])}
         />
@@ -117,7 +117,7 @@ export default function InputForm(props: Props){
 
       <Option style={{display: expiration_day[0] ? "none" : "flex"}}>
         <label htmlFor="expiration-day">Expiration day:</label>
-        <input type="number"
+        <input type="number" inputMode="numeric"
           value={expiration_day[1] || ""} min={0} max={31}
           onChange={(e) => setExpiration_day([expiration_day[0], (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0])}
         />
@@ -145,19 +145,19 @@ export default function InputForm(props: Props){
 
       <Option style={{display: year[0] ? "none" : "flex"}}>
         <label htmlFor="year">Year:</label>
-        <input type="number" name="year" id="input-year" value={year[1] || ""}
+        <input type="number" name="year" id="input-year" value={year[1] || ""} inputMode="numeric"
           onChange={(e) => setYear([year[0], parseInt(e.target.value)])} />
       </Option>
 
       <Option style={{display: month[0] ? "none" : "flex"}}>
         <label htmlFor="month">Month:</label>
-        <input type="number" name="month" id="input-month" value={month[1] || ""}
+        <input type="number" name="month" id="input-month" value={month[1] || ""} inputMode="numeric"
           onChange={(e) => setMonth([month[0], parseInt(e.target.value)])} />
       </Option>
 
       <Option style={{display: repeat[0] ? "none" : "flex"}}>
         <label htmlFor="repeat">Repeat for:</label>
-        <input type="number" name="repeat" id="repeat" min={1} max={24} autoComplete="off"
+        <input type="number" name="repeat" id="repeat" min={1} max={24} autoComplete="off" inputMode="numeric"
           onChange={(e) => setRepeat([repeat[0], `0-1-${e.target.value || 0}`])}
           value={parseInt(repeat[1].split("-")[2]) || ""} />
         <label htmlFor="repeat">month(s)</label>
