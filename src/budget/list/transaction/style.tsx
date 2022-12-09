@@ -77,10 +77,13 @@ export const TransactionContainer = styled.div`
     background: none;
     border: none;
     color: #000;
+    -webkit-text-fill-color: #000;
+    -webkit-opacity: 1;
+    opacity: 1;
   }
 
   .description:enabled, .value:enabled, .expiration_day:enabled {
-    background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,0.5);
     border: none;
     color: #000;
   }
@@ -135,6 +138,7 @@ export const ButtonsContainer = styled.div`
     border-radius: 3px;
     padding: 4px 10px;
     flex: 0 0 auto;
+    color: #000;
 
     :hover {
       background: #28d;

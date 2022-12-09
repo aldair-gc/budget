@@ -147,7 +147,7 @@ export default class Options extends Component<Props, State> {
     } else if (this.props.deleting) {
       return (
         <ButtonsContainer>
-          <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)}>
+          <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)} style={{color: "#a00"}}>
             <FaExclamationTriangle/> Confirm to delete
           </button>
           <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
