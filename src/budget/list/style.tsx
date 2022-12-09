@@ -46,7 +46,7 @@ export const ItemList = styled.div`
   flex-direction: column;
   overflow-y: auto;
   background: rgba(0,0,0,0.2);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
   padding: 5px;
   gap: 5px;
   z-index: 5;

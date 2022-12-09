@@ -29,7 +29,6 @@ export const YearMonthPickerContainer = styled.div`
     overflow: auto;
     flex-direction: column;
     align-items: center;
-    background: #fff;
     z-index: 201;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     transition: all .3s;
@@ -51,7 +50,7 @@ export const YearMonthPickerContainer = styled.div`
       justify-content: center;
       height: 20px;
       width: 100%;
-      color: rgb(80,80,80);
+      color: rgba(0,0,0,0.8);
       scroll-snap-align: center;
       scroll-snap-stop: always;
     }
