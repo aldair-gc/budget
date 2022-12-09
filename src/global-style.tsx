@@ -39,6 +39,7 @@ body {
   justify-content: center;
   height: 100vh;
   background: #aaa;
+  touch-action: none;
 
   @media (max-width: 600px) {
     background: #fff;

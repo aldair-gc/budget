@@ -3,11 +3,14 @@ import styled from "styled-components";
 export const YearMonthPickerContainer = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
   background: #aaa;
-  overflow: hidden;
+  overflow: auto;
   z-index: 200;
   border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
 
   .border-effect {
     position: relative;
@@ -21,14 +24,26 @@ export const YearMonthPickerContainer = styled.div`
   }
 
   .year-picker, .month-picker {
-    position: absolute;
     display: flex;
+    height: 100%;
+    overflow: auto;
     flex-direction: column;
     align-items: center;
     background: #fff;
     z-index: 201;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     transition: all .3s;
+    scroll-snap-type: y mandatory;
+    background: linear-gradient(to bottom,
+      rgba(80,80,80,0.5) 0%,
+      rgba(255,255,255,1) calc(50% - 10px),
+      rgba(255,255,255,1) calc(50% + 10px),
+      rgba(80,80,80,0.5) 100%);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
 
     p {
       display: flex;
@@ -36,33 +51,11 @@ export const YearMonthPickerContainer = styled.div`
       justify-content: center;
       height: 20px;
       width: 100%;
-      color: #333;
+      color: rgb(80,80,80);
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
     }
   }
-
-  .year-picker { left: 10px; }
-  .month-picker { right: 10px; }
-`;
-
-export const PickerGlassEffect = styled.div`
-  position: absolute;
-  z-index: 202;
-  top: 0;
-  background: linear-gradient(to bottom,
-    rgba(200,200,200,1) 0%,
-    rgba(200,200,200,0.2) calc(50% - 11px),
-    rgba(100,100,100,1) calc(50% - 10px),
-    rgba(100,100,100,0) calc(50% - 9px),
-    rgba(100,100,100,0) calc(50% + 9px),
-    rgba(100,100,100,1) calc(50% + 10px),
-    rgba(200,200,200,0.2) calc(50% + 11px),
-    rgba(200,200,200,1) 100%);
-`;
-
-export const PickerFrontGlass = styled.div`
-  position: absolute;
-  z-index: 210;
-  top: 0;
 `;
 
 export const SideButtons = styled.div`
