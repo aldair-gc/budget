@@ -16,7 +16,8 @@ export const DoubleWideBox = styled.div`
   display: flex;
   min-width: 200%;
   height: 100%;
-  background: #fff;
+  color: ${props => props.theme.general.font};
+  background: ${props => props.theme.general.background};
   transform: translateX(0%);
   transition: all 0.3s;
 `;
@@ -41,7 +42,7 @@ export const InputContainer = styled.div`
   }
 
   input {
-    border: 1px solid #555;
+    border: 1px solid ${props => props.theme.input.border};
     border-radius: 5px;
     padding: 5px;
   }
@@ -50,8 +51,8 @@ export const InputContainer = styled.div`
     padding: 5px;
     width: 60%;
     margin: 10px auto;
-    background: #ddd;
-    color: #555;
+    color: ${props => props.theme.input.font};
+    background: ${props => props.theme.input.background};
   }
 
   small {
@@ -72,6 +73,6 @@ export const InputContainer = styled.div`
     bottom: 30px;
     cursor: pointer;
     font-size: 16px;
-    color: #555;
+    color: ${props => props.theme.general.fontStrong};
   }
 `;

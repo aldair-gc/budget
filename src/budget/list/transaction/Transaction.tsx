@@ -49,13 +49,23 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     }
   }
 
+  checkMonth(): "past" | "present" | "future" {
+    const realMonth = new Date().getFullYear() + ((new Date().getMonth() + 1) / 100);
+    const selectedMonth = this.props.item.year + (this.props.item.month / 100);
+    if (selectedMonth === realMonth) return "present";
+    if (selectedMonth > realMonth) return "future";
+    return "past";
+  }
+
   highlight(): string {
     const exp = this.props.item.expiration_day;
     const today = new Date().getDate();
+    if (this.checkMonth() === "future") return "";
+    if (this.checkMonth() === "past") return "danger";
     if (this.props.item.status !== "pending") return "";
     if (exp === 0) return "";
-    if (exp <= today + 1) return "rgba(250,150,150,0.6)";
-    if ((exp > today) && (exp <= (today + 5))) return "rgba(250,250,150,0.6)";
+    if (exp <= today + 1) return "danger";
+    if ((exp > today) && (exp <= (today + 5))) return "warning";
     return "";
   }
 
@@ -87,9 +97,9 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     };
 
     return (
-      <ItemContainer selected={this.props.selection === id}>
+      <ItemContainer selected={this.props.selection === id} style={{ opacity: this.props.loading ? 0 : 1 }}>
         <TransactionContainer
-          style={{background: this.highlight()}}
+          highlight={this.highlight()}
           className={`budget-item item-id-${id} item-status-${this.props.item.status}`}>
           <input type="checkbox" id={id?.toString()} onChange={() => id && this.toggleStatus(id)} checked={this.props.item.status === "done"} />
 
@@ -118,9 +128,8 @@ export default class Transaction extends Component<Props, BudgetItemState> {
             onClick={() => {setEditing(false); setDeleting(false); resetItem(); setSelection(id); }}
           />
 
-          <ItemBackground
-            className={`item-bg ${editing}`}
-            style={{ width: `${ selection === id ? 0 : listTotal()}%`, background: this.props.item.type === "income" ? "#34d" : "#d34"}} />
+          <ItemBackground type={this.props.item.type} width={selection === id ? 0 : listTotal()}
+            className={`item-bg ${editing}`}/>
         </TransactionContainer>
 
         <Options
@@ -147,6 +156,7 @@ interface Props {
   selection: number,
   setSelection: (selection: number) => void,
   setUserInput: (selection: number) => void,
+  loading: boolean,
 }
 
 interface BudgetItemState {

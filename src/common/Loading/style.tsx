@@ -6,26 +6,26 @@ export const LoadingLayer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0,0,0,0.3);
+  background: ${props => props.theme.general.layer};
   z-index: 900;
   transition: all .2s;
 `;
 
 export const LoadingContainer = styled.div`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  height: 70px;
-  width: 70px;
-  font-size: 70px;
-  background: #bbb;
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
   border-radius: 50%;
   overflow: hidden;
 `;
 export const LoadingIcon = styled.div`
   animation: 1s linear infinite step;
-  background: #bbb;
+  color: ${props => props.theme.general.loadingIcon};
 
   @keyframes step {
     from {transform: rotate(0deg)};
@@ -35,20 +35,18 @@ export const LoadingIcon = styled.div`
 
 export const SuccessIcon = styled.div`
   animation: 1s linear forwards color;
-  background: #bbb;
 
   @keyframes color {
-    from { color: #000; }
-    to { color: #3f3 }
+    from { color: ${props => props.theme.general.loadingIcon}; }
+    to { color: ${props => props.theme.general.loadingSuccess}; }
   }
 `;
 
 export const FailureIcon = styled.div`
   animation: 1s linear forwards color;
-  background: #bbb;
 
   @keyframes color {
-    from { color: #000; }
-    to { color: #f33 }
+    from { color: ${props => props.theme.general.loadingIcon}; }
+    to { color: ${props => props.theme.general.loadingFailure}; }
   }
 `;

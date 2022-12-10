@@ -6,7 +6,7 @@ export const Evidence = styled.div`
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0,0,0,0.1);
+  background: ${props => props.theme.general.layer};
   backdrop-filter: blur(5px);
   z-index: 50;
 `;
@@ -16,7 +16,7 @@ export const ListInputContainer = styled.div`
   top: 35px;
   left: 0;
   right: 0;
-  background: rgba(255,255,255,0.5);
+  background: ${props => props.theme.input.background};
   backdrop-filter: blur(10px);
   z-index: 200;
   transition: all 0.3s;
@@ -45,18 +45,25 @@ export const ItemList = styled.div`
   height: 100%;
   flex-direction: column;
   overflow-y: auto;
-  background: rgba(0,0,0,0.2);
+  background: ${props => props.theme.list.backgroundWeak};
   backdrop-filter: blur(2px);
   padding: 5px;
   gap: 5px;
   z-index: 5;
+  opacity: 1;
 `;
 
-export const ListBackground = styled.div`
+export const ListBackground = styled.div.attrs((props: {height: number, loading: boolean, type: string}) => props)`
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  top: 0;
   z-index: 2;
   transition: all .3s;
+  width: ${props => props.height}%;
+  background: ${props => props.loading ?
+    props.theme.general.background :
+    props.type === "income" ?
+      props.theme.income.hard :
+      props.theme.expenditure.hard};
 `;

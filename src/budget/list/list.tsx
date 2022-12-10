@@ -102,18 +102,21 @@ export default class BudgetList extends Component<Props, State> {
               list={this.props.list}
               setList={this.props.setList}
               setUserInput={this.props.setUserInput}
+              loading={this.props.loading}
             />
           )}
         </ItemList>
 
         <ListBackground
-          style={{
-            height: `${this.percentageDone(this.props.type)}%`,
-            background: this.props.type === "income" ? "#5fd" : "#5df"
-          }}
+          height={this.props.loading ? 100 : this.percentageDone(this.props.type)}
+          loading={this.props.loading}
+          type={this.props.type}
         />
 
-        <TotalsLine list={this.props.list} lastMonthBalance={this.props.lastMonthBalance}/>
+        <TotalsLine
+          list={this.props.loading ? [] : this.props.list}
+          lastMonthBalance={this.props.loading ? 0 : this.props.lastMonthBalance}
+        />
       </ListContainer>
     );
   }
@@ -130,6 +133,7 @@ interface Props {
   showSorter: ShowType,
   changeShowSorter: (showType: ShowType) => void,
   lastMonthBalance: number,
+  loading: boolean,
 }
 
 interface State {

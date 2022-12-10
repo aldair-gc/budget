@@ -23,6 +23,14 @@ export default function Settings(props: { close: () => void; }){
           <SettingsContainer>
             {selection === "none" &&
               <MenuContainer>
+                <div className="config-item">Theme:
+                  <div className="config-item-options">
+                    <input type="radio" name="theme" id="auto"/><label htmlFor="auto">auto</label>
+                    <input type="radio" name="theme" id="light"/><label htmlFor="light">light</label>
+                    <input type="radio" name="theme" id="dark"/><label htmlFor="dark">dark</label>
+                  </div>
+                </div>
+
                 <li onClick={() => setSelection("updateUser")}>Edit account</li>
                 <li onClick={() => setSelection("none")}>Delete account</li>
                 <li onClick={() => setSelection("none")}>Download data</li>

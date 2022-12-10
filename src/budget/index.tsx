@@ -22,6 +22,7 @@ export default function Budget() {
   const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open fulfilled with its data.
   const [showSorter, setShowSorter] = useState("none" as "none" | "income" | "expenditure");
   const [lastMonthBalance, setLastMonthBalance] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   function setList(type: "income" | "expenditure", list: TransactionInterface[]): void {
     type === "expenditure" && setExpenditureList(list);
@@ -31,24 +32,29 @@ export default function Budget() {
   useEffect(() => {
     async function getData(): Promise<void> {
       try {
+        setLoading(true);
+
         const getList = await axios.get(`/transaction/${yearMonth.year}/${yearMonth.month}`);
+
         if (getList.status === 200) {
           setIncomeList(((getList.data) as TransactionInterface[]).filter(item => item.type === "income"));
           setExpenditureList(((getList.data) as TransactionInterface[]).filter(item => item.type === "expenditure"));
+          setLoading(false);
         }
 
-        const prevMonth = yearMonth.month === 1 ? 12 : yearMonth.month - 1;
         const prevYear = yearMonth.month === 1 ? yearMonth.year - 1 : yearMonth.year;
+        const prevMonth = yearMonth.month === 1 ? 12 : yearMonth.month - 1;
         const requestList = await axios.get(`/transaction/${prevYear}/${prevMonth}`);
+
         if (requestList.status === 200) {
           const lastMonthList = requestList.data as TransactionInterface[];
-
-          const incomeDone = lastMonthList.reduce((sum, item) => sum += ((item.type === "income") && (item.status === "done")) ? +item.value : 0, 0);
-          const expenditureDone = lastMonthList.reduce((sum, item) => sum += ((item.type === "expenditure") && (item.status === "done")) ? +item.value : 0, 0);
+          const incomeDone = lastMonthList.reduce((sum, item) => sum += (item.type === "income") ? +item.value : 0, 0);
+          const expenditureDone = lastMonthList.reduce((sum, item) => sum += (item.type === "expenditure") ? +item.value : 0, 0);
           setLastMonthBalance(incomeDone - expenditureDone);
         }
 
       } catch (error: any) {
+        setLoading(false);
         if (error.response.status === 401) {
           dispatch(authLogout());
           delete axios.defaults.headers.common["Authorization"];
@@ -96,6 +102,7 @@ export default function Budget() {
           showSorter={showSorter}
           changeShowSorter={setShowSorter}
           lastMonthBalance={lastMonthBalance}
+          loading={loading}
         />
         <BudgetList
           list={expenditureList}
@@ -108,6 +115,7 @@ export default function Budget() {
           showSorter={showSorter}
           changeShowSorter={setShowSorter}
           lastMonthBalance={lastMonthBalance}
+          loading={loading}
         />
       </BudgetListsContainer>
 

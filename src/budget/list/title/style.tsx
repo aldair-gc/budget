@@ -9,13 +9,15 @@ export const InputTitles = styled.div`
   width: 100%;
   padding: 5px 10px;
   font-size: 16px;
-  background: rgba(0,0,0,0.3);
+  background: ${props => props.theme.list.backgroundInverse};
+  backdrop-filter: blur(20px);
   z-index: 6;
 
   h2 {
     font-size: 18px;
     font-weight: 500;
     text-transform: capitalize;
+    color: ${props => props.theme.general.fontStrong};
   }
 
   .title-icons {
@@ -27,8 +29,9 @@ export const InputTitles = styled.div`
     width: 25px;
     padding: 5px;
     transition: all .3s;
+    color: ${props => props.theme.general.fontStrong};
 
-    :hover { color: #eee }
+    :hover { color: ${props => props.theme.button.font}; }
   }
 `;
 
@@ -38,9 +41,9 @@ top: 100%;
 right: 5px;;
 display: none;
 flex-direction: column;
-background: rgba(255,255,255,0.6);
+background: ${props => props.theme.general.layer};
 backdrop-filter: blur(5px);
-border: 0;
+border: none;
 border-radius: 5px;
 padding: 5px;
 min-width: 100px;
@@ -60,9 +63,10 @@ export const SortOption = styled.button`
   padding: 4px 5px;
   background: none;
   font-size: 15px;
+  color: ${props => props.theme.general.font};
 
   :hover {
-    background: #28d;
-    color: #fff;
+    color: ${props => props.theme.general.fontInverse};
+    background: ${props => props.theme.general.backgroundInverse};
   }
 `;

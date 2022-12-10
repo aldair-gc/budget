@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
 
 export const MainTitleContainer = styled.h1`
   font-size: 30px;
-  color: #555;
+  color: ${props => props.theme.general.logo};
   flex: 1;
 
   @media (max-width: 600px) {

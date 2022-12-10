@@ -5,6 +5,7 @@ export const HelpContainer = styled.ul`
   height: 100%;
   h1 { font-size: 18px; }
   li {
-    background: #efe;
+    color: ${props => props.theme.general.font};
+    background: ${props => props.theme.general.backgroundWeak};
   }
 `;

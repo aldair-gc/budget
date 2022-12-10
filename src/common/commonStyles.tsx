@@ -8,7 +8,8 @@ export const WindowContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: #fff;
+  color: ${props => props.theme.general.font};
+  background: ${props => props.theme.general.background};
   border: 0;
   border-radius: 10px;
   min-width: 200px;
@@ -25,7 +26,8 @@ export const WindowHeaderContainer = styled.div`
   justify-content: center;
   width: 100%;
   border-bottom: 1px solid #aaa;
-  background: #eee;
+  color: ${props => props.theme.general.fontInverse};
+  background: ${props => props.theme.general.backgroundInverse};
   height: 40px;
 
   h1 { font-size: 18px; }
@@ -41,12 +43,11 @@ export const WindowHeaderContainer = styled.div`
   }
 
   svg {
-    color: #555;
+    color: ${props => props.theme.general.fontInverse};
     width: 100%;
     height: 100%;
 
-    :hover { color: #444; }
-    :active { color: #333; }
+    :hover { color: ${props => props.theme.general.backgroundStrong}; }
   }
 `;
 

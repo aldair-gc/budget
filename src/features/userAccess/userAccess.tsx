@@ -17,7 +17,7 @@ export default function UserAccess() {
     if (box.width !== "50px" && box.width !== "") {
       box.width = "50px";
     } else {
-      box.width = "310px";
+      box.width = window.screen.width < 600 ? "310px" : "250px";
     }
   }
 
@@ -29,9 +29,9 @@ export default function UserAccess() {
   return (
     <UserContainer>
       <UserButtonContainer id="user-access" onClick={() => toggleSize()}>
-        <h3 onClick={() => setOption("help")}>Help</h3>
-        <h3 onClick={() => setOption("settings")}>Settings</h3>
-        <h3 onClick={logout}>Logout</h3>
+        <button onClick={() => setOption("help")}>Help</button>
+        <button onClick={() => setOption("settings")}>Settings</button>
+        <button onClick={logout}>Logout</button>
         <FaUser id="user-icon"/>
       </UserButtonContainer>
 

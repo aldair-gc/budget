@@ -17,37 +17,43 @@ export const UserButtonContainer = styled.div`
   align-items: center;
   justify-content: end;
   padding: 10px;
-  background: #aaa;
+  background: ${props => props.theme.general.backgroundWeak};
   border-radius: 25px;
   width: 50px;
   height: 50px;
   transition: all 0.3s;
-  gap: 20px;
+  gap: 10px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+
+  @media (max-width: 600px) {
+    gap: 20px;
+  }
+
+  .opened {
+    width: 200px;
+    @media (max-width: 660px) { width: 310px; }
+  }
 
   #user-icon {
     font-size: 30px;
     flex: 0 0 auto;
-    color: #333;
+    color: ${props => props.theme.general.fontWeak};
   }
 
-  h3 {
+  button {
     text-align: center;
-    background: #fff;
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-    color: #333;
+    border: none;
+    color: ${props => props.theme.general.fontInverse};
+    background: ${props => props.theme.general.backgroundInverse};
+
+    :hover { background: ${props => props.theme.button.backgroundHover}; }
+    :active { background: ${props => props.theme.button.backgroundActive}; }
   }
 
-  h3:hover {
-    background: #ddd;
-  }
-
-  h3:active {
-    background: #ccc;
-  }
 `;

@@ -6,9 +6,9 @@ import { Container } from "./style";
 import Budget from "../budget";
 import Authentication from "../features/authentication/auth";
 import { ThemeProvider } from "styled-components";
-import { light } from "../themes/light";
 import { createContext, useState } from "react";
 import Loading from "../common/Loading/Loading";
+import { dark } from "../themes/dark";
 
 export const MessageContext = createContext({type: "idle", message: "no description"});
 export const LoadingContext = createContext({status: "idle", setStatus: (status: string) => {status;} });
@@ -23,7 +23,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={light}>
+        <ThemeProvider theme={dark}>
           <MessageContext.Provider value={{type: "idle", message: "no description"}}>
             <LoadingContext.Provider value={loading}>
               <Container>

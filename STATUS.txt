@@ -1,11 +1,11 @@
 TO DO
-- disable last month for months other then the next one ?
-- add loading ?
-- add dark model
+- fix light mode and setter
+- fix loading
 - add support for undoing
 - add models
 - make point of equilibrium graph
 - encrypt user data
+- vibrate and tone when scrolling the selector
 
 FIX
 - validade user input before submiting

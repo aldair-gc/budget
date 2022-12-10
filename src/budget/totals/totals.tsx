@@ -1,7 +1,6 @@
 import { TransactionInterface } from "../interfaces";
 import { TotalsContainer, TotalsEstimation } from "./style";
 import { brl } from "../currency";
-import { FaMoneyCheckAlt, FaWallet } from "react-icons/fa";
 
 export default function Totals(props: Props) {
 
@@ -16,24 +15,21 @@ export default function Totals(props: Props) {
 
   return (
     <TotalsContainer>
-      <TotalsEstimation>
-        <FaMoneyCheckAlt/>
+      <TotalsEstimation result={props.lastMonthBalance > 0}>
         <h3>Last Month</h3>
-        <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(props.lastMonthBalance)}</h2>
+        <h2>{brl.format(props.lastMonthBalance)}</h2>
         <i>This is what was left from last month.</i>
       </TotalsEstimation>
 
-      <TotalsEstimation>
-        <FaMoneyCheckAlt/>
+      <TotalsEstimation result={result() > 0}>
         <h3>Estimation</h3>
-        <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>{brl.format(result())}</h2>
+        <h2>{brl.format(result())}</h2>
         <i>This is the resulting balance of this month. (INCOMES - EXPENDITURES) </i>
       </TotalsEstimation>
 
-      <TotalsEstimation>
-        <FaWallet/>
+      <TotalsEstimation result={totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance > 0}>
         <h3>Balance</h3>
-        <h2 style={{ color: `${result() > 0 ? "#34a" : "#a34"}` }}>
+        <h2>
           {brl.format(totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance)}
         </h2>
         <i>This is the ammount of money you shoud have right now.</i>

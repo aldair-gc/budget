@@ -10,9 +10,13 @@ export default function Loading() {
       {({status}) => (
         <LoadingLayer style={{display: status !== "idle" ? "block" : "none"}}>
           <LoadingContainer>
-            {status === "loading" && <LoadingIcon><FaCircleNotch/></LoadingIcon>}
-            {status === "success" && <SuccessIcon><FaCheck/></SuccessIcon>}
-            {status === "failure" && <FailureIcon><FaTimes/></FailureIcon>}
+            <LoadingContext.Consumer>{({setStatus}) => (
+              <>
+                {status === "loading" && <LoadingIcon><FaCircleNotch/></LoadingIcon>}
+                {status === "success" && setTimeout(() => setStatus("idle"), 2000) && <SuccessIcon><FaCheck /></SuccessIcon>}
+                {status === "failure" && setTimeout(() => setStatus("idle"), 2000) && <FailureIcon><FaTimes/></FailureIcon>}
+              </>
+            )}</LoadingContext.Consumer>
           </LoadingContainer>
         </LoadingLayer>
       )}

@@ -2,12 +2,14 @@
 import { useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { LoadingContext } from "../../app/App";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "../../services/axios";
+import { authUpdate } from "../authentication/authSlice";
 import { InputContainer } from "./style";
 
 export default function UpdateUser() {
   const user = useAppSelector(state => state.auth.user);
+  const dispatch = useAppDispatch();
 
   const [name, setName] = useState({active: false, value: user.name});
   const [email, setEmail] = useState({active: false, value: user.email});
@@ -43,17 +45,19 @@ export default function UpdateUser() {
       setResponse("Check the fields above and try again.");
       return;
     }
-    const fieldsSelected = {};
-    name.active && Object.defineProperty(fieldsSelected, "name", { value: name.value });
-    email.active && Object.defineProperty(fieldsSelected, "email", { value: email.value });
-    password.active && Object.defineProperty(fieldsSelected, "password", { value: password.value });
+    const fieldsSelected = { name: name.value, email: email.value, password: password.value } as {name?: string, email?: string, password?: string};
+    name.active || delete fieldsSelected.name;
+    email.active || delete fieldsSelected.email;
+    password.active || delete fieldsSelected.password;
 
     if (name.active || email.active || password.active) try {
       console.log(fieldsSelected);
       setLoading("loading");
-      const registerRequest = await axios.put("/user", fieldsSelected);
-      if (registerRequest.status === 200) {
+      const updateRequest = await axios.put("/user", fieldsSelected);
+      if (updateRequest.status === 200) {
         setLoading("success");
+        dispatch(authUpdate(updateRequest.data));
+        console.log(updateRequest.data);
       } else {
         setLoading("failure");
       }
@@ -84,7 +88,7 @@ export default function UpdateUser() {
               autoComplete="name" placeholder="Your Name" disabled={!name.active}
               onChange={(e) => setName({active: true, value: e.target.value})}
             />
-            <small>{msgName}</small>
+            <small>{name.active && msgName}</small>
 
             <div className="select-if-update">
               <input
@@ -97,7 +101,7 @@ export default function UpdateUser() {
               autoComplete="email" placeholder="your@email.com" disabled={!email.active}
               onChange={(e) => setEmail({active: true, value: e.target.value})}
             />
-            <small>{msgEmail}</small>
+            <small>{email.active && msgEmail}</small>
 
             <div className="select-if-update">
               <input
@@ -110,7 +114,7 @@ export default function UpdateUser() {
               autoComplete="new-password" placeholder="*****" disabled={!password.active}
               onChange={(e) => setPassword({active: true, value: e.target.value})}
             />
-            <small>{msgPassword}</small>
+            <small>{password.active && msgPassword}</small>
 
             <input type="submit" value="Confirm" onClick={(e) => {
               e.preventDefault();

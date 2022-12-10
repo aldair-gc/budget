@@ -2,28 +2,32 @@ import styled from "styled-components";
 
 export const ItemContainer = styled.div.attrs((props: {selected: boolean}) => props)`
   position: relative;
-  height: ${(props) => props.selected ? "56px" : "28px"};
+  height: ${props => props.selected ? "56px" : "28px"};
   transition: all .3s;
   overflow: hidden;
   flex: none;
 
   @media (max-width: 600px) {
-    height: ${(props) => props.selected ? "72px" : "36px"};
+    height: ${props => props.selected ? "72px" : "36px"};
   }
 `;
 
-export const TransactionContainer = styled.div`
+export const TransactionContainer = styled.div.attrs((props: {highlight: string}) => props)`
   position: relative;
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255,255,255,0.6);
+  background: ${props => props.highlight === "danger"
+    ? props.theme.transaction.dangerBackground :
+    props.highlight === "warning" ?
+      props.theme.transaction.warningBackground:
+      props.theme.transaction.background};
   padding: 3px 5px;
   border-radius: 2px;
   height: 28px;
   min-height: 28px;
   overflow: hidden;
-  color: #000;
+  color: ${props => props.theme.transaction.font};
 
   @media (max-width: 600px) {
     height: 36px;
@@ -32,8 +36,8 @@ export const TransactionContainer = styled.div`
 
   :has(input:checked) {
     .description, .value, .expiration_day {
-      color: #666;
       text-decoration-line: line-through;
+      color: ${props => props.theme.general.fontInverse};
     }
   }
 
@@ -76,16 +80,15 @@ export const TransactionContainer = styled.div`
   .description:disabled, .value:disabled, .expiration_day:disabled {
     background: none;
     border: none;
-    color: #000;
-    -webkit-text-fill-color: #000;
+    -webkit-text-fill-color: ${props => props.theme.transaction.font};
     -webkit-opacity: 1;
     opacity: 1;
   }
 
   .description:enabled, .value:enabled, .expiration_day:enabled {
-    background: rgba(255,255,255,0.5);
+    background: rgba(${props => props.theme.transaction.backgroundEnabled});
     border: none;
-    color: #000;
+    border-bottom: 1px solid ${props => props.theme.input.borderFocus};
   }
 
   .item-opt-access {
@@ -101,13 +104,15 @@ export const TransactionContainer = styled.div`
   }
 `;
 
-export const ItemBackground = styled.div`
+export const ItemBackground = styled.div.attrs((props: {width: number, type: "income" | "expenditure"}) => props)`
   position: absolute;
   bottom: 0;
   right: 0;
+  width: ${props => props.width}%;
   left: 0;
   height: 3px;
   transition: all .3s;
+  background: ${props => props.type === "income" ? props.theme.income.soft : props.theme.expenditure.soft};
 `;
 
 export const ButtonsContainer = styled.div`
@@ -116,7 +121,7 @@ export const ButtonsContainer = styled.div`
   justify-content: center;
   top: 28px;
   gap: 5px;
-  background: rgba(255,255,255,0.3);
+  background: ${props => props.theme.transaction.buttonContainerBackground};
   border: 0;
   border-radius: 2px;
   height: 28px;
@@ -132,17 +137,16 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
-    background: rgba(255,255,255,0.7);
+    background: ${props => props.theme.transaction.buttonBackground};
     border: none;
     margin: 3px;
     border-radius: 3px;
     padding: 4px 10px;
     flex: 0 0 auto;
-    color: #000;
+    color: ${props => props.theme.general.fontInverse};
 
     :hover {
-      background: #28d;
-      color: #fff;
+      background: ${props => props.theme.transaction.buttonBackgroundHover};
     }
 
     @media (max-width: 600px) {

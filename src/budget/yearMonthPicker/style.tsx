@@ -6,7 +6,7 @@ export const YearMonthPickerContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: #aaa;
+  background: ${props => props.theme.general.background};
   overflow: auto;
   z-index: 200;
   border-radius: 10px;
@@ -34,10 +34,10 @@ export const YearMonthPickerContainer = styled.div`
     transition: all .3s;
     scroll-snap-type: y mandatory;
     background: linear-gradient(to bottom,
-      rgba(80,80,80,0.5) 0%,
-      rgba(255,255,255,1) calc(50% - 10px),
-      rgba(255,255,255,1) calc(50% + 10px),
-      rgba(80,80,80,0.5) 100%);
+      ${props => props.theme.picker.rollSides} 0%,
+      ${props => props.theme.picker.rollMiddle} calc(50% - 10px),
+      ${props => props.theme.picker.rollMiddle} calc(50% + 10px),
+      ${props => props.theme.picker.rollSides} 100%);
     -ms-overflow-style: none;
     scrollbar-width: none;
     ::-webkit-scrollbar {
@@ -50,7 +50,7 @@ export const YearMonthPickerContainer = styled.div`
       justify-content: center;
       height: 20px;
       width: 100%;
-      color: rgba(0,0,0,0.8);
+      color: ${props => props.theme.picker.font};
       scroll-snap-align: center;
       scroll-snap-stop: always;
     }
@@ -73,9 +73,9 @@ export const SideButtons = styled.div`
     height: 20px;
     border: none;
     border-radius: 50%;
-    color: #777;
+    color: ${props => props.theme.picker.button};
     font-size: 15px;
-    background: #fff;
+    background: rgba(0,0,0,0);
 
     @media (max-width: 600px) {
       font-size: 20px;
@@ -84,6 +84,6 @@ export const SideButtons = styled.div`
     }
   }
 
-  button:hover {color: #888; }
-  button:active {color: #999; }
+  button:hover {color: ${props => props.theme.picker.buttonHover}; }
+  button:active {color: ${props => props.theme.picker.buttonActive}; }
 `;

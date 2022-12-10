@@ -43,10 +43,14 @@ export const authSlice = createSlice({
       state.token = "";
       state.isLoggedIn = false;
       state.isLoading = false;
+    },
+    authUpdate: (state, actions: PayloadAction<{name?: string, email?: string}>) => {
+      if (actions.payload.name) state.user.name = actions.payload.name;
+      if (actions.payload.email) state.user.email = actions.payload.email;
     }
   }
 });
 
-export const { authRequest, authSuccess, authFailure, authLogout } = authSlice.actions;
+export const { authRequest, authSuccess, authFailure, authLogout, authUpdate } = authSlice.actions;
 export const selectAuth = (state: RootState) => state.auth;
 export const authReducer = authSlice.reducer;
