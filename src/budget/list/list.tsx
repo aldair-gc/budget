@@ -70,9 +70,8 @@ export default class BudgetList extends Component<Props, State> {
           toggleUserInput={this.toggleUserInput}
         />
 
-        <Evidence style={{
-          display: this.state.userInput === 0 ? "block" : "none",
-        }}/>
+        <Evidence style={{ display: this.state.userInput === 0 ? "block" : "none" }}/>
+
         <ListInputContainer style={{height: this.state.userInput === 0 ? "213px" : "0"}}>
           <InputForm
             userInput={this.state.userInput}

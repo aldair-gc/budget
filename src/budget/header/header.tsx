@@ -26,7 +26,7 @@ export default function MainHeader(props: Props) {
         height={"50px"}
         width={width}
         initialYear={2020}
-        finalYear={2039}
+        finalYear={2031}
       />
 
       <ButtonsYearMonth

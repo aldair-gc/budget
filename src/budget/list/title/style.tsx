@@ -38,18 +38,17 @@ export const InputTitles = styled.div`
 export const SortContainer = styled.div`
 position: absolute;
 top: 100%;
-right: 5px;;
+right: 5px;
 display: none;
 flex-direction: column;
-background: ${props => props.theme.general.layer};
-backdrop-filter: blur(5px);
 border: none;
 border-radius: 5px;
 padding: 5px;
 min-width: 100px;
 min-height: 10px;
 box-shadow: 0 0 10px rgba(0,0,0,0.5);
-z-index: 7;
+z-index: 10;
+background: ${props => props.theme.general.backgroundStrong};
 `;
 
 export const SortOption = styled.button`
@@ -60,10 +59,14 @@ export const SortOption = styled.button`
   width: 100%;
   border: 0;
   border-radius: 3px;
-  padding: 4px 5px;
+  padding: 5px;
   background: none;
   font-size: 15px;
   color: ${props => props.theme.general.font};
+
+  @media (max-width: 600px) {
+    padding: 10px 5px;
+  }
 
   :hover {
     color: ${props => props.theme.general.fontInverse};

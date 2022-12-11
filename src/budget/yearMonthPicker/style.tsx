@@ -24,38 +24,31 @@ export const YearMonthPickerContainer = styled.div`
   }
 
   .year-picker, .month-picker {
-    display: flex;
+    top: 0;
     height: 100%;
-    overflow: auto;
-    flex-direction: column;
+    overflow: hidden;
     align-items: center;
     z-index: 201;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
     transition: all .3s;
-    scroll-snap-type: y mandatory;
-    background: linear-gradient(to bottom,
-      ${props => props.theme.picker.rollSides} 0%,
-      ${props => props.theme.picker.rollMiddle} calc(50% - 10px),
-      ${props => props.theme.picker.rollMiddle} calc(50% + 10px),
-      ${props => props.theme.picker.rollSides} 100%);
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    perspective: 200px;
 
     p {
+      position: absolute;
+      top: 50%;
+      left: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 20px;
+      height: 22px;
       width: 100%;
+      backface-visibility: hidden;
       color: ${props => props.theme.picker.font};
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
+      // background: ${props => props.theme.general.backgroundWeak};
     }
   }
 `;
+
+// export const cylinderContainer = styled.div.attrs(({props: {}}))
 
 export const SideButtons = styled.div`
   display: flex;
