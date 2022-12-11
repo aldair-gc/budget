@@ -27,7 +27,7 @@ export const Option = styled.div`
 
   > input {
     width: 100%;
-    border: 1px solid #aaa;
+    border: 1px solid ${props => props.theme.input.border};
     padding: 2px 5px;
     color: ${props => props.theme.input.font};
     background: ${props => props.theme.input.background};
@@ -54,12 +54,12 @@ export const Buttons = styled.div`
   width: 100%;
 
   input {
-    background: ${props => props.theme.button.background};
-    color: ${props => props.theme.button.font};
     padding: 5px;
     min-width: 80px;
     border-radius: 5px;
-    border: 1px solid #555;
+    border: 1px solid ${props => props.theme.input.border};
+    color: ${props => props.theme.button.font};
+    background: ${props => props.theme.button.background};
 
     :hover {
       background: ${props => props.theme.button.backgroundHover};

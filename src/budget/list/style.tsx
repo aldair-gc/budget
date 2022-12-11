@@ -16,7 +16,7 @@ export const ListInputContainer = styled.div`
   top: 35px;
   left: 0;
   right: 0;
-  background: ${props => props.theme.input.background};
+  background: ${props => props.theme.general.background};
   backdrop-filter: blur(10px);
   z-index: 200;
   transition: all 0.3s;

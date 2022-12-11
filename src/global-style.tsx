@@ -38,7 +38,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #aaa;
+  background: #888;
   touch-action: none;
 
   @media (max-width: 600px) {

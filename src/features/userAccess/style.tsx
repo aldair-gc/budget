@@ -46,11 +46,11 @@ export const UserButtonContainer = styled.div`
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
     border: none;
-    color: ${props => props.theme.general.fontInverse};
-    background: ${props => props.theme.general.backgroundInverse};
+    color: ${props => props.theme.general.font};
+    background: ${props => props.theme.button.background};
 
     :hover { background: ${props => props.theme.button.backgroundHover}; }
     :active { background: ${props => props.theme.button.backgroundActive}; }

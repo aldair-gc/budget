@@ -9,7 +9,7 @@ export const WindowContainer = styled.div`
   flex-direction: column;
   gap: 5px;
   color: ${props => props.theme.general.font};
-  background: ${props => props.theme.general.background};
+  background: ${props => props.theme.general.backgroundStrong};
   border: 0;
   border-radius: 10px;
   min-width: 200px;
@@ -25,7 +25,7 @@ export const WindowHeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  border-bottom: 1px solid #aaa;
+  border: none;
   color: ${props => props.theme.general.fontInverse};
   background: ${props => props.theme.general.backgroundInverse};
   height: 40px;

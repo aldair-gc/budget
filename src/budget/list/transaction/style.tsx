@@ -137,13 +137,13 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 5px;
-    background: ${props => props.theme.transaction.buttonBackground};
     border: none;
     margin: 3px;
     border-radius: 3px;
     padding: 4px 10px;
     flex: 0 0 auto;
-    color: ${props => props.theme.general.fontInverse};
+    color: ${props => props.theme.transaction.font};
+    background: ${props => props.theme.transaction.buttonBackground};
 
     :hover {
       background: ${props => props.theme.transaction.buttonBackgroundHover};
