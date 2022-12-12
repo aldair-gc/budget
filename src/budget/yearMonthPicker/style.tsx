@@ -20,6 +20,8 @@ export const YearMonthPickerContainer = styled.div`
     z-index: 201;
     transition: all .3s;
     perspective: 80px;
+    -ms-perspective: 100px;
+    -webkit-perspective: 100px;
 
     p {
       position: absolute;
