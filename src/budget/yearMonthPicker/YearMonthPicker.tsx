@@ -8,7 +8,7 @@ export default class YearMonthPicker extends Component<Props, State> {
     this.setYearMonth = this.props.setYearMonth.bind(this);
     this.state = {
       yearTop: (this.props.yearMonth.year - this.props.initialYear) * 30,
-      monthTop: this.props.yearMonth.month * 30,
+      monthTop: (this.props.yearMonth.month - 1) * 30,
       monthChange: 0,
       yearChange: 0,
       picking: false,
@@ -18,52 +18,49 @@ export default class YearMonthPicker extends Component<Props, State> {
   componentDidMount(): void {
     const yearScroll = document.querySelector(".year-picker") as HTMLDivElement;
     const monthScroll = document.querySelector(".month-picker") as HTMLDivElement;
-    //   yearScroll.scrollTo({top: this.state.yearTop});
-    //   monthScroll.scrollTo({top: this.state.monthTop});
-    //   yearScroll.onscroll = () => {
-    //     if ((yearScroll.scrollTop / 20) % 1 === 0) {
-    //       this.setState({yearTop: yearScroll.scrollTop / 20});
-    //       this.props.setYearMonth({
-    //         year: this.props.initialYear + yearScroll.scrollTop / 20,
-    //         month: this.props.yearMonth.month
-    //       });
-    //     }
-    //   };
-    //   monthScroll.onscroll = () => {
-    //     if ((monthScroll.scrollTop / 20) % 1 === 0) {
-    //       this.setState({yearTop: monthScroll.scrollTop / 20 - 20});
-    //       this.props.setYearMonth({
-    //         year: this.props.yearMonth.year,
-    //         month: monthScroll.scrollTop / 20 + 1
-    //       });
-    //     }
-    //   };
-    monthScroll.addEventListener("touchstart", (eventTouch) => {
-      eventTouch.preventDefault();
-      this.setState({picking: true});
-      monthScroll.addEventListener("touchmove", (eventMove) => {
-        eventMove.preventDefault();
-        const moving = (eventTouch.touches[0].clientY - eventMove.touches[0].clientY);
-        this.setState({monthChange: moving});
-        monthScroll.addEventListener("touchend", (eventEnd) => {
-          eventEnd.preventDefault();
-          if (this.state.picking){
-            const monthsToSet = Math.round(this.state.monthChange / 30);
-            monthsToSet != 0 && this.setNewYearMonth(monthsToSet);
-            this.setState({monthChange: 0, picking: false});
-            console.log(this.state);
-            console.log(this.props);
-          } else {
-            eventEnd.stopImmediatePropagation();
-          }
-          this.setState({picking: false});
+
+    yearScroll.addEventListener("wheel", (eventWheel) => {
+      eventWheel.deltaY > 0 && this.setNewYearMonth(12);
+      eventWheel.deltaY < 0 && this.setNewYearMonth(-12);
+    });
+
+    monthScroll.addEventListener("wheel", (eventWheel) => {
+      eventWheel.deltaY > 0 && this.setNewYearMonth(1);
+      eventWheel.deltaY < 0 && this.setNewYearMonth(-1);
+    });
+
+    const addTouchAndScrool = (object: HTMLDivElement, yearOrMonth: "year" | "month"): void => {
+      object.addEventListener("touchstart", (eventTouch) => {
+        eventTouch.preventDefault();
+        this.setState({picking: true});
+        object.addEventListener("touchmove", (eventMove) => {
+          eventMove.preventDefault();
+          const moving = (eventTouch.touches[0].clientY - eventMove.touches[0].clientY);
+          yearOrMonth === "month" && this.setState({monthChange: moving});
+          yearOrMonth === "year" && this.setState({yearChange: moving});
+          object.addEventListener("touchend", (eventEnd) => {
+            eventEnd.preventDefault();
+            if (this.state.picking){
+              if (yearOrMonth === "month") this.setNewYearMonth(Math.round(this.state.monthChange / 30));
+              if (yearOrMonth === "year") {
+                this.setNewYearMonth(Math.round(this.state.yearChange / 30) * 12);
+              }
+              this.setState({monthChange: 0, yearChange: 0, picking: false});
+            } else {
+              eventEnd.stopImmediatePropagation();
+            }
+            this.setState({picking: false});
+          });
         });
       });
-    });
+    };
+
+    addTouchAndScrool(yearScroll, "year");
+    addTouchAndScrool(monthScroll, "month");
   }
 
   setNewYearMonth(change: number): void {
-    let yearDif = parseInt((change / 12).toFixed(0));
+    let yearDif = Math.sign(change) * Math.floor(Math.abs(change) / 12);
     let monthDif = (change % 12);
     if ((change > 0) && ((this.props.yearMonth.month + monthDif) > 12)) {
       yearDif++;
@@ -71,28 +68,15 @@ export default class YearMonthPicker extends Component<Props, State> {
     }
     if ((change < 0) && ((this.props.yearMonth.month + monthDif) < 1)) {
       yearDif--;
-      monthDif = 13 + monthDif;
+      monthDif = 12 + monthDif;
     }
     this.setYearMonth({
       year: this.props.yearMonth.year + yearDif,
       month: this.props.yearMonth.month + monthDif,
     });
-    this.setState({monthTop: this.state.monthTop + (monthDif * 30)});
-    console.log(yearDif, monthDif);
-  }
+    this.setState({monthTop: this.state.monthTop + (monthDif * 30), yearTop: this.state.yearTop + (yearDif * 30)});
 
-  // componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
-  // const yearScroll = document.querySelector(".year-picker") as HTMLDivElement;
-  // const monthScroll = document.querySelector(".month-picker") as HTMLDivElement;
-  // if (prevState.monthTop === this.state.monthTop && prevState.yearTop === this.state.yearTop) {
-  // if (prevProps.yearMonth.month !== this.props.yearMonth.month) {
-  //   this.setState({monthTop});
-  // }
-  // if (prevProps.yearMonth.year !== this.props.yearMonth.year) {
-  //   yearScroll.scrollTo({top: (this.props.yearMonth.year - this.props.initialYear) * 20});
-  // }
-  // }
-  // }
+  }
 
   setYearMonth(yearMonth: {year: number, month: number}): void {
     this.props.setYearMonth(yearMonth);
@@ -109,17 +93,16 @@ export default class YearMonthPicker extends Component<Props, State> {
     const yearChange = this.state.yearChange;
 
     function makeYearList() {
-      const quant = finalYear - initialYear;
       const yearList: JSX.Element[] = [];
-      for(let i = 0; i <= quant; i++) {
-        yearList.push(<p key={i} style={cylinder(i + 1, quant, yearTop, yearChange)}>{initialYear + i}</p>);
+      for(let i = initialYear; i <= finalYear; i++) {
+        yearList.push(<p key={i} style={cylinder(i - initialYear + 1, finalYear - initialYear + 1, yearTop, yearChange)}>{i}</p>);
       }
       return yearList;
     }
 
     function cylinder(part: number, total: number, top: number, topChange: number) {
       return {
-        transform: `rotateX(${(-(360 / total) * part) + top + topChange}deg) translateY(-50%)`,
+        transform: `rotateX(${(-(360 / total) * (part - 1)) + top + topChange}deg) translateY(-50%)`,
         transformOrigin: "0 0 -38px",
       };
     }
@@ -128,21 +111,11 @@ export default class YearMonthPicker extends Component<Props, State> {
 
     return (
       <YearMonthPickerContainer style={{width, height}}>
-        <div className="year-picker"
-          style={{
-            width: `calc((${width} / 2) - 15px)`,
-            padding: `calc((${height} - 20px) / 2) 0`,
-          }}>
-
+        <div className="year-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
           {makeYearList()}
         </div>
 
-        <div className="month-picker"
-          style={{
-            width: `calc((${width} / 2) - 15px)`,
-            padding: `calc((${height} - 20px) / 2) 0`,
-          }}>
-
+        <div className="month-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
           <p style={cylinder(1, 12, monthTop, monthChange)}>{largeScreen ? "January" : "JAN"}</p>
           <p style={cylinder(2, 12, monthTop, monthChange)}>{largeScreen ? "February" : "FEB"}</p>
           <p style={cylinder(3, 12, monthTop, monthChange)}>{largeScreen ? "March" : "MAR"}</p>

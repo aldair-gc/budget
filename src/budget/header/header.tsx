@@ -16,9 +16,9 @@ export default function MainHeader(props: Props) {
         Budget
       </MainTitleContainer>
 
-      <ResetButton
+      {/* <ResetButton
         setYearMonth={props.setYearMonth}
-      />
+      /> */}
 
       <YearMonthPicker
         yearMonth={props.yearMonth}
@@ -29,10 +29,10 @@ export default function MainHeader(props: Props) {
         finalYear={2031}
       />
 
-      <ButtonsYearMonth
+      {/* <ButtonsYearMonth
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
-      />
+      /> */}
       <MainTitleContainer/>
     </HeaderContainer>
   );

@@ -7,27 +7,13 @@ export const YearMonthPickerContainer = styled.div`
   justify-content: center;
   gap: 10px;
   background: ${props => props.theme.general.background};
-  overflow: auto;
   z-index: 200;
   border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
-
-  .border-effect {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
-    z-index: 204;
-  }
+  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
 
   .year-picker, .month-picker {
-    top: 0;
     height: 100%;
     overflow: hidden;
-    align-items: center;
     z-index: 201;
     transition: all .3s;
     perspective: 200px;
@@ -35,11 +21,10 @@ export const YearMonthPickerContainer = styled.div`
     p {
       position: absolute;
       top: 50%;
-      left: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 22px;
+      height: 20px;
       width: 100%;
       backface-visibility: hidden;
       color: ${props => props.theme.picker.font};

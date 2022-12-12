@@ -39,6 +39,7 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string}
       text-decoration-line: line-through;
       color: ${props => props.theme.general.fontInverse};
     }
+    background: ${props => props.theme.transaction.background};
   }
 
   input::-webkit-outer-spin-button,
