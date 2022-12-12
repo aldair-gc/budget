@@ -52,7 +52,7 @@ export const dark = {
   picker: {
     rollSides: "rgba(255,255,255,0.2)",
     rollMiddle: "rgba(255,255,255,0.3)",
-    font: "rgba(255,255,255,0.8)",
+    font: "rgba(255,255,255,0.6)",
     button: "#ccc",
     buttonHover: "#ddd",
     buttonActive: "#fff",

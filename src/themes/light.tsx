@@ -52,7 +52,7 @@ export const light = {
   picker: {
     rollSides: "rgba(0,0,0,0.2)",
     rollMiddle: "rgba(0,0,0,0.1)",
-    font: "rgba(0,0,0,0.8)",
+    font: "rgba(0,0,0,0.6)",
     button: "#333",
     buttonHover: "#222",
     buttonActive: "#000",

@@ -38,8 +38,12 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: #888;
   touch-action: none;
+  background: #ccc;
+
+  @media (prefers-color-scheme: dark) {
+    background: #333;
+  }
 
   @media (max-width: 600px) {
     background: #fff;
