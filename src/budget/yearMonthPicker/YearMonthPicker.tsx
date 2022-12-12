@@ -19,6 +19,14 @@ export default class YearMonthPicker extends Component<Props, State> {
     const yearScroll = document.querySelector(".year-picker") as HTMLDivElement;
     const monthScroll = document.querySelector(".month-picker") as HTMLDivElement;
 
+    yearScroll.addEventListener("dblclick", () => {
+      resetPicker();
+    });
+
+    monthScroll.addEventListener("dblclick", () => {
+      resetPicker();
+    });
+
     yearScroll.addEventListener("wheel", (eventWheel) => {
       eventWheel.deltaY > 0 && this.setNewYearMonth(12);
       eventWheel.deltaY < 0 && this.setNewYearMonth(-12);
@@ -28,6 +36,11 @@ export default class YearMonthPicker extends Component<Props, State> {
       eventWheel.deltaY > 0 && this.setNewYearMonth(1);
       eventWheel.deltaY < 0 && this.setNewYearMonth(-1);
     });
+
+    const resetPicker = (): void => {
+      this.setYearMonth({ year: new Date().getFullYear(), month: new Date().getMonth() + 1 });
+      this.setState({monthTop: (this.props.yearMonth.month - 1) * 30, yearTop: (this.props.yearMonth.year - this.props.initialYear) * 30});
+    };
 
     const addTouchAndScrool = (object: HTMLDivElement, yearOrMonth: "year" | "month"): void => {
       object.addEventListener("touchstart", (eventTouch) => {

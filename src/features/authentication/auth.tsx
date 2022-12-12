@@ -1,9 +1,10 @@
 import { useAppSelector } from "../../app/hooks";
 import Login from "./login";
 import Register from "./register";
-import { Container, DoubleWideBox } from "./style";
+import { Container, DoubleWideBox, LogoContainer } from "./style";
 import UserAccess from "../userAccess/userAccess";
 import { LayerContainer } from "../../common/Layer/style";
+import Loading from "../../common/Loading/Loading";
 
 export default function Authentication() {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
@@ -22,6 +23,8 @@ export default function Authentication() {
   ) : (
     <LayerContainer>
       <Container>
+        <Loading/>
+        <LogoContainer>Budget</LogoContainer>
         <DoubleWideBox id="wide-box" >
           <Login position={changePosition}/>
           <Register position={changePosition}/>

@@ -15,11 +15,21 @@ export const Container = styled.div`
 export const DoubleWideBox = styled.div`
   display: flex;
   min-width: 200%;
-  height: 100%;
-  color: ${props => props.theme.general.font};
-  background: ${props => props.theme.general.background};
+  height: calc(100% - 50px);
   transform: translateX(0%);
   transition: all 0.3s;
+  color: ${props => props.theme.general.font};
+  background: ${props => props.theme.general.background};
+`;
+
+export const LogoContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  font-size: 26px;
+  font-weight: 600;
+  color: ${props => props.theme.general.fontInverse};
+  background: ${props => props.theme.general.backgroundInverse};
 `;
 
 export const InputContainer = styled.div`

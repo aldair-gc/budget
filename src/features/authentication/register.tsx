@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useState } from "react";
 import isEmail from "validator/lib/isEmail";
-import Logo from "../../common/Logo/Logo";
+import { LoadingContext } from "../../app/App";
 import axios from "../../services/axios";
 import { InputContainer } from "./style";
 
@@ -34,7 +34,7 @@ export default function Register(props: { position: (arg0: number) => void; }) {
     }
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>, setStatus: (status: "idle" | "loading" | "success" | "failure") => void) {
     e.preventDefault();
     verify();
     if (msgName && msgEmail && msgPassword) {
@@ -43,51 +43,58 @@ export default function Register(props: { position: (arg0: number) => void; }) {
     }
 
     try {
+      setStatus("loading");
       const registerRequest = await axios.post("/user", { name, email, password });
       if (registerRequest.status === 200) {
         props.position(1);
+        setStatus("success");
       } else {
         setResponse("Please, try again");
+        setStatus("failure");
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
       errors.map((err: any) => setResponse(err));
+      setStatus("failure");
     }
   }
 
   return (
-    <InputContainer>
-      <Logo/>
-      <h2>Register</h2>
+    <LoadingContext.Consumer>
+      {({setStatus}) => (
+        <InputContainer>
+          <h2>Register</h2>
 
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name"
-          autoComplete="name" placeholder="Your Name" required
-          onChange={(e) => setName(e.target.value)}
-        />
-        <small>{msgName}</small>
+          <form onSubmit={(e) => handleSubmit(e, setStatus)}>
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" id="name"
+              autoComplete="name" placeholder="Your Name" required
+              onChange={(e) => setName(e.target.value)}
+            />
+            <small>{msgName}</small>
 
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email"
-          autoComplete="email" placeholder="your@email.com" required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <small>{msgEmail}</small>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email"
+              autoComplete="email" placeholder="your@email.com" required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <small>{msgEmail}</small>
 
-        <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password"
-          autoComplete="new-password" placeholder="*****" required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <small>{msgPassword}</small>
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password"
+              autoComplete="new-password" placeholder="*****" required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <small>{msgPassword}</small>
 
-        <input type="submit" value="Create" />
+            <input type="submit" value="Create" />
 
-      </form>
+          </form>
 
-      <h3 onClick={() => props.position(1)}>Login registered user</h3>
-      <small>{response}</small>
-    </InputContainer>
+          <h3 onClick={() => props.position(1)}>Login registered user</h3>
+          <small>{response}</small>
+        </InputContainer>
+      )}
+    </LoadingContext.Consumer>
   );
 }

@@ -1,8 +1,6 @@
 import YearMonthPicker from "../yearMonthPicker/YearMonthPicker";
 import { YearMonthInterface } from "../interfaces";
 import { HeaderContainer, MainTitleContainer } from "./style";
-import ButtonsYearMonth from "../yearMonthPicker/ButtonYearMonth";
-import ResetButton from "../yearMonthPicker/ResetButton";
 import { useState } from "react";
 
 export default function MainHeader(props: Props) {
@@ -16,10 +14,6 @@ export default function MainHeader(props: Props) {
         Budget
       </MainTitleContainer>
 
-      {/* <ResetButton
-        setYearMonth={props.setYearMonth}
-      /> */}
-
       <YearMonthPicker
         yearMonth={props.yearMonth}
         setYearMonth={props.setYearMonth}
@@ -29,10 +23,6 @@ export default function MainHeader(props: Props) {
         finalYear={2031}
       />
 
-      {/* <ButtonsYearMonth
-        yearMonth={props.yearMonth}
-        setYearMonth={props.setYearMonth}
-      /> */}
       <MainTitleContainer/>
     </HeaderContainer>
   );

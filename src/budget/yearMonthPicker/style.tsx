@@ -6,7 +6,10 @@ export const YearMonthPickerContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: ${props => props.theme.general.background};
+  background: linear-gradient(to bottom,
+    ${props => props.theme.picker.rollSides} 0%,
+    ${props => props.theme.picker.rollMiddle} 50%,
+    ${props => props.theme.picker.rollSides} 100%);
   z-index: 200;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
@@ -16,7 +19,7 @@ export const YearMonthPickerContainer = styled.div`
     overflow: hidden;
     z-index: 201;
     transition: all .3s;
-    perspective: 200px;
+    perspective: 80px;
 
     p {
       position: absolute;

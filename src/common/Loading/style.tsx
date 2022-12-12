@@ -34,7 +34,7 @@ export const LoadingIcon = styled.div`
 `;
 
 export const SuccessIcon = styled.div`
-  animation: 1s linear forwards color;
+  animation: .5s linear forwards color;
 
   @keyframes color {
     from { color: ${props => props.theme.general.loadingIcon}; }
@@ -43,7 +43,7 @@ export const SuccessIcon = styled.div`
 `;
 
 export const FailureIcon = styled.div`
-  animation: 1s linear forwards color;
+  animation: .5s linear forwards color;
 
   @keyframes color {
     from { color: ${props => props.theme.general.loadingIcon}; }

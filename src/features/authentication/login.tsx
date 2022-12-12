@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useState } from "react";
 import isEmail from "validator/lib/isEmail";
+import { LoadingContext } from "../../app/App";
 import { useAppDispatch } from "../../app/hooks";
-import Logo from "../../common/Logo/Logo";
 import axios from "../../services/axios";
 import { authFailure, authSuccess } from "./authSlice";
 import { InputContainer } from "./style";
@@ -30,7 +30,7 @@ export default function Login(props: { position: (arg0: number) => void; }) {
     }
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>, setStatus: (status: "idle" | "loading" | "success" | "failure") => void) {
     e.preventDefault();
     verify();
     if (msgEmail && msgPassword) {
@@ -39,46 +39,54 @@ export default function Login(props: { position: (arg0: number) => void; }) {
     }
 
     try {
+      setStatus("loading");
       const loginRequest = await axios.post("/token", { email, password });
       if (loginRequest.data.token) {
         dispatch(authSuccess(loginRequest.data));
         axios.defaults.headers.common["Authorization"] = `Bearer ${loginRequest.data.token}`;
         setResponse("User logged in");
+        setStatus("success");
       } else {
         dispatch(authFailure());
         setResponse("Authentication failure");
+        setStatus("failure");
       }
     } catch (error: any) {
+      setStatus("failure");
       const errors = error.response.data.errors ?? [];
       errors.map((err: any) => setResponse(err));
     }
   }
 
   return (
-    <InputContainer>
-      <Logo/>
-      <h2>Login</h2>
+    <LoadingContext.Consumer>
+      {({setStatus}) => (
+        <InputContainer>
+          <h2>Login</h2>
 
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="login-email">Email</label>
-        <input type="email" name="login-email" id="login-email"
-          autoComplete="email" placeholder="your@email.com" required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <small>{msgEmail}</small>
+          <form onSubmit={(e) => handleSubmit(e, setStatus)}>
+            <label htmlFor="login-email">Email</label>
+            <input type="email" name="login-email" id="login-email"
+              autoComplete="email" placeholder="your@email.com" required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <small>{msgEmail}</small>
 
-        <label htmlFor="login-password">Password</label>
-        <input type="password" name="login-password" id="login-password"
-          autoComplete="current-password" placeholder="*****" required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <small>{msgPassword}</small>
+            <label htmlFor="login-password">Password</label>
+            <input type="password" name="login-password" id="login-password"
+              autoComplete="current-password" placeholder="*****" required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <small>{msgPassword}</small>
 
-        <input type="submit" value="Login" />
-      </form>
+            <input type="submit" value="Login" />
+          </form>
 
-      <h3 onClick={() => props.position(2)}>Register new user</h3>
-      <small>{response}</small>
-    </InputContainer>
+          <h3 onClick={() => props.position(2)}>Register new user</h3>
+          <small>{response}</small>
+
+        </InputContainer>
+      )}
+    </LoadingContext.Consumer>
   );
 }

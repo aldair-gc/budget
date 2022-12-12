@@ -1,6 +1,4 @@
 TO DO
-- fix light mode and setter
-- fix loading
 - add support for undoing
 - add models
 - make point of equilibrium graph
