@@ -111,7 +111,7 @@ export default function UpdateUser() {
               <label htmlFor="password">Password</label>
             </div>
             <input type="password" name="password" id="password" value={password.value}
-              autoComplete="new-password" placeholder="*****" disabled={!password.active}
+              autoComplete="new-password" disabled={!password.active}
               onChange={(e) => setPassword({active: true, value: e.target.value})}
             />
             <small>{password.active && msgPassword}</small>

@@ -45,6 +45,10 @@ body {
     background: #333;
   }
 
+  @media (prefers-color-scheme: light) {
+    background: #ccc;
+  }
+
   @media (max-width: 600px) {
     background: #fff;
     height: 100vh;
