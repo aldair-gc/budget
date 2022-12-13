@@ -52,11 +52,11 @@ export default function Settings(props: { close: () => void; }){
                         <div className="config-item">{file.settings.language}:
                           <div className="config-item-options">
 
-                            <input type="radio" name="language" id="enUS"onClick={() => setLanguage("enUS")} defaultChecked={language === "enUS"}/>
-                            <label htmlFor="enUS">{file.settings.english}</label>
+                            <input type="radio" name="language" id="en-US"onClick={() => setLanguage("en-US")} defaultChecked={language === "en-US"}/>
+                            <label htmlFor="en-US">{file.settings.english}</label>
 
-                            <input type="radio" name="language" id="ptBR" onClick={() => setLanguage("ptBR")} defaultChecked={language === "ptBR"}/>
-                            <label htmlFor="ptBR">{file.settings.brazilian}</label>
+                            <input type="radio" name="language" id="pt-BR" onClick={() => setLanguage("pt-BR")} defaultChecked={language === "pt-BR"}/>
+                            <label htmlFor="pt-BR">{file.settings.brazilian}</label>
 
                           </div>
                         </div>
@@ -64,10 +64,10 @@ export default function Settings(props: { close: () => void; }){
                         <div className="config-item">{file.settings.currency}:
                           <div className="config-item-options">
 
-                            <input type="radio" name="currency" id="real"onClick={() => setCountry("enUS")} defaultChecked={country === "enUS"}/>
+                            <input type="radio" name="currency" id="real"onClick={() => setCountry("en-US")} defaultChecked={country === "en-US"}/>
                             <label htmlFor="real">{file.settings.dolar}</label>
 
-                            <input type="radio" name="currency" id="dolar" onClick={() => setCountry("ptBR")} defaultChecked={country === "ptBR"}/>
+                            <input type="radio" name="currency" id="dolar" onClick={() => setCountry("pt-BR")} defaultChecked={country === "pt-BR"}/>
                             <label htmlFor="dolar">{file.settings.real}</label>
 
                           </div>
