@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LoadingContext } from "../../app/App";
+import { LanguageContext, LoadingContext } from "../../app/App";
 import axios from "../../services/axios";
 import { InputContainer } from "./style";
 
@@ -28,18 +28,22 @@ export default function DownloadData() {
   }
 
   return (
-    <InputContainer>
-      <h2>Download Data</h2>
-      <p>All transactions can be downloaded as a single file.</p>
+    <LanguageContext.Consumer>
+      {({file}) => (
+        <InputContainer>
+          <h2>{file.downloadData.title}</h2>
+          <p>{file.downloadData.text}</p>
 
-      <LoadingContext.Consumer>
-        {({setStatus}) => (
-          <button onClick={() => downloadData(setStatus) }>
-            Download
-          </button>
-        )}
-      </LoadingContext.Consumer>
+          <LoadingContext.Consumer>
+            {({setStatus}) => (
+              <button onClick={() => downloadData(setStatus) }>
+                {file.downloadData.download}
+              </button>
+            )}
+          </LoadingContext.Consumer>
 
-    </InputContainer>
+        </InputContainer>
+      )}
+    </LanguageContext.Consumer>
   );
 }

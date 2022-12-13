@@ -5,7 +5,7 @@ import { TransactionContainer, ItemBackground, ItemContainer } from "./style";
 import Options from "./options";
 import { FaCaretDown } from "react-icons/fa";
 import axios from "../../../services/axios";
-import { brl } from "../../currency";
+import { NumberContext } from "../../../app/App";
 
 export default class Transaction extends Component<Props, BudgetItemState> {
   constructor(props: Props){
@@ -109,11 +109,15 @@ export default class Transaction extends Component<Props, BudgetItemState> {
             disabled={!(editing && selection === id)}
           />
 
-          <input type="text" className={`value ${editing}`} min={0} inputMode="decimal"
-            value={ editing ? value.toString().replace(",", "").replace(".", ",") : brl.format(+value)}
-            onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
-            disabled={!(editing && selection === id)}
-          />
+          <NumberContext.Consumer>
+            {({number}) => (
+              <input type="text" className={`value ${editing}`} min={0} inputMode="decimal"
+                value={ editing ? value.toString().replace(",", "").replace(".", ",") : number.currency.format(+value)}
+                onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
+                disabled={!(editing && selection === id)}
+              />
+            )}
+          </NumberContext.Consumer>
 
           <input type="number"
             className={`expiration_day ${editing}`}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import { LoadingContext } from "../../app/App";
+import { useContext, useState } from "react";
+import { LanguageContext, LoadingContext } from "../../app/App";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import axios from "../../services/axios";
 import { authLogout } from "../authentication/authSlice";
@@ -9,6 +9,7 @@ import { InputContainer } from "./style";
 export default function DeleteUser() {
   const user = useAppSelector(state => state.auth.user);
   const dispatch = useAppDispatch();
+  const lang = useContext(LanguageContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,13 +20,13 @@ export default function DeleteUser() {
 
   function verify() {
     if (email !== user.email) {
-      setMsgEmail("You must enter your registered email address");
+      setMsgEmail(lang.file.auth.invalidEmailMessage);
     } else {
       setMsgEmail("");
     }
 
     if (password.length < 6 || password.length > 50) {
-      setMsgPassword("You must enter a valid password");
+      setMsgPassword(lang.file.auth.invalidPasswordMessage);
     } else {
       setMsgPassword("");
     }
@@ -34,7 +35,7 @@ export default function DeleteUser() {
   async function handleSubmit(setLoading: (status: string) => void) {
     verify();
     if (msgEmail && msgPassword) {
-      setResponse("Check the fields above and try again.");
+      setResponse(lang.file.auth.checkFieldsAbove);
       return;
     }
 
@@ -46,9 +47,11 @@ export default function DeleteUser() {
         if (deletionRequest.data.userDeleted) {
           setLoading("success");
           dispatch(authLogout());
+          setResponse(lang.file.deleteUser.userDeleted);
         }
       } else {
         setLoading("failure");
+        setResponse(lang.file.auth.authFailure);
       }
     } catch (error: any) {
       setLoading("failure");
@@ -58,39 +61,43 @@ export default function DeleteUser() {
   }
 
   return (
-    <InputContainer>
-      <h2>Delete user account</h2>
-      <p>All of your data will be permanently deleted.</p>
-      <p>Enter your email and password below and check the confirmation checkbox to proceed.</p>
+    <LanguageContext.Consumer>
+      {({file})=> (
+        <InputContainer>
+          <h2>{file.deleteUser.deleteUserAccount}</h2>
+          <p>{file.deleteUser.warning}</p>
+          <p>{file.deleteUser.instructions}</p>
 
-      <LoadingContext.Consumer>
-        {({setStatus}) => (
-          <form>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" value={email}
-              autoComplete="email" placeholder="your@email.com"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <small>{email && msgEmail}</small>
+          <LoadingContext.Consumer>
+            {({setStatus}) => (
+              <form>
+                <label htmlFor="email">{file.auth.email}</label>
+                <input type="email" name="email" id="email" value={email}
+                  autoComplete="email" placeholder="your@email.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <small>{email && msgEmail}</small>
 
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" value={password}
-              autoComplete="new-password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <small>{password && msgPassword}</small>
+                <label htmlFor="password">{file.auth.password}</label>
+                <input type="password" name="password" id="password" value={password}
+                  autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <small>{password && msgPassword}</small>
 
-            <div className="select-if-update">
-              <input type="checkbox" name="confirmation" id="confirmation" onChange={() => setConfirm(!confirm)}/>
-              <p>I confirm this permanent deletion.</p>
-            </div>
+                <div className="select-if-update">
+                  <input type="checkbox" name="confirmation" id="confirmation" onChange={() => setConfirm(!confirm)}/>
+                  <p>{file.deleteUser.confirmationConsent}</p>
+                </div>
 
-            <input type="submit" value="Confirm" disabled={!confirm} onClick={(e) => { e.preventDefault(); handleSubmit(setStatus); }} />
-          </form>
-        )}
-      </LoadingContext.Consumer>
+                <input type="submit" value={file.deleteUser.confirm} disabled={!confirm} onClick={(e) => { e.preventDefault(); handleSubmit(setStatus); }} />
+              </form>
+            )}
+          </LoadingContext.Consumer>
 
-      <small>{response}</small>
-    </InputContainer>
+          <small>{response}</small>
+        </InputContainer>
+      )}
+    </LanguageContext.Consumer>
   );
 }

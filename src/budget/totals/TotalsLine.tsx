@@ -1,6 +1,6 @@
 import { TransactionInterface } from "../interfaces";
 import { TotalsLineContainer, TotalsNumbers } from "./style";
-import { brl, brlPercent } from "../currency";
+import { NumberContext } from "../../app/App";
 
 export default function TotalsLine(props: Props) {
 
@@ -9,13 +9,17 @@ export default function TotalsLine(props: Props) {
   }
 
   return (
-    <TotalsLineContainer>
-      <TotalsNumbers>
-        <p>{brl.format(totalOf(props.list, "done"))}</p>
-        <p>{brlPercent.format((totalOf(props.list, "done") / totalOf(props.list, "all")) || 0)}</p>
-        <p>{brl.format(totalOf(props.list, "all"))}</p>
-      </TotalsNumbers>
-    </TotalsLineContainer>
+    <NumberContext.Consumer>
+      {({number}) => (
+        <TotalsLineContainer>
+          <TotalsNumbers>
+            <p>{number.currency.format(totalOf(props.list, "done"))}</p>
+            <p>{number.percent.format((totalOf(props.list, "done") / totalOf(props.list, "all")) || 0)}</p>
+            <p>{number.currency.format(totalOf(props.list, "all"))}</p>
+          </TotalsNumbers>
+        </TotalsLineContainer>
+      )}
+    </NumberContext.Consumer>
   );
 }
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from "react";
 import { FaEdit, FaExclamationTriangle, FaRegClone, FaRegCopy, FaRegSave, FaRegSquare, FaRegTrashAlt, FaTimes } from "react-icons/fa";
+import { LanguageContext } from "../../../app/App";
 import axios from "../../../services/axios";
 import { SimpleTransaction, TransactionInterface } from "../../interfaces";
 import { ButtonsContainer } from "./style";
@@ -110,50 +111,66 @@ export default class Options extends Component<Props, State> {
   render() {
     if (!this.props.editing && !this.props.deleting) {
       return (
-        <ButtonsContainer>
-          <button className="edit" onClick={() => this.setEditing(true)}>
-            <FaEdit/> Edit
-          </button>
-          <button className="edit" onClick={() => this.setUserInput(this.props.item.id)}>
-            <FaRegCopy/> Copy
-          </button>
-          <button className="delete" onClick={() => this.setDeleting(true)}>
-            <FaRegTrashAlt/> Delete
-          </button>
-        </ButtonsContainer>
+        <LanguageContext.Consumer>
+          {({file}) => (
+            <ButtonsContainer>
+              <button className="edit" onClick={() => this.setEditing(true)}>
+                <FaEdit/> {file.transaction.options.edit}
+              </button>
+              <button className="edit" onClick={() => this.setUserInput(this.props.item.id)}>
+                <FaRegCopy/> {file.transaction.options.copy}
+              </button>
+              <button className="delete" onClick={() => this.setDeleting(true)}>
+                <FaRegTrashAlt/> {file.transaction.options.delete}
+              </button>
+            </ButtonsContainer>
+          )}
+        </LanguageContext.Consumer>
       );
     } else if (this.props.hasFutureRepetitions && this.state.willUpdate === "question") {
       return (
-        <ButtonsContainer>
-          <button className="only-this" onClick={() => this.setState({willUpdate: "onlyThis"})}>
-            <FaRegSquare/> Only this one
-          </button>
-          <button className="this-and-future" onClick={() => this.setState({willUpdate: "thisAndFuture"})}>
-            <FaRegClone/> This and future ones
-          </button>
-        </ButtonsContainer>
+        <LanguageContext.Consumer>
+          {({file}) => (
+            <ButtonsContainer>
+              <button className="only-this" onClick={() => this.setState({willUpdate: "onlyThis"})}>
+                <FaRegSquare/> {file.transaction.options.onlyThis}
+              </button>
+              <button className="this-and-future" onClick={() => this.setState({willUpdate: "thisAndFuture"})}>
+                <FaRegClone/> {file.transaction.options.thisAndFuture}
+              </button>
+            </ButtonsContainer>
+          )}
+        </LanguageContext.Consumer>
       );
     } else if (this.props.editing) {
       return (
-        <ButtonsContainer>
-          <button className="save" onClick={() => this.saveChanges(this.updateTransaction)}>
-            <FaRegSave/> Save
-          </button>
-          <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
-            <FaTimes/> Cancel
-          </button>
-        </ButtonsContainer>
+        <LanguageContext.Consumer>
+          {({file}) => (
+            <ButtonsContainer>
+              <button className="save" onClick={() => this.saveChanges(this.updateTransaction)}>
+                <FaRegSave/> {file.transaction.options.save}
+              </button>
+              <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
+                <FaTimes/> {file.transaction.options.cancel}
+              </button>
+            </ButtonsContainer>
+          )}
+        </LanguageContext.Consumer>
       );
     } else if (this.props.deleting) {
       return (
-        <ButtonsContainer>
-          <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)} style={{color: "#a00"}}>
-            <FaExclamationTriangle/> Confirm to delete
-          </button>
-          <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
-            <FaTimes/> Cancel
-          </button>
-        </ButtonsContainer>
+        <LanguageContext.Consumer>
+          {({file}) => (
+            <ButtonsContainer>
+              <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)} style={{color: "#a00"}}>
+                <FaExclamationTriangle/> {file.transaction.options.confirmDel}
+              </button>
+              <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
+                <FaTimes/> {file.transaction.options.cancel}
+              </button>
+            </ButtonsContainer>
+          )}
+        </LanguageContext.Consumer>
       );
     }
   }

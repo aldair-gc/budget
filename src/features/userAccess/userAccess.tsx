@@ -6,6 +6,7 @@ import axios from "../../services/axios";
 import { useState } from "react";
 import Settings from "../settings/Settings";
 import Help from "../help/Help";
+import { LanguageContext } from "../../app/App";
 
 export default function UserAccess() {
   const dispatch = useAppDispatch();
@@ -27,16 +28,20 @@ export default function UserAccess() {
   };
 
   return (
-    <UserContainer>
-      <UserButtonContainer id="user-access" onClick={() => toggleSize()}>
-        <button onClick={() => setOption("help")}>Help</button>
-        <button onClick={() => setOption("settings")}>Settings</button>
-        <button onClick={logout}>Logout</button>
-        <FaUser id="user-icon"/>
-      </UserButtonContainer>
+    <LanguageContext.Consumer>
+      {({file}) => (
+        <UserContainer>
+          <UserButtonContainer id="user-access" onClick={() => toggleSize()}>
+            <button onClick={() => setOption("help")}>{file.userAccess.help}</button>
+            <button onClick={() => setOption("settings")}>{file.userAccess.settings}</button>
+            <button onClick={logout}>{file.userAccess.logout}</button>
+            <FaUser id="user-icon"/>
+          </UserButtonContainer>
 
-      {option === "help" && <Help close={() => setOption("none")}/>}
-      {option === "settings" && <Settings close={() => setOption("none")}/>}
-    </UserContainer>
+          {option === "help" && <Help close={() => setOption("none")}/>}
+          {option === "settings" && <Settings close={() => setOption("none")}/>}
+        </UserContainer>
+      )}
+    </LanguageContext.Consumer>
   );
 }

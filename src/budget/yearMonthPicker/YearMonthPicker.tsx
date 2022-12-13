@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { LanguageContext } from "../../app/App";
 import { YearMonthInterface } from "../interfaces";
 import { YearMonthPickerContainer } from "./style";
 
@@ -123,26 +124,30 @@ export default class YearMonthPicker extends Component<Props, State> {
     const largeScreen = window.screen.width >= 600;
 
     return (
-      <YearMonthPickerContainer style={{width, height}}>
-        <div className="year-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
-          {makeYearList()}
-        </div>
+      <LanguageContext.Consumer>
+        {({file}) => (
+          <YearMonthPickerContainer style={{width, height}}>
+            <div className="year-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
+              {makeYearList()}
+            </div>
 
-        <div className="month-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
-          <p style={cylinder(1, 12, monthTop, monthChange)}>{largeScreen ? "January" : "JAN"}</p>
-          <p style={cylinder(2, 12, monthTop, monthChange)}>{largeScreen ? "February" : "FEB"}</p>
-          <p style={cylinder(3, 12, monthTop, monthChange)}>{largeScreen ? "March" : "MAR"}</p>
-          <p style={cylinder(4, 12, monthTop, monthChange)}>{largeScreen ? "April" : "APR"}</p>
-          <p style={cylinder(5, 12, monthTop, monthChange)}>{largeScreen ? "May" : "MAY"}</p>
-          <p style={cylinder(6, 12, monthTop, monthChange)}>{largeScreen ? "June" : "JUN"}</p>
-          <p style={cylinder(7, 12, monthTop, monthChange)}>{largeScreen ? "July" : "JUL"}</p>
-          <p style={cylinder(8, 12, monthTop, monthChange)}>{largeScreen ? "August" : "AUG"}</p>
-          <p style={cylinder(9, 12, monthTop, monthChange)}>{largeScreen ? "September" : "SEP"}</p>
-          <p style={cylinder(10, 12, monthTop, monthChange)}>{largeScreen ? "October" : "OCT"}</p>
-          <p style={cylinder(11, 12, monthTop, monthChange)}>{largeScreen ? "November" : "NOV"}</p>
-          <p style={cylinder(12, 12, monthTop, monthChange)}>{largeScreen ? "December" : "DEC"}</p>
-        </div>
-      </YearMonthPickerContainer>
+            <div className="month-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
+              <p style={cylinder(1, 12, monthTop, monthChange)}>{largeScreen ? file.months.jan.full : file.months.jan.abrev}</p>
+              <p style={cylinder(2, 12, monthTop, monthChange)}>{largeScreen ? file.months.feb.full : file.months.feb.abrev}</p>
+              <p style={cylinder(3, 12, monthTop, monthChange)}>{largeScreen ? file.months.mar.full : file.months.mar.abrev}</p>
+              <p style={cylinder(4, 12, monthTop, monthChange)}>{largeScreen ? file.months.apr.full : file.months.apr.abrev}</p>
+              <p style={cylinder(5, 12, monthTop, monthChange)}>{largeScreen ? file.months.may.full : file.months.may.abrev}</p>
+              <p style={cylinder(6, 12, monthTop, monthChange)}>{largeScreen ? file.months.jun.full : file.months.jun.abrev}</p>
+              <p style={cylinder(7, 12, monthTop, monthChange)}>{largeScreen ? file.months.jul.full : file.months.jul.abrev}</p>
+              <p style={cylinder(8, 12, monthTop, monthChange)}>{largeScreen ? file.months.aug.full : file.months.aug.abrev}</p>
+              <p style={cylinder(9, 12, monthTop, monthChange)}>{largeScreen ? file.months.sep.full : file.months.sep.abrev}</p>
+              <p style={cylinder(10, 12, monthTop, monthChange)}>{largeScreen ? file.months.oct.full : file.months.oct.abrev}</p>
+              <p style={cylinder(11, 12, monthTop, monthChange)}>{largeScreen ? file.months.nov.full : file.months.nov.abrev}</p>
+              <p style={cylinder(12, 12, monthTop, monthChange)}>{largeScreen ? file.months.dec.full : file.months.dec.abrev}</p>
+            </div>
+          </YearMonthPickerContainer>
+        )}
+      </LanguageContext.Consumer>
     );
   }
 }

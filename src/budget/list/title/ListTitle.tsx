@@ -1,36 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FaPlus, FaSort, FaSortAlphaDown, FaSortAlphaDownAlt, FaSortNumericDown, FaSortNumericDownAlt } from "react-icons/fa";
+import { FaPlus, FaSort, FaSortAlphaDown, FaSortAlphaUp, FaSortNumericDown, FaSortNumericUp } from "react-icons/fa";
+import { LanguageContext } from "../../../app/App";
 import { InputTitles, SortContainer, SortOption } from "./style";
 
 export default function ListTitle(props: Props) {
   return(
-    <InputTitles>
-      <FaPlus
-        className="title-icons"
-        style={{transform: props.userInput === 0 ? "rotateZ(45deg)" : ""}}
-        onClick={props.toggleUserInput}
-      />
+    <LanguageContext.Consumer>
+      {({file}) => (
+        <InputTitles>
+          <FaPlus
+            className="title-icons"
+            style={{transform: props.userInput === 0 ? "rotateZ(45deg)" : ""}}
+            onClick={props.toggleUserInput}
+          />
 
-      <h2>{props.type}</h2>
+          <h2>{props.type === "income" ? file.list.incomes : file.list.expenditures}</h2>
 
-      <FaSort
-        className="title-icons"
-        onClick={() => props.changeShowSorter(props.type !== props.showSorter ? props.type : "none")}
-      />
+          <FaSort
+            className="title-icons"
+            onClick={() => props.changeShowSorter(props.type !== props.showSorter ? props.type : "none")}
+          />
 
-      <SortContainer
-        style={{display: props.showSorter === props.type ? "flex" : "none"}}
-        onMouseUpCapture={() => props.changeShowSorter("none")}
-      >
-        <SortOption onClick={() => props.changeSorter("none")}><FaSort/>Created at</SortOption>
-        <SortOption onClick={() => props.changeSorter("description-A")}><FaSortAlphaDown/>Description</SortOption>
-        <SortOption onClick={() => props.changeSorter("description-Z")}><FaSortAlphaDownAlt/>Description</SortOption>
-        <SortOption onClick={() => props.changeSorter("value-1")}><FaSortNumericDown/>Value</SortOption>
-        <SortOption onClick={() => props.changeSorter("value-9")}><FaSortNumericDownAlt/>Value</SortOption>
-        <SortOption onClick={() => props.changeSorter("expiration_day-1")}><FaSortNumericDown/>Expiration day</SortOption>
-        <SortOption onClick={() => props.changeSorter("expiration_day-9")}><FaSortNumericDownAlt/>Expiration day</SortOption>
-      </SortContainer>
-    </InputTitles>
+          <SortContainer
+            style={{display: props.showSorter === props.type ? "flex" : "none"}}
+            onMouseUpCapture={() => props.changeShowSorter("none")}
+          >
+            <SortOption onClick={() => props.changeSorter("none")}><FaSort/>{file.list.createdAt}</SortOption>
+            <SortOption onClick={() => props.changeSorter("description-A")}><FaSortAlphaDown/>{file.transaction.description}</SortOption>
+            <SortOption onClick={() => props.changeSorter("description-Z")}><FaSortAlphaUp/>{file.transaction.description}</SortOption>
+            <SortOption onClick={() => props.changeSorter("value-1")}><FaSortNumericDown/>{file.transaction.value}</SortOption>
+            <SortOption onClick={() => props.changeSorter("value-9")}><FaSortNumericUp/>{file.transaction.value}</SortOption>
+            <SortOption onClick={() => props.changeSorter("expiration_day-1")}><FaSortNumericDown/>{file.transaction.expirationDay}</SortOption>
+            <SortOption onClick={() => props.changeSorter("expiration_day-9")}><FaSortNumericUp/>{file.transaction.expirationDay}</SortOption>
+          </SortContainer>
+        </InputTitles>
+      )}
+    </LanguageContext.Consumer>
   );
 }
 

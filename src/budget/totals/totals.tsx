@@ -1,6 +1,6 @@
 import { TransactionInterface } from "../interfaces";
 import { TotalsContainer, TotalsEstimation } from "./style";
-import { brl } from "../currency";
+import { LanguageContext, NumberContext } from "../../app/App";
 
 export default function Totals(props: Props) {
 
@@ -14,27 +14,35 @@ export default function Totals(props: Props) {
   }
 
   return (
-    <TotalsContainer>
-      <TotalsEstimation result={props.lastMonthBalance > 0}>
-        <h3>Last Month</h3>
-        <h2>{brl.format(props.lastMonthBalance)}</h2>
-        <i>This is what was left from last month.</i>
-      </TotalsEstimation>
+    <LanguageContext.Consumer>
+      {({file}) => (
+        <NumberContext.Consumer>
+          {({number}) => (
+            <TotalsContainer>
+              <TotalsEstimation result={props.lastMonthBalance > 0}>
+                <h3>{file.totals.lastMonth}</h3>
+                <h2>{number.currency.format(props.lastMonthBalance)}</h2>
+                <i>{file.totals.lastMonthHelp}</i>
+              </TotalsEstimation>
 
-      <TotalsEstimation result={result() > 0}>
-        <h3>Estimation</h3>
-        <h2>{brl.format(result())}</h2>
-        <i>This is the resulting balance of this month. (INCOMES - EXPENDITURES) </i>
-      </TotalsEstimation>
+              <TotalsEstimation result={result() > 0}>
+                <h3>{file.totals.estimation}</h3>
+                <h2>{number.currency.format(result())}</h2>
+                <i>{file.totals.estimationHelp}</i>
+              </TotalsEstimation>
 
-      <TotalsEstimation result={totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance > 0}>
-        <h3>Balance</h3>
-        <h2>
-          {brl.format(totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance)}
-        </h2>
-        <i>This is the ammount of money you shoud have right now.</i>
-      </TotalsEstimation>
-    </TotalsContainer>
+              <TotalsEstimation result={totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance > 0}>
+                <h3>{file.totals.balance}</h3>
+                <h2>
+                  {number.currency.format(totalOf(props.incomeList, "income", "done") - totalOf(props.expenditureList, "expenditure", "done") + props.lastMonthBalance)}
+                </h2>
+                <i>{file.totals.balanceHelp}</i>
+              </TotalsEstimation>
+            </TotalsContainer>
+          )}
+        </NumberContext.Consumer>
+      )}
+    </LanguageContext.Consumer>
   );
 }
 

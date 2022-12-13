@@ -21,7 +21,6 @@ inst.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log("AXIOS ERROR: response", error);
     return Promise.reject(error);
   }
 );
