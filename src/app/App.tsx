@@ -20,28 +20,40 @@ export const LoadingContext = createContext({status: "idle", setStatus: (status:
 export const LanguageContext = createContext({language: "enUS", file: enUS, setLanguage: (language: "pt-BR" | "en-US") => {language;}});
 export const NumberContext = createContext({country: "ptBR", number: real, setCountry: (country: "pt-BR" | "en-US") => {country;}});
 export const ThemeContext = createContext({themeId: "auto", theme: light, setTheme: (themeId: "auto" | "dark" | "light") => {themeId;}});
+const supportedLanguages = ["pt-BR", "en-US"];
+const supportedCurrencies = ["pt-BR", "en-US"];
 
 export default function App() {
   const [loading, setLoading] = useState({status: "idle", setStatus: setLoadingStatus});
-  const [theme, setTheme] = useState({themeId: "auto", theme: isSystemDark(), setTheme: changeTheme});
-  const [lang, setLang] = useState({
-    language: navigator.language,
-    file: navigator.language === "pt-BR" ? ptBR : enUS,
-    setLanguage: changeLanguage,
-  });
-  const [number, setCountry] = useState({
-    country: navigator.language === "pt-BR" ? "pt-BR" : "en-US",
-    number: navigator.language === "pt-BR" ? real : americanDolar,
-    setCountry: changeNumber,
-  });
+  const [theme, setTheme] = useState(getTheme());
+  const [lang, setLang] = useState(getLanguage());
+  const [number, setCountry] = useState(getCurrency());
+
+  function getTheme() {
+    const savedThemeId = window.localStorage.getItem("theme");
+    const themeId = savedThemeId || "auto";
+    const theme = themeId === "auto" ? isSystemDark() : themeId === "dark" ? dark : light;
+    return({themeId, theme, setTheme: changeTheme});
+  }
+
+  function getLanguage() {
+    const language =  window.localStorage.getItem("language") || (supportedLanguages.includes(navigator.language) ? navigator.language : "en-US");
+    const file = language === "pt-BR" ? ptBR : enUS;
+    return { language, file, setLanguage: changeLanguage };
+  }
+
+  function getCurrency() {
+    const country =  window.localStorage.getItem("currency") || (supportedCurrencies.includes(navigator.language) ? navigator.language : "en-US");
+    const number = country === "pt-BR" ? real : americanDolar;
+    return { country, number, setCountry: changeNumber };
+  }
 
   function isSystemDark() {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? dark : light;
   }
 
-  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    const newTheme = e.matches ? dark : light;
-    setTheme({themeId: "auto", theme: newTheme, setTheme: changeTheme});
+  window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    setTheme(getTheme());
   });
 
   function setLoadingStatus(status: string): void {
@@ -50,16 +62,19 @@ export default function App() {
 
   function changeLanguage(language: "en-US" | "pt-BR"): void {
     const file = language === "pt-BR" ? ptBR : enUS;
+    window.localStorage.setItem("language", language);
     setLang({language, file, setLanguage: changeLanguage});
   }
 
   function changeNumber(country: "en-US" | "pt-BR"): void {
     const number = country === "pt-BR" ? real : americanDolar;
+    window.localStorage.setItem("currency", country);
     setCountry({country, number, setCountry: changeNumber});
   }
 
   function changeTheme(themeId: "light" | "dark" | "auto"): void {
     const newTheme = themeId === "auto" ? isSystemDark() : themeId === "dark" ? dark : light ;
+    window.localStorage.setItem("theme", themeId);
     setTheme({themeId , theme: newTheme, setTheme: changeTheme});
   }
 
