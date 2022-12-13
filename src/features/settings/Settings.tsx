@@ -26,7 +26,7 @@ export default function Settings(props: { close: () => void; }){
                   </button>
                   <h1>{file.settings.title}</h1>
                 </WindowHeaderContainer>
-                <WindowBodyContainer width={"350px"} height={"400px"}>
+                <WindowBodyContainer width={"350px"} height={"auto"}>
                   <SettingsContainer>
                     {selection === "none" &&
                       <MenuContainer>

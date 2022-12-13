@@ -35,7 +35,7 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string}
   }
 
   :has(input:checked) {
-    .description, .value, .expiration_day {
+    .description:disabled, .value:disabled, .expiration_day:disabled {
       text-decoration-line: line-through;
       color: ${props => props.theme.general.fontInverse};
     }
