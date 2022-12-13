@@ -14,12 +14,6 @@ export default createGlobalStyle`
   -webkit-text-size-adjust: 100%;
 }
 
-@media (max-width: 600px) {
-  #root {
-    height: 100%;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -33,14 +27,6 @@ input {
 }
 
 body {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  touch-action: none;
-  background: #ccc;
-
   @media (prefers-color-scheme: dark) {
     background: #333;
   }
@@ -50,16 +36,15 @@ body {
   }
 
   @media (max-width: 600px) {
-    background: #fff;
-    height: 100vh;
+    // height: 100vh;
+
+    @media (prefers-color-scheme: dark) {
+      background: #000;
+    }
+
+    @media (prefers-color-scheme: light) {
+      background: #fff;
+    }
   }
-}
-
-.hidden {
-  display: none;
-}
-
-.transparent {
-  visibility: hidden;
 }
 `;

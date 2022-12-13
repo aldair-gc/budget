@@ -32,10 +32,11 @@ export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   border-radius: 5px;
   overflow: hidden;
   z-index: 3;
+  flex: 1 0 0;
+  max-height: calc(100vh - 140px);
 `;
 
 export const ItemList = styled.div`
