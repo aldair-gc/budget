@@ -11,7 +11,7 @@ import { LanguageContext } from "../../app/App";
 export default function UserAccess() {
   const dispatch = useAppDispatch();
 
-  const [option, setOption] = useState("none" as "none" | "settings" | "help");
+  const [option, setOption] = useState("settings" as "none" | "settings" | "help");
 
   function toggleSize():void {
     const box = (document.querySelector("#user-access") as HTMLDivElement).style;

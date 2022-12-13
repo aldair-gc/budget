@@ -20,6 +20,7 @@ export const MenuContainer = styled.ul`
     padding: 5px;
     color: ${props => props.theme.button.font};
     background: ${props => props.theme.button.background};
+    border: 1px solid ${props => props.theme.input.border};
 
     :hover {
       color: ${props => props.theme.button.fontHover};
@@ -35,14 +36,33 @@ export const MenuContainer = styled.ul`
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: center;
+    border: 1px solid ${props => props.theme.input.border};
+    padding: 5px;
+    border-radius: 5px;
   }
 
   .config-item-options {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     align-items: center;
 
-    label { margin-right: 10px; }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: ${props => props.theme.button.background};
+      padding: 5px;
+      border: 1px solid ${props => props.theme.input.border};
+      border-radius: 5px;
+
+      :has(input:checked) {
+        color: ${props => props.theme.general.fontInverse};
+        background: ${props => props.theme.general.backgroundInverse};
+      }
+
+      input { display: none; }
+    }
   }
 `;
 
