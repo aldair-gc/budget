@@ -25,13 +25,31 @@ export default function ListTitle(props: Props) {
             style={{display: props.showSorter === props.type ? "flex" : "none"}}
             onMouseUpCapture={() => props.changeShowSorter("none")}
           >
-            <SortOption onClick={() => props.changeSorter("none")}><FaSort/>{file.list.createdAt}</SortOption>
-            <SortOption onClick={() => props.changeSorter("description-A")}><FaSortAlphaDown/>{file.transaction.description}</SortOption>
-            <SortOption onClick={() => props.changeSorter("description-Z")}><FaSortAlphaUp/>{file.transaction.description}</SortOption>
-            <SortOption onClick={() => props.changeSorter("value-1")}><FaSortNumericDown/>{file.transaction.value}</SortOption>
-            <SortOption onClick={() => props.changeSorter("value-9")}><FaSortNumericUp/>{file.transaction.value}</SortOption>
-            <SortOption onClick={() => props.changeSorter("expiration_day-1")}><FaSortNumericDown/>{file.transaction.expirationDay}</SortOption>
-            <SortOption onClick={() => props.changeSorter("expiration_day-9")}><FaSortNumericUp/>{file.transaction.expirationDay}</SortOption>
+
+            <SortOption>
+              <FaSort onClick={() => props.changeSorter("none")}/>
+              {file.list.createdAt}
+              <FaSort onClick={() => props.changeSorter("none")}/>
+            </SortOption>
+
+            <SortOption>
+              <FaSortAlphaDown onClick={() => props.changeSorter("description-A")}/>
+              {file.transaction.description}
+              <FaSortAlphaUp onClick={() => props.changeSorter("description-Z")}/>
+            </SortOption>
+
+            <SortOption>
+              <FaSortNumericDown onClick={() => props.changeSorter("value-1")}/>
+              {file.transaction.value}
+              <FaSortNumericUp onClick={() => props.changeSorter("value-9")}/>
+            </SortOption>
+
+            <SortOption>
+              <FaSortNumericDown onClick={() => props.changeSorter("expiration_day-1")}/>
+              {file.transaction.expirationDay}
+              <FaSortNumericUp onClick={() => props.changeSorter("expiration_day-9")}/>
+            </SortOption>
+
           </SortContainer>
         </InputTitles>
       )}

@@ -50,24 +50,41 @@ z-index: 10;
 background: ${props => props.theme.general.backgroundStrong};
 `;
 
-export const SortOption = styled.button`
+export const SortOption = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   text-align: left;
   width: 100%;
   border: 0;
   border-radius: 3px;
-  padding: 5px;
   background: none;
   font-size: 15px;
+  padding: 2px;
   color: ${props => props.theme.general.font};
 
-  @media (max-width: 600px) {
-    padding: 10px 5px;
+  svg {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    color: ${props => props.theme.general.fontWeak};
+
+    border-radius: 3px;
+    border: 1px solid ${props => props.theme.input.border};
+
+    @media (max-width: 600px) {
+      width: 35px;
+      height: 35px;
+      padding: 7px;
+    }
   }
 
-  :hover {
+  @media (max-width: 600px) {
+    padding: 3px;
+  }
+
+  svg:hover {
     color: ${props => props.theme.general.fontInverse};
     background: ${props => props.theme.general.backgroundInverse};
   }

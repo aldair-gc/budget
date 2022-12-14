@@ -1,13 +1,13 @@
 export const ptBR = {
   list: {
     createdAt: "Criação",
-    incomes: "Receitas",
-    expenditures: "Gastos",
+    incomes: "Rendimentos",
+    expenditures: "Despesas",
   },
   transaction: {
     type: {
       name: "Tipo",
-      income: "Receita",
+      income: "Rendimento",
       expenditure: "Despesa",
     },
     description: "Descrição",
