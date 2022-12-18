@@ -2,13 +2,13 @@ export const enUS = {
   list: {
     createdAt: "Created at",
     incomes: "Incomes",
-    expenditures: "Expenditures",
+    expenditures: "Expenses",
   },
   transaction: {
     type: {
       name: "Type",
       income: "Income",
-      expenditure: "Expenditure",
+      expenditure: "Expense",
     },
     description: "Description",
     value: "Value",
@@ -33,12 +33,12 @@ export const enUS = {
     },
   },
   totals: {
-    lastMonth: "Last Month",
-    lastMonthHelp: "This is what was left from last month.",
-    estimation: "Estimation",
-    estimationHelp: "This is the resulting balance of this month: (INCOMES - EXPENDITURES).",
-    balance: "Balance",
+    balance: "Wallet balance",
     balanceHelp: "This is the ammount of money you shoud have right now.",
+    estimation: "Month total",
+    estimationHelp: "This is the resulting balance of this month: (INCOMES - EXPENSES).",
+    lastMonth: "Final balance",
+    lastMonthHelp: "This month's balance plus last month's.",
   },
   input: {
     repeatFor: "Repeat for",

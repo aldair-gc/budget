@@ -33,12 +33,12 @@ export const ptBR = {
     },
   },
   totals: {
-    lastMonth: "Último mês",
-    lastMonthHelp: "Resultado do mês anterior.",
-    estimation: "Estimativa",
-    estimationHelp: "Este é o resultado deste mês (RECEITAS - DESPESAS).",
     balance: "Saldo atual",
     balanceHelp: "Este é o valor que você deve ter neste momento.",
+    estimation: "Total do mês",
+    estimationHelp: "Este é o resultado deste mês (RENDIMENTOS - DESPESAS).",
+    lastMonth: "Resultado final",
+    lastMonthHelp: "Soma dos resultados do mês anterior e do atual.",
   },
   input: {
     repeatFor: "Repetir por",
