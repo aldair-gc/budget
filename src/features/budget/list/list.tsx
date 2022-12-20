@@ -26,7 +26,7 @@ export default function BudgetList(props: Props) {
   };
 
   return (
-    <ListContainer className="income-list">
+    <ListContainer>
       {props.list.map(item =>item.type === props.type &&
         <BudgetItem key={item.id} item={item} toggleStatus={toggleStatus} />
       )}
