@@ -8,13 +8,23 @@ import { Transaction } from "../../interfaces";
 export default class DeleteItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void }> {
   constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void, resetItem: () => void}){
     super(props);
+    this.setEditing = this.props.setEditing.bind(this);
+    this.resetItem = this.props.resetItem.bind(this);
+  }
+
+  setEditing(trueOrFalse: boolean): void {
+    this.props.setEditing(trueOrFalse);
+  }
+
+  resetItem(): void {
+    this.props.resetItem();
   }
 
   async deleteItem():Promise<void> {
     try {
       const deleteRequest = await axios.delete(`/transaction/${this.props.item.id}`);
       if (deleteRequest.status === 200) {
-        (document.querySelector(`.item-id-${this.props.item.id}`) as HTMLDivElement).outerHTML = "";
+        (document.querySelector(`.item-id-${this.props.item.id}`) as HTMLDivElement).classList.add("hidden");
       }
     } catch (error: any) {
       const errors = error.response.data.errors ?? [];
@@ -26,8 +36,8 @@ export default class DeleteItemButton extends Component<{item: Transaction, edit
     const itemOnApp = document.querySelector(`.item-id-${this.props.item.id}`) as HTMLDivElement;
     const inputs = itemOnApp.querySelectorAll("input[type=text]")as unknown as HTMLInputElement[];
     inputs.forEach(input => input.disabled = true);
-    this.props.setEditing(false);
-    this.props.resetItem();
+    this.setEditing(false);
+    this.resetItem();
   }
 
   render() {

@@ -8,13 +8,18 @@ import { Transaction } from "../../interfaces";
 export default class EditItemButton extends Component<{item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}> {
   constructor(props: {item: Transaction, editing: boolean, setEditing: (trueOrFalse: boolean) => void}){
     super(props);
+    this.setEditing = this.props.setEditing.bind(this);
+  }
+
+  setEditing(trueOrFalse: boolean): void {
+    this.props.setEditing(trueOrFalse);
   }
 
   changeItem(id: number, trueOrFalse: boolean): void {
     const itemOnApp = document.querySelector(`.item-id-${id}`) as HTMLDivElement;
     const inputs = itemOnApp.querySelectorAll("input[type=text]")as unknown as HTMLInputElement[];
     inputs.forEach(input => input.disabled = !trueOrFalse);
-    this.props.setEditing(trueOrFalse);
+    this.setEditing(trueOrFalse);
   }
 
   editItem(id: number):void {

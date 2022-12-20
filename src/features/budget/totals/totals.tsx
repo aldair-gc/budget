@@ -1,4 +1,4 @@
-import { Container, Estimated, Graph, List, Numbers } from "./style";
+import { Container, Graph, List, Numbers } from "./style";
 
 export default function TotalsContainer(props: Props) {
   return (
