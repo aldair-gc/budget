@@ -46,7 +46,6 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
   justify-content: center;
   background: ${props => props.theme.general.background};
   height: 100%;
-  padding: 5px;
   border-radius: 5px;
   flex: 0 1 33%;
   color: ${props => props.theme.general.font};
@@ -54,11 +53,15 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
   h3 {
     z-index: 2;
     font-size: 18px;
+    flex: 1;
+    max-height: 50%;
+    overflow: hidden;
   }
 
   h2 {
     z-index: 2;
     font-size: 20px;
+    flex: 1;
     color: ${props => props.result ? props.theme.general.fontGoodResult : props.theme.general.fontBadResult};
   }
 

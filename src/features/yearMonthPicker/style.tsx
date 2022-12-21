@@ -13,15 +13,16 @@ export const YearMonthPickerContainer = styled.div`
   z-index: 200;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+  cursor: pointer;
 
   .year-picker, .month-picker {
     height: 100%;
     overflow: hidden;
     z-index: 201;
     transition: all .3s;
-    perspective: 100px;
-    -ms-perspective: 100px;
-    -webkit-perspective: 180px;
+    perspective: 130px;
+    -ms-perspective: 130px;
+    -webkit-perspective: 150px;
 
     p {
       position: absolute;

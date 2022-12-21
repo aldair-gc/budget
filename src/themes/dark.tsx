@@ -41,7 +41,7 @@ export const dark = {
     graphic: "rgba(0,100,0,0.5)",
   },
   transaction: {
-    font: "#ddd",
+    font: "#eee",
     fontWeak: "#999",
     fontChecked: "#4c4",
     background: "rgba(35,35,35,0.5)",

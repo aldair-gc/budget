@@ -1,6 +1,6 @@
 TO DO
+- hide ckecked transactions
 - add support for undoing
-- add models
 - make point of equilibrium graph
 - encrypt user data
 - vibrate and tone when scrolling the selector

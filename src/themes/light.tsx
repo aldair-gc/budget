@@ -41,7 +41,7 @@ export const light = {
     graphic: "rgba(0,100,0,0.5)",
   },
   transaction: {
-    font: "#222",
+    font: "#111",
     fontWeak: "#666",
     fontChecked: "#070",
     background: "rgba(220,220,220,0.5)",
@@ -55,17 +55,17 @@ export const light = {
   picker: {
     rollSides: "rgba(0,0,0,0.2)",
     rollMiddle: "rgba(255,255,255,1)",
-    font: "rgba(0,0,0,0.7)",
+    font: "rgba(0,0,0,0.8)",
     button: "#333",
     buttonHover: "#222",
     buttonActive: "#000",
   },
   income: {
     soft:  "#333",
-    hard: "#9be",
+    hard: "#ace",
   },
   expenditure: {
     soft: "#333",
-    hard: "#9be",
+    hard: "#ace",
   }
 };
