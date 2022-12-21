@@ -7,7 +7,7 @@ import axios from "../../services/axios";
 import { authFailure, authSuccess } from "./authSlice";
 import { InputContainer } from "./style";
 
-export default function Login(props: { position: (arg0: number) => void; }) {
+export default function Login(props: { position: (arg0: number) => void }) {
   const dispatch = useAppDispatch();
   const lang = useContext(LanguageContext);
 
@@ -61,23 +61,33 @@ export default function Login(props: { position: (arg0: number) => void; }) {
 
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <LoadingContext.Consumer>
-          {({setStatus}) => (
+          {({ setStatus }) => (
             <InputContainer>
               <h2>{file.auth.login}</h2>
 
               <form onSubmit={(e) => handleSubmit(e, setStatus)}>
                 <label htmlFor="login-email">{file.auth.email}</label>
-                <input type="email" name="login-email" id="login-email"
-                  autoComplete="email" placeholder="your@email.com" required
+                <input
+                  type="email"
+                  name="login-email"
+                  id="login-email"
+                  autoComplete="email"
+                  placeholder="your@email.com"
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <small>{msgEmail}</small>
 
                 <label htmlFor="login-password">{file.auth.password}</label>
-                <input type="password" name="login-password" id="login-password"
-                  autoComplete="current-password" placeholder="*****" required
+                <input
+                  type="password"
+                  name="login-password"
+                  id="login-password"
+                  autoComplete="current-password"
+                  placeholder="*****"
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <small>{msgPassword}</small>
@@ -87,7 +97,6 @@ export default function Login(props: { position: (arg0: number) => void; }) {
 
               <h3 onClick={() => props.position(2)}>{file.auth.registerNewUser}</h3>
               <small>{response}</small>
-
             </InputContainer>
           )}
         </LoadingContext.Consumer>

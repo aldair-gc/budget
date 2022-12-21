@@ -9,14 +9,14 @@ export const InputTitles = styled.div`
   width: 100%;
   padding: 5px 10px;
   font-size: 16px;
-  background: ${props => props.theme.list.backgroundInverse};
+  background: ${(props) => props.theme.list.backgroundInverse};
   backdrop-filter: blur(20px);
   z-index: 6;
 
   h2 {
     font-size: 18px;
     font-weight: 500;
-    color: ${props => props.theme.general.fontStrong};
+    color: ${(props) => props.theme.general.fontStrong};
   }
 
   .title-icons {
@@ -27,27 +27,29 @@ export const InputTitles = styled.div`
     height: 100%;
     width: 25px;
     padding: 5px;
-    transition: all .3s;
-    color: ${props => props.theme.general.fontStrong};
+    transition: all 0.3s;
+    color: ${(props) => props.theme.general.fontStrong};
 
-    :hover { color: ${props => props.theme.button.font}; }
+    :hover {
+      color: ${(props) => props.theme.button.font};
+    }
   }
 `;
 
 export const SortContainer = styled.div`
-position: absolute;
-top: 100%;
-right: 5px;
-display: none;
-flex-direction: column;
-border: none;
-border-radius: 5px;
-padding: 5px;
-min-width: 100px;
-min-height: 10px;
-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-z-index: 10;
-background: ${props => props.theme.general.backgroundStrong};
+  position: absolute;
+  top: 100%;
+  right: 5px;
+  display: none;
+  flex-direction: column;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  min-width: 100px;
+  min-height: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  background: ${(props) => props.theme.general.backgroundStrong};
 `;
 
 export const SortOption = styled.div`
@@ -62,16 +64,16 @@ export const SortOption = styled.div`
   background: none;
   font-size: 15px;
   padding: 2px;
-  color: ${props => props.theme.general.font};
+  color: ${(props) => props.theme.general.font};
 
   svg {
     width: 30px;
     height: 30px;
     padding: 5px;
-    color: ${props => props.theme.general.fontWeak};
+    color: ${(props) => props.theme.general.fontWeak};
 
     border-radius: 3px;
-    border: 1px solid ${props => props.theme.input.border};
+    border: 1px solid ${(props) => props.theme.input.border};
 
     @media (max-width: 600px) {
       width: 35px;
@@ -85,7 +87,7 @@ export const SortOption = styled.div`
   }
 
   svg:hover {
-    color: ${props => props.theme.general.fontInverse};
-    background: ${props => props.theme.general.backgroundInverse};
+    color: ${(props) => props.theme.general.fontInverse};
+    background: ${(props) => props.theme.general.backgroundInverse};
   }
 `;

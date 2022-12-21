@@ -12,24 +12,26 @@ export const UserButtonContainer = styled.div`
   align-items: center;
   justify-content: end;
   padding: 10px;
-  background: ${props => props.theme.general.backgroundWeak};
+  background: ${(props) => props.theme.general.backgroundWeak};
   border-radius: 25px;
   width: 50px;
   height: 50px;
   transition: all 0.3s;
   gap: 20px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) inset;
 
   .opened {
     width: 200px;
-    @media (max-width: 660px) { width: 310px; }
+    @media (max-width: 660px) {
+      width: 310px;
+    }
   }
 
   #user-icon {
     font-size: 30px;
     flex: 0 0 auto;
-    color: ${props => props.theme.general.fontWeak};
+    color: ${(props) => props.theme.general.fontWeak};
   }
 
   button {
@@ -38,13 +40,16 @@ export const UserButtonContainer = styled.div`
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border: none;
-    color: ${props => props.theme.general.font};
-    background: ${props => props.theme.button.background};
+    color: ${(props) => props.theme.general.font};
+    background: ${(props) => props.theme.button.background};
 
-    :hover { background: ${props => props.theme.button.backgroundHover}; }
-    :active { background: ${props => props.theme.button.backgroundActive}; }
+    :hover {
+      background: ${(props) => props.theme.button.backgroundHover};
+    }
+    :active {
+      background: ${(props) => props.theme.button.backgroundActive};
+    }
   }
-
 `;

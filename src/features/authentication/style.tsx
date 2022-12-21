@@ -7,7 +7,7 @@ export const Container = styled.div`
   transform: translate(-50%, -50%);
   width: 350px;
   height: 450px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.8);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   overflow: hidden;
 `;
@@ -18,8 +18,8 @@ export const DoubleWideBox = styled.div`
   height: calc(100% - 50px);
   transform: translateX(0%);
   transition: all 0.3s;
-  color: ${props => props.theme.general.font};
-  background: ${props => props.theme.general.background};
+  color: ${(props) => props.theme.general.font};
+  background: ${(props) => props.theme.general.background};
 `;
 
 export const LogoContainer = styled.div`
@@ -28,8 +28,8 @@ export const LogoContainer = styled.div`
   padding: 15px;
   font-size: 26px;
   font-weight: 600;
-  color: ${props => props.theme.general.fontInverse};
-  background: ${props => props.theme.general.backgroundInverse};
+  color: ${(props) => props.theme.general.fontInverse};
+  background: ${(props) => props.theme.general.backgroundInverse};
 `;
 
 export const InputContainer = styled.div`
@@ -45,24 +45,27 @@ export const InputContainer = styled.div`
     width: 80%;
   }
 
-  h2 { padding: 15px; }
+  h2 {
+    padding: 15px;
+  }
 
   label {
     font-size: 13px;
   }
 
   input {
-    border: 1px solid ${props => props.theme.input.border};
+    border: 1px solid ${(props) => props.theme.input.border};
     border-radius: 5px;
     padding: 5px;
   }
 
-  input[type=submit], button {
+  input[type="submit"],
+  button {
     padding: 5px;
     width: 60%;
     margin: 10px auto;
-    color: ${props => props.theme.input.font};
-    background: ${props => props.theme.input.background};
+    color: ${(props) => props.theme.input.font};
+    background: ${(props) => props.theme.input.background};
   }
 
   small {
@@ -83,6 +86,6 @@ export const InputContainer = styled.div`
     bottom: 30px;
     cursor: pointer;
     font-size: 16px;
-    color: ${props => props.theme.general.fontStrong};
+    color: ${(props) => props.theme.general.fontStrong};
   }
 `;

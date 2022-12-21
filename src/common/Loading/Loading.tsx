@@ -7,12 +7,24 @@ import { LoadingLayer, LoadingIcon, SuccessIcon, FailureIcon, LoadingContainer }
 export default function Loading() {
   return (
     <LoadingContext.Consumer>
-      {({status, setStatus}) => (
-        <LoadingLayer style={{display: status !== "idle" ? "block" : "none"}}>
+      {({ status, setStatus }) => (
+        <LoadingLayer style={{ display: status !== "idle" ? "block" : "none" }}>
           <LoadingContainer>
-            {status === "loading" && <LoadingIcon><FaCircleNotch/></LoadingIcon>}
-            {status === "success" && setTimeout(() => setStatus("idle"), 1000) && <SuccessIcon><FaCheck/></SuccessIcon>}
-            {status === "failure" && setTimeout(() => setStatus("idle"), 1000) && <FailureIcon><FaTimes/></FailureIcon>}
+            {status === "loading" && (
+              <LoadingIcon>
+                <FaCircleNotch />
+              </LoadingIcon>
+            )}
+            {status === "success" && setTimeout(() => setStatus("idle"), 1000) && (
+              <SuccessIcon>
+                <FaCheck />
+              </SuccessIcon>
+            )}
+            {status === "failure" && setTimeout(() => setStatus("idle"), 1000) && (
+              <FailureIcon>
+                <FaTimes />
+              </FailureIcon>
+            )}
           </LoadingContainer>
         </LoadingLayer>
       )}

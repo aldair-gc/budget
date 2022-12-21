@@ -14,7 +14,7 @@ export const TotalsLineContainer = styled.div`
   width: 100%;
   height: 30px;
   flex: none;
-  background: ${props => props.theme.list.background};
+  background: ${(props) => props.theme.list.background};
   overflow: hidden;
 `;
 
@@ -31,24 +31,32 @@ export const TotalsNumbers = styled.div`
   font-size: 18px;
   font-weight: 500;
   z-index: 2;
-  color: ${props => props.theme.general.font};
+  color: ${(props) => props.theme.general.font};
 
-  p:first-child { width: 40%}
-  p:nth-child(2) { width: 20%; text-align: center; }
-  p:last-child { width: 40%; text-align: right; }
+  p:first-child {
+    width: 40%;
+  }
+  p:nth-child(2) {
+    width: 20%;
+    text-align: center;
+  }
+  p:last-child {
+    width: 40%;
+    text-align: right;
+  }
 `;
 
-export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => props)`
+export const TotalsEstimation = styled.div.attrs((props: { result: boolean }) => props)`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${props => props.theme.general.background};
+  background: ${(props) => props.theme.general.background};
   height: 100%;
   border-radius: 5px;
   flex: 0 1 33%;
-  color: ${props => props.theme.general.font};
+  color: ${(props) => props.theme.general.font};
 
   h3 {
     z-index: 2;
@@ -62,11 +70,12 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
     z-index: 2;
     font-size: 20px;
     flex: 1;
-    color: ${props => props.result ? props.theme.general.fontGoodResult : props.theme.general.fontBadResult};
+    color: ${(props) => (props.result ? props.theme.general.fontGoodResult : props.theme.general.fontBadResult)};
   }
 
   @media (max-width: 600px) {
-    h3, h2 {
+    h3,
+    h2 {
       z-index: 2;
       font-size: 16px;
     }
@@ -76,11 +85,13 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
     position: absolute;
     width: 80%;
     height: 80%;
-    color: ${props => props.theme.general.backgroundStrong};
+    color: ${(props) => props.theme.general.backgroundStrong};
     z-index: 1;
   }
 
-  :hover i { display: block; }
+  :hover i {
+    display: block;
+  }
 
   i {
     position: absolute;
@@ -88,8 +99,8 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
     bottom: calc(100% + 7px);
     z-index: 5;
     text-align: center;
-    background: ${props => props.theme.general.backgroundWeak};
-    color: ${props => props.theme.general.fontStrong};
+    background: ${(props) => props.theme.general.backgroundWeak};
+    color: ${(props) => props.theme.general.fontStrong};
     border-radius: 10px;
     padding: 5px;
 
@@ -101,7 +112,7 @@ export const TotalsEstimation = styled.div.attrs((props: {result: boolean}) => p
       height: 10px;
       width: 10px;
       content: "";
-      background: ${props => props.theme.general.backgroundWeak};
+      background: ${(props) => props.theme.general.backgroundWeak};
     }
   }
 `;

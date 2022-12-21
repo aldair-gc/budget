@@ -13,7 +13,7 @@ export default function UserAccess() {
 
   const [option, setOption] = useState("none" as "none" | "settings" | "help");
 
-  function toggleSize():void {
+  function toggleSize(): void {
     const box = (document.querySelector("#user-access") as HTMLDivElement).style;
     if (box.width !== "50px" && box.width !== "") {
       box.width = "50px";
@@ -29,17 +29,17 @@ export default function UserAccess() {
 
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <UserContainer>
           <UserButtonContainer id="user-access" onClick={() => toggleSize()}>
             <button onClick={() => setOption("help")}>{file.userAccess.help}</button>
             <button onClick={() => setOption("settings")}>{file.userAccess.settings}</button>
             <button onClick={logout}>{file.userAccess.logout}</button>
-            <FaUser id="user-icon"/>
+            <FaUser id="user-icon" />
           </UserButtonContainer>
 
-          {option === "help" && <Help close={() => setOption("none")}/>}
-          {option === "settings" && <Settings close={() => setOption("none")}/>}
+          {option === "help" && <Help close={() => setOption("none")} />}
+          {option === "settings" && <Settings close={() => setOption("none")} />}
         </UserContainer>
       )}
     </LanguageContext.Consumer>

@@ -6,15 +6,13 @@ const inst = axios.create({
   baseURL: "https://budget-server.aldairgc.com",
 });
 
-inst.interceptors.request.use(
-  (config: any) => {
-    const token = store.getState().auth.token;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
+inst.interceptors.request.use((config: any) => {
+  const token = store.getState().auth.token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+});
 
 inst.interceptors.response.use(
   (response) => {
@@ -22,7 +20,7 @@ inst.interceptors.response.use(
   },
   async function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default inst;

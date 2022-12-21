@@ -40,30 +40,33 @@ export default class YearMonthPicker extends Component<Props, State> {
 
     const resetPicker = (): void => {
       this.setYearMonth({ year: new Date().getFullYear(), month: new Date().getMonth() + 1 });
-      this.setState({monthTop: (this.props.yearMonth.month - 1) * 30, yearTop: (this.props.yearMonth.year - this.props.initialYear) * 30});
+      this.setState({
+        monthTop: (this.props.yearMonth.month - 1) * 30,
+        yearTop: (this.props.yearMonth.year - this.props.initialYear) * 30,
+      });
     };
 
     const addTouchAndScrool = (object: HTMLDivElement, yearOrMonth: "year" | "month"): void => {
       object.addEventListener("touchstart", (eventTouch) => {
         eventTouch.preventDefault();
-        this.setState({picking: true});
+        this.setState({ picking: true });
         object.addEventListener("touchmove", (eventMove) => {
           eventMove.preventDefault();
-          const moving = (eventTouch.touches[0].clientY - eventMove.touches[0].clientY);
-          yearOrMonth === "month" && this.setState({monthChange: moving});
-          yearOrMonth === "year" && this.setState({yearChange: moving});
+          const moving = eventTouch.touches[0].clientY - eventMove.touches[0].clientY;
+          yearOrMonth === "month" && this.setState({ monthChange: moving });
+          yearOrMonth === "year" && this.setState({ yearChange: moving });
           object.addEventListener("touchend", (eventEnd) => {
             eventEnd.preventDefault();
-            if (this.state.picking){
+            if (this.state.picking) {
               if (yearOrMonth === "month") this.setNewYearMonth(Math.round(this.state.monthChange / 30));
               if (yearOrMonth === "year") {
                 this.setNewYearMonth(Math.round(this.state.yearChange / 30) * 12);
               }
-              this.setState({monthChange: 0, yearChange: 0, picking: false});
+              this.setState({ monthChange: 0, yearChange: 0, picking: false });
             } else {
               eventEnd.stopImmediatePropagation();
             }
-            this.setState({picking: false});
+            this.setState({ picking: false });
           });
         });
       });
@@ -75,12 +78,12 @@ export default class YearMonthPicker extends Component<Props, State> {
 
   setNewYearMonth(change: number): void {
     let yearDif = Math.sign(change) * Math.floor(Math.abs(change) / 12);
-    let monthDif = (change % 12);
-    if ((change > 0) && ((this.props.yearMonth.month + monthDif) > 12)) {
+    let monthDif = change % 12;
+    if (change > 0 && this.props.yearMonth.month + monthDif > 12) {
       yearDif++;
       monthDif -= this.props.yearMonth.month;
     }
-    if ((change < 0) && ((this.props.yearMonth.month + monthDif) < 1)) {
+    if (change < 0 && this.props.yearMonth.month + monthDif < 1) {
       yearDif--;
       monthDif = 12 + monthDif;
     }
@@ -88,11 +91,10 @@ export default class YearMonthPicker extends Component<Props, State> {
       year: this.props.yearMonth.year + yearDif,
       month: this.props.yearMonth.month + monthDif,
     });
-    this.setState({monthTop: this.state.monthTop + (monthDif * 30), yearTop: this.state.yearTop + (yearDif * 30)});
-
+    this.setState({ monthTop: this.state.monthTop + monthDif * 30, yearTop: this.state.yearTop + yearDif * 30 });
   }
 
-  setYearMonth(yearMonth: {year: number, month: number}): void {
+  setYearMonth(yearMonth: { year: number; month: number }): void {
     this.props.setYearMonth(yearMonth);
   }
 
@@ -108,15 +110,19 @@ export default class YearMonthPicker extends Component<Props, State> {
 
     function makeYearList() {
       const yearList: JSX.Element[] = [];
-      for(let i = initialYear; i <= finalYear; i++) {
-        yearList.push(<p key={i} style={cylinder(i - initialYear + 1, finalYear - initialYear + 1, yearTop, yearChange)}>{i}</p>);
+      for (let i = initialYear; i <= finalYear; i++) {
+        yearList.push(
+          <p key={i} style={cylinder(i - initialYear + 1, finalYear - initialYear + 1, yearTop, yearChange)}>
+            {i}
+          </p>,
+        );
       }
       return yearList;
     }
 
     function cylinder(part: number, total: number, top: number, topChange: number) {
       return {
-        transform: `rotateX(${(-(360 / total) * (part - 1)) + top + topChange}deg) translate3d(0, -50%, 20px)`,
+        transform: `rotateX(${-(360 / total) * (part - 1) + top + topChange}deg) translate3d(0, -50%, 20px)`,
       };
     }
 
@@ -124,8 +130,8 @@ export default class YearMonthPicker extends Component<Props, State> {
 
     return (
       <LanguageContext.Consumer>
-        {({file}) => (
-          <YearMonthPickerContainer style={{width, height}}>
+        {({ file }) => (
+          <YearMonthPickerContainer style={{ width, height }}>
             <div className="year-picker" style={{ width: `calc((${width} / 2) - 15px)`, padding: `calc((${height} - 20px) / 2) 0` }}>
               {makeYearList()}
             </div>
@@ -152,18 +158,18 @@ export default class YearMonthPicker extends Component<Props, State> {
 }
 
 interface Props {
-  height: string,
-  width: string,
-  initialYear: number,
-  finalYear: number,
-  yearMonth: YearMonthInterface,
-  setYearMonth: (yearMonth: YearMonthInterface) => void,
+  height: string;
+  width: string;
+  initialYear: number;
+  finalYear: number;
+  yearMonth: YearMonthInterface;
+  setYearMonth: (yearMonth: YearMonthInterface) => void;
 }
 
 interface State {
-  yearTop: number,
-  monthTop: number,
-  monthChange: number,
-  yearChange: number,
-  picking: boolean,
+  yearTop: number;
+  monthTop: number;
+  monthChange: number;
+  yearChange: number;
+  picking: boolean;
 }

@@ -5,18 +5,15 @@ import { WindowContainer, WindowHeaderContainer, WindowBodyContainer } from "../
 import { LayerContainer } from "../../common/Layer/style";
 
 export default function InputWindow(props: Props) {
-
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
-        <LayerContainer style={{display: props.show === 0 ? "flex" : "none"}}>
+      {({ file }) => (
+        <LayerContainer style={{ display: props.show === 0 ? "flex" : "none" }}>
           <WindowContainer>
             <WindowHeaderContainer>
               <h1>{file.input.newTransaction}</h1>
             </WindowHeaderContainer>
-            <WindowBodyContainer>
-              {props.children}
-            </WindowBodyContainer>
+            <WindowBodyContainer>{props.children}</WindowBodyContainer>
           </WindowContainer>
         </LayerContainer>
       )}

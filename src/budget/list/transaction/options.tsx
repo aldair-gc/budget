@@ -7,14 +7,14 @@ import { SimpleTransaction, TransactionInterface } from "../../interfaces";
 import { ButtonsContainer } from "./style";
 
 export default class Options extends Component<Props, State> {
-  constructor(props: Props){
+  constructor(props: Props) {
     super(props);
     this.setEditing = this.props.setEditing.bind(this);
     this.setDeleting = this.props.setDeleting.bind(this);
     this.setList = this.props.setList.bind(this);
     this.resetItem = this.props.resetItem.bind(this);
     this.setUserInput = this.props.setUserInput.bind(this);
-    this.state = { willUpdate: "question"};
+    this.state = { willUpdate: "question" };
   }
 
   setUserInput(userInput: number): void {
@@ -64,10 +64,10 @@ export default class Options extends Component<Props, State> {
     }
   };
 
-  deleteTransaction = async (id: number):Promise<void> => {
+  deleteTransaction = async (id: number): Promise<void> => {
     try {
       const deleteRequest = await axios.delete(`/transaction/${id}`);
-      if (deleteRequest.status === 200 && this.props.list.some(item => item.id === id)) {
+      if (deleteRequest.status === 200 && this.props.list.some((item) => item.id === id)) {
         const newList = [...this.props.list];
         const deletedItemIndex = newList.findIndex((item) => item.id === id);
         deleteRequest.data.transactionDeleted && newList.splice(deletedItemIndex, 1);
@@ -84,15 +84,16 @@ export default class Options extends Component<Props, State> {
       const relatedTransactions = await axios.get(`/transaction/${this.props.item.id}`);
       if (relatedTransactions.status !== 200) return;
 
-      const updatableTransactions = (relatedTransactions.data as Array<TransactionInterface>).filter(transaction =>
-        transaction.year > new Date().getFullYear()
-        || (transaction.year === new Date().getFullYear()
-        && (transaction.month >= new Date().getMonth() + 1)));
+      const updatableTransactions = (relatedTransactions.data as Array<TransactionInterface>).filter(
+        (transaction) =>
+          transaction.year > new Date().getFullYear() ||
+          (transaction.year === new Date().getFullYear() && transaction.month >= new Date().getMonth() + 1),
+      );
 
-      updatableTransactions.forEach(transaction => transaction.id && handleFunction(transaction.id));
+      updatableTransactions.forEach((transaction) => transaction.id && handleFunction(transaction.id));
 
       return;
-    } catch(error: any) {
+    } catch (error: any) {
       const errors = error.response.data.errors ?? [];
       errors.map((err: any) => console.log(err));
     }
@@ -112,16 +113,16 @@ export default class Options extends Component<Props, State> {
     if (!this.props.editing && !this.props.deleting) {
       return (
         <LanguageContext.Consumer>
-          {({file}) => (
+          {({ file }) => (
             <ButtonsContainer>
               <button className="edit" onClick={() => this.setEditing(true)}>
-                <FaEdit/> {file.transaction.options.edit}
+                <FaEdit /> {file.transaction.options.edit}
               </button>
               <button className="edit" onClick={() => this.setUserInput(this.props.item.id)}>
-                <FaRegCopy/> {file.transaction.options.copy}
+                <FaRegCopy /> {file.transaction.options.copy}
               </button>
               <button className="delete" onClick={() => this.setDeleting(true)}>
-                <FaRegTrashAlt/> {file.transaction.options.delete}
+                <FaRegTrashAlt /> {file.transaction.options.delete}
               </button>
             </ButtonsContainer>
           )}
@@ -130,13 +131,13 @@ export default class Options extends Component<Props, State> {
     } else if (this.props.hasFutureRepetitions && this.state.willUpdate === "question") {
       return (
         <LanguageContext.Consumer>
-          {({file}) => (
+          {({ file }) => (
             <ButtonsContainer>
-              <button className="only-this" onClick={() => this.setState({willUpdate: "onlyThis"})}>
-                <FaRegSquare/> {file.transaction.options.onlyThis}
+              <button className="only-this" onClick={() => this.setState({ willUpdate: "onlyThis" })}>
+                <FaRegSquare /> {file.transaction.options.onlyThis}
               </button>
-              <button className="this-and-future" onClick={() => this.setState({willUpdate: "thisAndFuture"})}>
-                <FaRegClone/> {file.transaction.options.thisAndFuture}
+              <button className="this-and-future" onClick={() => this.setState({ willUpdate: "thisAndFuture" })}>
+                <FaRegClone /> {file.transaction.options.thisAndFuture}
               </button>
             </ButtonsContainer>
           )}
@@ -145,13 +146,19 @@ export default class Options extends Component<Props, State> {
     } else if (this.props.editing) {
       return (
         <LanguageContext.Consumer>
-          {({file}) => (
+          {({ file }) => (
             <ButtonsContainer>
               <button className="save" onClick={() => this.saveChanges(this.updateTransaction)}>
-                <FaRegSave/> {file.transaction.options.save}
+                <FaRegSave /> {file.transaction.options.save}
               </button>
-              <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
-                <FaTimes/> {file.transaction.options.cancel}
+              <button
+                className="cancel"
+                onClick={() => {
+                  this.setState({ willUpdate: "question" });
+                  this.resetItem();
+                }}
+              >
+                <FaTimes /> {file.transaction.options.cancel}
               </button>
             </ButtonsContainer>
           )}
@@ -160,13 +167,19 @@ export default class Options extends Component<Props, State> {
     } else if (this.props.deleting) {
       return (
         <LanguageContext.Consumer>
-          {({file}) => (
+          {({ file }) => (
             <ButtonsContainer>
-              <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)} style={{color: "#a00"}}>
-                <FaExclamationTriangle/> {file.transaction.options.confirmDel}
+              <button className="delete" onClick={() => this.saveChanges(this.deleteTransaction)} style={{ color: "#a00" }}>
+                <FaExclamationTriangle /> {file.transaction.options.confirmDel}
               </button>
-              <button className="cancel" onClick={() => { this.setState({willUpdate: "question"}); this.resetItem(); }}>
-                <FaTimes/> {file.transaction.options.cancel}
+              <button
+                className="cancel"
+                onClick={() => {
+                  this.setState({ willUpdate: "question" });
+                  this.resetItem();
+                }}
+              >
+                <FaTimes /> {file.transaction.options.cancel}
               </button>
             </ButtonsContainer>
           )}
@@ -177,18 +190,18 @@ export default class Options extends Component<Props, State> {
 }
 
 interface Props {
-  item: SimpleTransaction,
-  resetItem: () => void,
-  list: TransactionInterface[],
-  setList: (list: TransactionInterface[]) => void,
-  editing: boolean,
-  setEditing: (trueOrFalse: boolean) => void,
-  deleting: boolean,
-  setDeleting: (trueOrFalse: boolean) => void,
-  hasFutureRepetitions: boolean,
-  setUserInput: (userInput: number) => void,
+  item: SimpleTransaction;
+  resetItem: () => void;
+  list: TransactionInterface[];
+  setList: (list: TransactionInterface[]) => void;
+  editing: boolean;
+  setEditing: (trueOrFalse: boolean) => void;
+  deleting: boolean;
+  setDeleting: (trueOrFalse: boolean) => void;
+  hasFutureRepetitions: boolean;
+  setUserInput: (userInput: number) => void;
 }
 
 interface State {
-  willUpdate: "question" | "onlyThis" | "thisAndFuture",
+  willUpdate: "question" | "onlyThis" | "thisAndFuture";
 }

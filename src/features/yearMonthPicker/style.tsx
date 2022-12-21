@@ -6,20 +6,23 @@ export const YearMonthPickerContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(to bottom,
-    ${props => props.theme.picker.rollSides} 0%,
-    ${props => props.theme.picker.rollMiddle} 50%,
-    ${props => props.theme.picker.rollSides} 100%);
+  background: linear-gradient(
+    to bottom,
+    ${(props) => props.theme.picker.rollSides} 0%,
+    ${(props) => props.theme.picker.rollMiddle} 50%,
+    ${(props) => props.theme.picker.rollSides} 100%
+  );
   z-index: 200;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) inset;
   cursor: pointer;
 
-  .year-picker, .month-picker {
+  .year-picker,
+  .month-picker {
     height: 100%;
     overflow: hidden;
     z-index: 201;
-    transition: all .3s;
+    transition: all 0.3s;
     perspective: 130px;
     -ms-perspective: 130px;
     -webkit-perspective: 150px;
@@ -34,7 +37,7 @@ export const YearMonthPickerContainer = styled.div`
       font-size: 16px;
       width: 100%;
       backface-visibility: hidden;
-      color: ${props => props.theme.picker.font};
+      color: ${(props) => props.theme.picker.font};
       transform-origin: 0 0 -18px;
     }
   }
@@ -56,9 +59,9 @@ export const SideButtons = styled.div`
     height: 20px;
     border: none;
     border-radius: 50%;
-    color: ${props => props.theme.picker.button};
+    color: ${(props) => props.theme.picker.button};
     font-size: 15px;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
 
     @media (max-width: 600px) {
       font-size: 20px;
@@ -67,6 +70,10 @@ export const SideButtons = styled.div`
     }
   }
 
-  button:hover {color: ${props => props.theme.picker.buttonHover}; }
-  button:active {color: ${props => props.theme.picker.buttonActive}; }
+  button:hover {
+    color: ${(props) => props.theme.picker.buttonHover};
+  }
+  button:active {
+    color: ${(props) => props.theme.picker.buttonActive};
+  }
 `;

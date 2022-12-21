@@ -5,7 +5,7 @@ import { LanguageContext, LoadingContext } from "../../app/App";
 import axios from "../../services/axios";
 import { InputContainer } from "./style";
 
-export default function Register(props: { position: (arg0: number) => void; }) {
+export default function Register(props: { position: (arg0: number) => void }) {
   const lang = useContext(LanguageContext);
 
   const [name, setName] = useState("");
@@ -63,36 +63,50 @@ export default function Register(props: { position: (arg0: number) => void; }) {
 
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <LoadingContext.Consumer>
-          {({setStatus}) => (
+          {({ setStatus }) => (
             <InputContainer>
               <h2>{file.auth.register}</h2>
 
               <form onSubmit={(e) => handleSubmit(e, setStatus)}>
                 <label htmlFor="name">{file.auth.name}</label>
-                <input type="text" name="name" id="name"
-                  autoComplete="name" placeholder={file.auth.yourName} required
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  autoComplete="name"
+                  placeholder={file.auth.yourName}
+                  required
                   onChange={(e) => setName(e.target.value)}
                 />
                 <small>{msgName}</small>
 
                 <label htmlFor="email">{file.auth.email}</label>
-                <input type="email" name="email" id="email"
-                  autoComplete="email" placeholder={file.auth.yourEmail} required
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  autoComplete="email"
+                  placeholder={file.auth.yourEmail}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <small>{msgEmail}</small>
 
                 <label htmlFor="password">{file.auth.password}</label>
-                <input type="password" name="password" id="password"
-                  autoComplete="new-password" placeholder="*****" required
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  autoComplete="new-password"
+                  placeholder="*****"
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <small>{msgPassword}</small>
 
                 <input type="submit" value={file.auth.register} />
-
               </form>
 
               <h3 onClick={() => props.position(1)}>{file.auth.loginRegisteredUser}</h3>

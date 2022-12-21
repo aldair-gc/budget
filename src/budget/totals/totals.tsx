@@ -3,12 +3,11 @@ import { TotalsContainer, TotalsEstimation } from "./style";
 import { LanguageContext, NumberContext } from "../../app/App";
 
 export default function Totals(props: Props) {
-
   function totalOf(list: TransactionInterface[], status: "pending" | "done" | "all"): number {
-    return list.reduce((sum, item) => sum += item.status === status || status === "all" ? +item.value : 0, 0);
+    return list.reduce((sum, item) => (sum += item.status === status || status === "all" ? +item.value : 0), 0);
   }
 
-  function result(status: "pending" | "done" | "all"):number {
+  function result(status: "pending" | "done" | "all"): number {
     const totalIncome = totalOf(props.incomeList, status);
     const totalExpenditure = totalOf(props.expenditureList, status);
     return totalIncome - totalExpenditure;
@@ -16,11 +15,10 @@ export default function Totals(props: Props) {
 
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <NumberContext.Consumer>
-          {({number}) => (
+          {({ number }) => (
             <TotalsContainer>
-
               <TotalsEstimation result={result("done") + props.lastMonthBalance.value > 0}>
                 <h3>{file.totals.balance}</h3>
                 <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(result("done") + props.lastMonthBalance.value)}</h2>
@@ -38,7 +36,6 @@ export default function Totals(props: Props) {
                 <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(props.lastMonthBalance.value + result("all"))}</h2>
                 <i>{file.totals.lastMonthHelp}</i>
               </TotalsEstimation>
-
             </TotalsContainer>
           )}
         </NumberContext.Consumer>
@@ -48,7 +45,7 @@ export default function Totals(props: Props) {
 }
 
 interface Props {
-  incomeList: TransactionInterface[],
-  expenditureList: TransactionInterface[],
-  lastMonthBalance: {loading: boolean, value: number},
+  incomeList: TransactionInterface[];
+  expenditureList: TransactionInterface[];
+  lastMonthBalance: { loading: boolean; value: number };
 }

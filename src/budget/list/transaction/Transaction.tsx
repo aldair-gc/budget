@@ -8,7 +8,7 @@ import axios from "../../../services/axios";
 import { NumberContext } from "../../../app/App";
 
 export default class Transaction extends Component<Props, BudgetItemState> {
-  constructor(props: Props){
+  constructor(props: Props) {
     super(props);
     this.setList = this.props.setList.bind(this);
     this.setSelection = this.props.setSelection.bind(this);
@@ -50,8 +50,8 @@ export default class Transaction extends Component<Props, BudgetItemState> {
   }
 
   checkMonth(): "past" | "present" | "future" {
-    const realMonth = new Date().getFullYear() + ((new Date().getMonth() + 1) / 100);
-    const selectedMonth = this.props.item.year + (this.props.item.month / 100);
+    const realMonth = new Date().getFullYear() + (new Date().getMonth() + 1) / 100;
+    const selectedMonth = this.props.item.year + this.props.item.month / 100;
     if (selectedMonth === realMonth) return "present";
     if (selectedMonth > realMonth) return "future";
     return "past";
@@ -65,7 +65,7 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     if (this.props.item.status !== "pending") return "";
     if (exp === 0) return "";
     if (exp <= today + 1) return "danger";
-    if ((exp > today) && (exp <= (today + 5))) return "warning";
+    if (exp > today && exp <= today + 5) return "warning";
     return "";
   }
 
@@ -78,9 +78,9 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     const deleting = this.state.deleting;
     const hasFutureRepetitions = this.state.hasFutureRepetitions;
     const selection = this.props.selection;
-    const setEditing = (editing: boolean) => this.setState({editing});
-    const setDeleting = (deleting: boolean,) => this.setState({deleting});
-    const setSelection = (selection: number) => this.setSelection(selection === this.props.selection ? 0 : selection );
+    const setEditing = (editing: boolean) => this.setState({ editing });
+    const setDeleting = (deleting: boolean) => this.setState({ deleting });
+    const setSelection = (selection: number) => this.setSelection(selection === this.props.selection ? 0 : selection);
 
     const resetItem = (): void => {
       this.setState({ description: this.props.item.description });
@@ -91,8 +91,11 @@ export default class Transaction extends Component<Props, BudgetItemState> {
       setSelection(0);
     };
 
-    const listTotal = ():number => {
-      const total = this.props.list.reduce((sum, thisItem) => thisItem.type === this.props.item.type ? sum += +thisItem.value : sum += 0, 0);
+    const listTotal = (): number => {
+      const total = this.props.list.reduce(
+        (sum, thisItem) => (thisItem.type === this.props.item.type ? (sum += +thisItem.value) : (sum += 0)),
+        0,
+      );
       return Math.round((100 / total) * +value);
     };
 
@@ -101,48 +104,67 @@ export default class Transaction extends Component<Props, BudgetItemState> {
         <TransactionContainer
           highlight={this.highlight()}
           checked={this.props.item.status === "done"}
-          className={`budget-item item-id-${id} item-status-${this.props.item.status}`}>
+          className={`budget-item item-id-${id} item-status-${this.props.item.status}`}
+        >
           <div className="check" onClick={() => id && this.toggleStatus(id)}>
-            {this.props.item.status === "done" ? <FaRegCheckCircle/> : <FaRegCircle/>}
+            {this.props.item.status === "done" ? <FaRegCheckCircle /> : <FaRegCircle />}
           </div>
 
-          <input type="text" className={`description ${editing}`}
+          <input
+            type="text"
+            className={`description ${editing}`}
             value={description}
             onChange={(e) => this.setState({ description: e.target.value })}
             disabled={!(editing && selection === id)}
           />
 
           <NumberContext.Consumer>
-            {({number}) => (
-              <input type="text" className={`value ${editing}`} min={0} inputMode="decimal"
-                value={ editing ? value.toString().replace(",", "").replace(".", ",") : number.currency.format(+value)}
+            {({ number }) => (
+              <input
+                type="text"
+                className={`value ${editing}`}
+                min={0}
+                inputMode="decimal"
+                value={editing ? value.toString().replace(",", "").replace(".", ",") : number.currency.format(+value)}
                 onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
                 disabled={!(editing && selection === id)}
               />
             )}
           </NumberContext.Consumer>
 
-          <input type="number"
+          <input
+            type="number"
             className={`expiration_day ${editing}`}
-            value={expiration_day || ""} min={0} max={31} inputMode="numeric"
-            onChange={(e) => this.setState({ expiration_day: (parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31) ? parseInt(e.target.value) : 0 })}
+            value={expiration_day || ""}
+            min={0}
+            max={31}
+            inputMode="numeric"
+            onChange={(e) =>
+              this.setState({
+                expiration_day: parseInt(e.target.value) > 0 && parseInt(e.target.value) <= 31 ? parseInt(e.target.value) : 0,
+              })
+            }
             disabled={!(editing && selection === id)}
           />
 
           <FaCaretDown
             className="item-opt-access"
-            style={ selection === id ? { transform: "rotate(0.5turn"} : {}}
-            onClick={() => {setEditing(false); setDeleting(false); resetItem(); setSelection(id); }}
+            style={selection === id ? { transform: "rotate(0.5turn" } : {}}
+            onClick={() => {
+              setEditing(false);
+              setDeleting(false);
+              resetItem();
+              setSelection(id);
+            }}
           />
 
-          <ItemBackground type={this.props.item.type} width={selection === id ? 0 : listTotal()}
-            className={`item-bg ${editing}`}/>
+          <ItemBackground type={this.props.item.type} width={selection === id ? 0 : listTotal()} className={`item-bg ${editing}`} />
         </TransactionContainer>
 
         <Options
           list={this.props.list}
           setList={this.setList}
-          item={{id, description, value, expiration_day }}
+          item={{ id, description, value, expiration_day }}
           resetItem={resetItem}
           editing={editing}
           setEditing={setEditing}
@@ -157,20 +179,20 @@ export default class Transaction extends Component<Props, BudgetItemState> {
 }
 
 interface Props {
-  item: TransactionInterface,
-  list: TransactionInterface[],
-  setList: (list: TransactionInterface[]) => void,
-  selection: number,
-  setSelection: (selection: number) => void,
-  setUserInput: (selection: number) => void,
-  loading: boolean,
+  item: TransactionInterface;
+  list: TransactionInterface[];
+  setList: (list: TransactionInterface[]) => void;
+  selection: number;
+  setSelection: (selection: number) => void;
+  setUserInput: (selection: number) => void;
+  loading: boolean;
 }
 
 interface BudgetItemState {
-  description: string,
-  value: string,
-  expiration_day: number,
-  editing: boolean,
-  deleting: boolean,
-  hasFutureRepetitions: boolean,
+  description: string;
+  value: string;
+  expiration_day: number;
+  editing: boolean;
+  deleting: boolean;
+  hasFutureRepetitions: boolean;
 }

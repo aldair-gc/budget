@@ -48,8 +48,8 @@ export interface SimpleTransaction {
 }
 
 export interface YearMonthInterface {
-  year: number,
-  month: number,
+  year: number;
+  month: number;
 }
 
 export interface SetYearMonthInterface {
@@ -57,24 +57,24 @@ export interface SetYearMonthInterface {
 }
 
 export interface SettersInterface {
-  setType: (type: "income" | "expenditure") => void,
-  setDescription: (description: string) => void,
-  setValue: (value: string) => void,
-  setExpirationDay: (expirationDay: number) => void,
-  setStatus: (repeat: "done" | "pending") => void,
-  setYear: (repeat: number) => void,
-  setMonth: (repeat: number) => void,
-  setRepeat: (repeat: string) => void,
+  setType: (type: "income" | "expenditure") => void;
+  setDescription: (description: string) => void;
+  setValue: (value: string) => void;
+  setExpirationDay: (expirationDay: number) => void;
+  setStatus: (repeat: "done" | "pending") => void;
+  setYear: (repeat: number) => void;
+  setMonth: (repeat: number) => void;
+  setRepeat: (repeat: string) => void;
 }
 
 export interface EditOptionsInterface {
-  id: number,
-  updateFutureOnes: boolean,
-  openEditor: boolean,
+  id: number;
+  updateFutureOnes: boolean;
+  openEditor: boolean;
 }
 
 export interface SetEditOptionsInterface {
-  setId: (id: number) => void,
-  setUpdateFutureOnes: (updateFutureOnes: boolean) => void,
-  setOpenEditor: (openEditor: boolean) => void,
+  setId: (id: number) => void;
+  setUpdateFutureOnes: (updateFutureOnes: boolean) => void;
+  setOpenEditor: (openEditor: boolean) => void;
 }

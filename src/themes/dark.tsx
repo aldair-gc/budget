@@ -61,11 +61,11 @@ export const dark = {
     buttonActive: "#fff",
   },
   income: {
-    soft:  "#aaa",
+    soft: "#aaa",
     hard: "#123",
   },
   expenditure: {
     soft: "#aaa",
     hard: "#123",
-  }
+  },
 };

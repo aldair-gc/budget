@@ -19,39 +19,44 @@ export default class BudgetList extends Component<Props, State> {
   }
 
   changeSorter(sorter: SorterType): void {
-    this.setState({sorter: sorter});
+    this.setState({ sorter: sorter });
   }
 
   toggleUserInput(): void {
-    this.setState({userInput: this.state.userInput === 0 ? -1 : 0});
+    this.setState({ userInput: this.state.userInput === 0 ? -1 : 0 });
   }
 
   sorter(list: TransactionInterface[], type: string) {
+    // prettier-ignore
+    /* eslint-disable indent */
     switch (type) {
-    case "none": return list;
-    case "expiration_day-1": return list.sort((a,b) => a.expiration_day - b.expiration_day);
-    case "value-1": return list.sort((a,b) => +a.value - +b.value);
-    case "description-A": return list.sort((a,b) => {
-      if (a.description < b.description) return -1;
-      if (a.description > b.description) return 1;
-      return 0;
-    });
-    case "expiration_day-9": return list.sort((a,b) => b.expiration_day - a.expiration_day);
-    case "value-9": return list.sort((a,b) => +b.value - +a.value);
-    case "description-Z": return list.sort((a,b) => {
-      if (b.description < a.description) return -1;
-      if (b.description > a.description) return 1;
-      return 0;
-    });
-    default: return list;
+      case "none": return list;
+      case "expiration_day-1": return list.sort((a, b) => a.expiration_day - b.expiration_day);
+      case "value-1": return list.sort((a, b) => +a.value - +b.value);
+      case "description-A": return list.sort((a, b) => {
+        if (a.description < b.description) return -1;
+        if (a.description > b.description) return 1;
+        return 0;
+      });
+      case "expiration_day-9": return list.sort((a, b) => b.expiration_day - a.expiration_day);
+      case "value-9": return list.sort((a, b) => +b.value - +a.value);
+      case "description-Z": return list.sort((a, b) => {
+        if (b.description < a.description) return -1;
+        if (b.description > a.description) return 1;
+        return 0;
+      });
+      default: return list;
     }
   }
 
   totalEstimated(type: "income" | "expenditure" | "all", status: "pending" | "done" | "all"): number {
-    return this.props.list.reduce((sum, item) => sum += ((item.type === type || type === "all") && (item.status === status || status === "all")) ? +item.value : 0, 0);
+    return this.props.list.reduce(
+      (sum, item) => (sum += (item.type === type || type === "all") && (item.status === status || status === "all") ? +item.value : 0),
+      0,
+    );
   }
 
-  percentageDone(type: "income" | "expenditure"):number {
+  percentageDone(type: "income" | "expenditure"): number {
     return Math.floor((this.totalEstimated(type, "done") * 100) / this.totalEstimated(type, "all"));
   }
 
@@ -70,9 +75,9 @@ export default class BudgetList extends Component<Props, State> {
           toggleUserInput={this.toggleUserInput}
         />
 
-        <Evidence style={{ display: this.state.userInput === 0 ? "block" : "none" }}/>
+        <Evidence style={{ display: this.state.userInput === 0 ? "block" : "none" }} />
 
-        <ListInputContainer style={{height: this.state.userInput === 0 ? "213px" : "0"}}>
+        <ListInputContainer style={{ height: this.state.userInput === 0 ? "213px" : "0" }}>
           <InputForm
             userInput={this.state.userInput}
             setUserInput={this.toggleUserInput}
@@ -88,11 +93,12 @@ export default class BudgetList extends Component<Props, State> {
               month: [true, this.props.yearMonth.month],
               expiration_day: [false, 0],
               repeat: [false, "0-1-1"],
-            }}/>
+            }}
+          />
         </ListInputContainer>
 
         <ItemList>
-          {list.map(item =>
+          {list.map((item) => (
             <Transaction
               key={item.id}
               item={item}
@@ -103,7 +109,7 @@ export default class BudgetList extends Component<Props, State> {
               setUserInput={this.props.setUserInput}
               loading={this.props.loading}
             />
-          )}
+          ))}
         </ItemList>
 
         <ListBackground
@@ -112,28 +118,28 @@ export default class BudgetList extends Component<Props, State> {
           type={this.props.type}
         />
 
-        <TotalsLine list={this.props.loading ? [] : this.props.list}/>
+        <TotalsLine list={this.props.loading ? [] : this.props.list} />
       </ListContainer>
     );
   }
 }
 
 interface Props {
-  list: TransactionInterface[],
-  setList: (list: TransactionInterface[]) => void,
-  type: "income" | "expenditure",
-  yearMonth: {year: number, month: number},
-  selection: number,
-  setSelection: (id: number) => void,
-  setUserInput: (userInput: number) => void,
-  showSorter: ShowType,
-  changeShowSorter: (showType: ShowType) => void,
-  loading: boolean,
+  list: TransactionInterface[];
+  setList: (list: TransactionInterface[]) => void;
+  type: "income" | "expenditure";
+  yearMonth: { year: number; month: number };
+  selection: number;
+  setSelection: (id: number) => void;
+  setUserInput: (userInput: number) => void;
+  showSorter: ShowType;
+  changeShowSorter: (showType: ShowType) => void;
+  loading: boolean;
 }
 
 interface State {
-  sorter: SorterType,
-  userInput: number,
+  sorter: SorterType;
+  userInput: number;
 }
 
 type ShowType = "none" | "income" | "expenditure";

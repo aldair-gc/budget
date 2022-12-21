@@ -8,8 +8,8 @@ export const Container = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  background: ${props => props.theme.general.backgroundStrong};
-  `;
+  background: ${(props) => props.theme.general.backgroundStrong};
+`;
 
 export const Delimiter = styled.div`
   max-width: 1200px;

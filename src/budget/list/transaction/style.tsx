@@ -1,33 +1,34 @@
 import styled from "styled-components";
 
-export const ItemContainer = styled.div.attrs((props: {selected: boolean}) => props)`
+export const ItemContainer = styled.div.attrs((props: { selected: boolean }) => props)`
   position: relative;
-  height: ${props => props.selected ? "56px" : "28px"};
-  transition: all .3s;
+  height: ${(props) => (props.selected ? "56px" : "28px")};
+  transition: all 0.3s;
   overflow: hidden;
   flex: none;
 
   @media (max-width: 600px) {
-    height: ${props => props.selected ? "72px" : "36px"};
+    height: ${(props) => (props.selected ? "72px" : "36px")};
   }
 `;
 
-export const TransactionContainer = styled.div.attrs((props: {highlight: string, checked: boolean}) => props)`
+export const TransactionContainer = styled.div.attrs((props: { highlight: string; checked: boolean }) => props)`
   position: relative;
   display: flex;
   align-items: center;
   gap: 5px;
-  background: ${props => props.highlight === "danger"
-    ? props.theme.transaction.dangerBackground :
-    props.highlight === "warning" ?
-      props.theme.transaction.warningBackground:
-      props.theme.transaction.background};
+  background: ${(props) =>
+    props.highlight === "danger"
+      ? props.theme.transaction.dangerBackground
+      : props.highlight === "warning"
+      ? props.theme.transaction.warningBackground
+      : props.theme.transaction.background};
   padding: 3px 5px;
   border-radius: 2px;
   height: 28px;
   min-height: 28px;
   overflow: hidden;
-  color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
+  color: ${(props) => (props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font)};
 
   @media (max-width: 600px) {
     height: 36px;
@@ -40,11 +41,12 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string,
     margin: 0;
   }
 
-  input[type=number] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 
-  input[type=text], input[type=number] {
+  input[type="text"],
+  input[type="number"] {
     padding: 5px 2px;
     font-size: 16px;
   }
@@ -53,8 +55,8 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string,
     display: flex;
     align-items: center;
     flex: 1 0 auto;
-    color: ${props => props.checked ? props.theme.transaction.fontChecked : props.theme.transaction.font};
-}
+    color: ${(props) => (props.checked ? props.theme.transaction.fontChecked : props.theme.transaction.font)};
+  }
 
   .description {
     width: 100%;
@@ -73,20 +75,24 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string,
     flex: 1 0 auto;
   }
 
-  .description:disabled, .value:disabled, .expiration_day:disabled {
+  .description:disabled,
+  .value:disabled,
+  .expiration_day:disabled {
     background: none;
     border: none;
-    -webkit-text-fill-color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
+    -webkit-text-fill-color: ${(props) => (props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font)};
     -webkit-opacity: 1;
     opacity: 1;
-    color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
-    text-decoration-line: ${props => props.checked ? "line-through" : "none"};
+    color: ${(props) => (props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font)};
+    text-decoration-line: ${(props) => (props.checked ? "line-through" : "none")};
   }
 
-  .description:enabled, .value:enabled, .expiration_day:enabled {
-    background: rgba(${props => props.theme.transaction.backgroundEnabled});
+  .description:enabled,
+  .value:enabled,
+  .expiration_day:enabled {
+    background: rgba(${(props) => props.theme.transaction.backgroundEnabled});
     border: none;
-    border-bottom: 1px solid ${props => props.theme.input.borderFocus};
+    border-bottom: 1px solid ${(props) => props.theme.input.borderFocus};
   }
 
   .item-opt-access {
@@ -94,7 +100,7 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string,
     padding: 4px;
     width: 15px;
     flex: 0 0 auto;
-    transition: all .3s;
+    transition: all 0.3s;
 
     @media (max-width: 600px) {
       width: 18px;
@@ -102,15 +108,15 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string,
   }
 `;
 
-export const ItemBackground = styled.div.attrs((props: {width: number, type: "income" | "expenditure"}) => props)`
+export const ItemBackground = styled.div.attrs((props: { width: number; type: "income" | "expenditure" }) => props)`
   position: absolute;
   bottom: 0;
   right: 0;
-  width: ${props => props.width}%;
+  width: ${(props) => props.width}%;
   left: 0;
   height: 3px;
-  transition: all .3s;
-  background: ${props => props.type === "income" ? props.theme.income.soft : props.theme.expenditure.soft};
+  transition: all 0.3s;
+  background: ${(props) => (props.type === "income" ? props.theme.income.soft : props.theme.expenditure.soft)};
 `;
 
 export const ButtonsContainer = styled.div`
@@ -119,7 +125,7 @@ export const ButtonsContainer = styled.div`
   justify-content: center;
   top: 28px;
   gap: 5px;
-  background: ${props => props.theme.transaction.buttonContainerBackground};
+  background: ${(props) => props.theme.transaction.buttonContainerBackground};
   border: 0;
   border-radius: 2px;
   height: 28px;
@@ -140,11 +146,11 @@ export const ButtonsContainer = styled.div`
     border-radius: 3px;
     padding: 4px 10px;
     flex: 0 0 auto;
-    color: ${props => props.theme.transaction.font};
-    background: ${props => props.theme.transaction.buttonBackground};
+    color: ${(props) => props.theme.transaction.font};
+    background: ${(props) => props.theme.transaction.buttonBackground};
 
     :hover {
-      background: ${props => props.theme.transaction.buttonBackgroundHover};
+      background: ${(props) => props.theme.transaction.buttonBackgroundHover};
     }
 
     @media (max-width: 600px) {

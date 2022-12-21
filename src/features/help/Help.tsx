@@ -5,15 +5,15 @@ import { WindowBodyContainer, WindowContainer, WindowHeaderContainer } from "../
 import { LayerContainer } from "../../common/Layer/style";
 import { HelpContainer } from "./style";
 
-export default function Settings(props: { close: () => void; }){
+export default function Settings(props: { close: () => void }) {
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <LayerContainer>
           <WindowContainer>
             <WindowHeaderContainer>
               <button onClick={() => props.close()}>
-                <FaRegTimesCircle/>
+                <FaRegTimesCircle />
               </button>
               <h1>{file.help.title}</h1>
             </WindowHeaderContainer>

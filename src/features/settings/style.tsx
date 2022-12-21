@@ -18,17 +18,17 @@ export const MenuContainer = styled.ul`
     border: none;
     border-radius: 5px;
     padding: 5px;
-    color: ${props => props.theme.button.font};
-    background: ${props => props.theme.button.background};
-    border: 1px solid ${props => props.theme.input.border};
+    color: ${(props) => props.theme.button.font};
+    background: ${(props) => props.theme.button.background};
+    border: 1px solid ${(props) => props.theme.input.border};
 
     :hover {
-      color: ${props => props.theme.button.fontHover};
-      background: ${props => props.theme.button.backgroundHover};
+      color: ${(props) => props.theme.button.fontHover};
+      background: ${(props) => props.theme.button.backgroundHover};
     }
     :active {
-      color: ${props => props.theme.button.fontActive};
-      background: ${props => props.theme.button.backgroundActive};
+      color: ${(props) => props.theme.button.fontActive};
+      background: ${(props) => props.theme.button.backgroundActive};
     }
   }
 
@@ -37,7 +37,7 @@ export const MenuContainer = styled.ul`
     gap: 10px;
     align-items: center;
     justify-content: center;
-    border: 1px solid ${props => props.theme.input.border};
+    border: 1px solid ${(props) => props.theme.input.border};
     padding: 5px;
     border-radius: 5px;
   }
@@ -51,17 +51,19 @@ export const MenuContainer = styled.ul`
       display: flex;
       align-items: center;
       gap: 5px;
-      background: ${props => props.theme.button.background};
+      background: ${(props) => props.theme.button.background};
       padding: 5px;
-      border: 1px solid ${props => props.theme.input.border};
+      border: 1px solid ${(props) => props.theme.input.border};
       border-radius: 5px;
 
       :has(input:checked) {
-        color: ${props => props.theme.general.fontInverse};
-        background: ${props => props.theme.general.backgroundInverse};
+        color: ${(props) => props.theme.general.fontInverse};
+        background: ${(props) => props.theme.general.backgroundInverse};
       }
 
-      input { display: none; }
+      input {
+        display: none;
+      }
     }
   }
 `;
@@ -84,40 +86,43 @@ export const InputContainer = styled.div`
     gap: 5px;
   }
 
-  h2 { padding: 15px; }
+  h2 {
+    padding: 15px;
+  }
 
   label {
     font-size: 13px;
   }
 
   input {
-    border: 1px solid ${props => props.theme.input.border};
+    border: 1px solid ${(props) => props.theme.input.border};
     border-radius: 5px;
     padding: 5px;
-    color: ${props => props.theme.input.font};
-    background: ${props => props.theme.input.background};
+    color: ${(props) => props.theme.input.font};
+    background: ${(props) => props.theme.input.background};
 
     :disabled {
-      color: ${props => props.theme.input.fontDisabled};
-      background: ${props => props.theme.input.backgroundDisabled};
+      color: ${(props) => props.theme.input.fontDisabled};
+      background: ${(props) => props.theme.input.backgroundDisabled};
     }
   }
 
-  input[type=submit], button {
+  input[type="submit"],
+  button {
     padding: 5px;
     width: 60%;
     margin: 10px auto;
-    color: ${props => props.theme.button.font};
-    background: ${props => props.theme.button.background};
+    color: ${(props) => props.theme.button.font};
+    background: ${(props) => props.theme.button.background};
 
     :hover {
-      color: ${props => props.theme.button.fontHover};
-      background: ${props => props.theme.button.backgroundHover};
+      color: ${(props) => props.theme.button.fontHover};
+      background: ${(props) => props.theme.button.backgroundHover};
     }
 
     :active {
-      color: ${props => props.theme.button.fontActive};
-      background: ${props => props.theme.button.backgroundActive};
+      color: ${(props) => props.theme.button.fontActive};
+      background: ${(props) => props.theme.button.backgroundActive};
     }
   }
 

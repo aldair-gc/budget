@@ -6,10 +6,12 @@ export const HelpContainer = styled.ul`
   padding: 10px;
   overflow-y: auto;
 
-  h1 { font-size: 16px; }
+  h1 {
+    font-size: 16px;
+  }
   h2 {
     font-size: 16px;
-    background: ${props => props.theme.general.backgroundWeak};
+    background: ${(props) => props.theme.general.backgroundWeak};
     padding: 5px;
   }
   p {
@@ -18,8 +20,8 @@ export const HelpContainer = styled.ul`
   li {
     overflow: hidden;
     margin-top: 10px;
-    color: ${props => props.theme.general.font};
-    background: ${props => props.theme.general.background};
+    color: ${(props) => props.theme.general.font};
+    background: ${(props) => props.theme.general.background};
     border-radius: 5px;
   }
 `;

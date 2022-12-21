@@ -11,9 +11,7 @@ export default function MainHeader(props: Props) {
 
   return (
     <HeaderContainer>
-      <MainTitleContainer>
-        Budget
-      </MainTitleContainer>
+      <MainTitleContainer>Budget</MainTitleContainer>
 
       <YearMonthPicker
         yearMonth={props.yearMonth}
@@ -24,8 +22,8 @@ export default function MainHeader(props: Props) {
         finalYear={2031}
       />
 
-      <MainTitleContainer/>
-      <UserAccess/>
+      <MainTitleContainer />
+      <UserAccess />
     </HeaderContainer>
   );
 }

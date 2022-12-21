@@ -11,7 +11,7 @@ export default function DownloadData() {
       if (confirmationRequest.status === 200) {
         setLoading("success");
         const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(confirmationRequest.data)], {type: "text/plain"}));
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(confirmationRequest.data)], { type: "text/plain" }));
         a.setAttribute("download", "data.txt");
         a.className = "hidden";
         document.body.appendChild(a);
@@ -23,25 +23,20 @@ export default function DownloadData() {
     } catch (error: any) {
       setLoading("failure");
       const errors = error.response.data.errors ?? [];
-      errors.map((err: any) => (err));
+      errors.map((err: any) => err);
     }
   }
 
   return (
     <LanguageContext.Consumer>
-      {({file}) => (
+      {({ file }) => (
         <InputContainer>
           <h2>{file.downloadData.title}</h2>
           <p>{file.downloadData.text}</p>
 
           <LoadingContext.Consumer>
-            {({setStatus}) => (
-              <button onClick={() => downloadData(setStatus) }>
-                {file.downloadData.download}
-              </button>
-            )}
+            {({ setStatus }) => <button onClick={() => downloadData(setStatus)}>{file.downloadData.download}</button>}
           </LoadingContext.Consumer>
-
         </InputContainer>
       )}
     </LanguageContext.Consumer>

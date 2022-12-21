@@ -18,7 +18,7 @@ export const OptionsForm = styled.form`
 export const Option = styled.div`
   display: flex;
   gap: 10px;
-  color: ${props => props.theme.input.font};
+  color: ${(props) => props.theme.input.font};
 
   > label {
     width: 120px;
@@ -27,10 +27,10 @@ export const Option = styled.div`
 
   > input {
     width: 100%;
-    border: 1px solid ${props => props.theme.input.border};
+    border: 1px solid ${(props) => props.theme.input.border};
     padding: 2px 5px;
-    color: ${props => props.theme.input.font};
-    background: ${props => props.theme.input.background};
+    color: ${(props) => props.theme.input.font};
+    background: ${(props) => props.theme.input.background};
   }
 
   .radio {
@@ -57,12 +57,12 @@ export const Buttons = styled.div`
     padding: 5px;
     min-width: 80px;
     border-radius: 5px;
-    border: 1px solid ${props => props.theme.input.border};
-    color: ${props => props.theme.button.font};
-    background: ${props => props.theme.button.background};
+    border: 1px solid ${(props) => props.theme.input.border};
+    color: ${(props) => props.theme.button.font};
+    background: ${(props) => props.theme.button.background};
 
     :hover {
-      background: ${props => props.theme.button.backgroundHover};
+      background: ${(props) => props.theme.button.backgroundHover};
     }
   }
 `;

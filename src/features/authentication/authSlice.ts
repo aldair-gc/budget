@@ -3,16 +3,16 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 
 interface User {
-  id: number,
-  name: string,
-  email: string,
+  id: number;
+  name: string;
+  email: string;
 }
 
 interface AuthState {
-  user: User,
-  token: string,
-  isLoggedIn: boolean,
-  isLoading: boolean
+  user: User;
+  token: string;
+  isLoggedIn: boolean;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
@@ -44,11 +44,11 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
       state.isLoading = false;
     },
-    authUpdate: (state, actions: PayloadAction<{name?: string, email?: string}>) => {
+    authUpdate: (state, actions: PayloadAction<{ name?: string; email?: string }>) => {
       if (actions.payload.name) state.user.name = actions.payload.name;
       if (actions.payload.email) state.user.email = actions.payload.email;
-    }
-  }
+    },
+  },
 });
 
 export const { authRequest, authSuccess, authFailure, authLogout, authUpdate } = authSlice.actions;

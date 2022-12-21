@@ -7,7 +7,7 @@ import { authLogout } from "../authentication/authSlice";
 import { InputContainer } from "./style";
 
 export default function DeleteUser() {
-  const user = useAppSelector(state => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const lang = useContext(LanguageContext);
 
@@ -62,35 +62,52 @@ export default function DeleteUser() {
 
   return (
     <LanguageContext.Consumer>
-      {({file})=> (
+      {({ file }) => (
         <InputContainer>
           <h2>{file.deleteUser.deleteUserAccount}</h2>
           <p>{file.deleteUser.warning}</p>
           <p>{file.deleteUser.instructions}</p>
 
           <LoadingContext.Consumer>
-            {({setStatus}) => (
+            {({ setStatus }) => (
               <form>
                 <label htmlFor="email">{file.auth.email}</label>
-                <input type="email" name="email" id="email" value={email}
-                  autoComplete="email" placeholder="your@email.com"
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  autoComplete="email"
+                  placeholder="your@email.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <small>{email && msgEmail}</small>
 
                 <label htmlFor="password">{file.auth.password}</label>
-                <input type="password" name="password" id="password" value={password}
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <small>{password && msgPassword}</small>
 
                 <div className="select-if-update">
-                  <input type="checkbox" name="confirmation" id="confirmation" onChange={() => setConfirm(!confirm)}/>
+                  <input type="checkbox" name="confirmation" id="confirmation" onChange={() => setConfirm(!confirm)} />
                   <p>{file.deleteUser.confirmationConsent}</p>
                 </div>
 
-                <input type="submit" value={file.deleteUser.confirm} disabled={!confirm} onClick={(e) => { e.preventDefault(); handleSubmit(setStatus); }} />
+                <input
+                  type="submit"
+                  value={file.deleteUser.confirm}
+                  disabled={!confirm}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit(setStatus);
+                  }}
+                />
               </form>
             )}
           </LoadingContext.Consumer>

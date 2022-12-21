@@ -61,11 +61,11 @@ export const light = {
     buttonActive: "#000",
   },
   income: {
-    soft:  "#333",
+    soft: "#333",
     hard: "#ace",
   },
   expenditure: {
     soft: "#333",
     hard: "#ace",
-  }
+  },
 };
