@@ -1,7 +1,8 @@
-import YearMonthPicker from "../yearMonthPicker/YearMonthPicker";
+import YearMonthPicker from "../../features/yearMonthPicker/YearMonthPicker";
 import { YearMonthInterface } from "../interfaces";
 import { HeaderContainer, MainTitleContainer } from "./style";
 import { useState } from "react";
+import UserAccess from "../../features/userAccess/userAccess";
 
 export default function MainHeader(props: Props) {
   const [width, setWidth] = useState(window.screen.width >= 600 ? "270px" : "150px");
@@ -24,6 +25,7 @@ export default function MainHeader(props: Props) {
       />
 
       <MainTitleContainer/>
+      <UserAccess/>
     </HeaderContainer>
   );
 }

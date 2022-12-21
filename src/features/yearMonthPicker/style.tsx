@@ -21,7 +21,7 @@ export const YearMonthPickerContainer = styled.div`
     transition: all .3s;
     perspective: 100px;
     -ms-perspective: 100px;
-    -webkit-perspective: 150px;
+    -webkit-perspective: 180px;
 
     p {
       position: absolute;
@@ -30,15 +30,14 @@ export const YearMonthPickerContainer = styled.div`
       align-items: center;
       justify-content: center;
       height: 20px;
+      font-size: 16px;
       width: 100%;
       backface-visibility: hidden;
       color: ${props => props.theme.picker.font};
-      // background: ${props => props.theme.general.backgroundWeak};
+      transform-origin: 0 0 -18px;
     }
   }
 `;
-
-// export const cylinderContainer = styled.div.attrs(({props: {}}))
 
 export const SideButtons = styled.div`
   display: flex;

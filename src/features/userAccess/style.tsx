@@ -3,13 +3,8 @@ import styled from "styled-components";
 export const UserContainer = styled.div`
   position: absolute;
   z-index: 500;
-  top: 10px;
-  right: 10px;
-
-  @media (max-width: 600px) {
-    top: 10px;
-    right: 10px;
-  }
+  top: 0;
+  right: 0;
 `;
 
 export const UserButtonContainer = styled.div`
@@ -22,13 +17,9 @@ export const UserButtonContainer = styled.div`
   width: 50px;
   height: 50px;
   transition: all 0.3s;
-  gap: 10px;
+  gap: 20px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
-
-  @media (max-width: 600px) {
-    gap: 20px;
-  }
 
   .opened {
     width: 200px;

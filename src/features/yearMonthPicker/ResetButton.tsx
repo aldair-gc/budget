@@ -1,5 +1,5 @@
 import { FaDotCircle } from "react-icons/fa";
-import { YearMonthInterface } from "../interfaces";
+import { YearMonthInterface } from "../../budget/interfaces";
 import { SideButtons } from "./style";
 
 export default function ResetButton(props: Props) {

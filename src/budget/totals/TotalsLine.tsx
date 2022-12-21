@@ -25,5 +25,4 @@ export default function TotalsLine(props: Props) {
 
 interface Props {
   list: TransactionInterface[],
-  lastMonthBalance: number,
 }

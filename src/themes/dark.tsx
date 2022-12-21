@@ -38,10 +38,13 @@ export const dark = {
     background: "rgba(50,50,50,0.5)",
     backgroundWeak: "rgba(50,50,50,0.2)",
     backgroundInverse: "rgba(255,255,255,0.2)",
+    graphic: "rgba(0,100,0,0.5)",
   },
   transaction: {
     font: "#ddd",
-    background: "rgba(50,50,50,0.5)",
+    fontWeak: "#999",
+    fontChecked: "#4c4",
+    background: "rgba(35,35,35,0.5)",
     backgroundEnabled: "rgba(150,150,150,0.5)",
     dangerBackground: "rgba(150,50,50,0.5)",
     warningBackground: "rgba(125,75,0,0.5)",
@@ -51,18 +54,18 @@ export const dark = {
   },
   picker: {
     rollSides: "rgba(255,255,255,0.2)",
-    rollMiddle: "rgba(255,255,255,0.3)",
-    font: "rgba(255,255,255,0.6)",
+    rollMiddle: "rgba(75,75,75,0.3)",
+    font: "rgba(255,255,255,0.7)",
     button: "#ccc",
     buttonHover: "#ddd",
     buttonActive: "#fff",
   },
   income: {
     soft:  "#aaa",
-    hard: "#444444",
+    hard: "#123",
   },
   expenditure: {
     soft: "#aaa",
-    hard: "#444444",
+    hard: "#123",
   }
 };

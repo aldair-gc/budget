@@ -21,9 +21,9 @@ export default function Totals(props: Props) {
           {({number}) => (
             <TotalsContainer>
 
-              <TotalsEstimation result={result("done") + props.lastMonthBalance > 0}>
+              <TotalsEstimation result={result("done") + props.lastMonthBalance.value > 0}>
                 <h3>{file.totals.balance}</h3>
-                <h2>{number.currency.format(result("done") + props.lastMonthBalance)}</h2>
+                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(result("done") + props.lastMonthBalance.value)}</h2>
                 <i>{file.totals.balanceHelp}</i>
               </TotalsEstimation>
 
@@ -33,9 +33,9 @@ export default function Totals(props: Props) {
                 <i>{file.totals.estimationHelp}</i>
               </TotalsEstimation>
 
-              <TotalsEstimation result={props.lastMonthBalance + result("all") > 0}>
+              <TotalsEstimation result={props.lastMonthBalance.value + result("all") > 0}>
                 <h3>{file.totals.lastMonth}</h3>
-                <h2>{number.currency.format(props.lastMonthBalance + result("all"))}</h2>
+                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(props.lastMonthBalance.value + result("all"))}</h2>
                 <i>{file.totals.lastMonthHelp}</i>
               </TotalsEstimation>
 
@@ -50,5 +50,5 @@ export default function Totals(props: Props) {
 interface Props {
   incomeList: TransactionInterface[],
   expenditureList: TransactionInterface[],
-  lastMonthBalance: number,
+  lastMonthBalance: {loading: boolean, value: number},
 }

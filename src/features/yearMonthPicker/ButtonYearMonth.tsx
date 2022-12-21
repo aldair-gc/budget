@@ -1,5 +1,5 @@
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-import { YearMonthInterface } from "../interfaces";
+import { YearMonthInterface } from "../../budget/interfaces";
 import { SideButtons } from "./style";
 
 export default function ButtonsYearMonth(props: Props) {

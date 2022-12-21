@@ -18,7 +18,7 @@ export default function UserAccess() {
     if (box.width !== "50px" && box.width !== "") {
       box.width = "50px";
     } else {
-      box.width = window.screen.width < 600 ? "310px" : "250px";
+      box.width = "300px";
     }
   }
 

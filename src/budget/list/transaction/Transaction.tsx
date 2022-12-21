@@ -3,7 +3,7 @@ import { Component } from "react";
 import { TransactionInterface } from "../../interfaces";
 import { TransactionContainer, ItemBackground, ItemContainer } from "./style";
 import Options from "./options";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown, FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import axios from "../../../services/axios";
 import { NumberContext } from "../../../app/App";
 
@@ -100,8 +100,11 @@ export default class Transaction extends Component<Props, BudgetItemState> {
       <ItemContainer selected={this.props.selection === id} style={{ opacity: this.props.loading ? 0 : 1 }}>
         <TransactionContainer
           highlight={this.highlight()}
+          checked={this.props.item.status === "done"}
           className={`budget-item item-id-${id} item-status-${this.props.item.status}`}>
-          <input type="checkbox" id={id?.toString()} onChange={() => id && this.toggleStatus(id)} checked={this.props.item.status === "done"} />
+          <div className="check" onClick={() => id && this.toggleStatus(id)}>
+            {this.props.item.status === "done" ? <FaRegCheckCircle/> : <FaRegCircle/>}
+          </div>
 
           <input type="text" className={`description ${editing}`}
             value={description}

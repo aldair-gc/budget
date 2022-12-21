@@ -15,8 +15,8 @@ export const light = {
     loadingIcon: "#000",
     loadingSuccess: "#3a3",
     loadingFailure: "#a33",
-    fontGoodResult: "#497EFF",
-    fontBadResult: "#FF4949",
+    fontGoodResult: "#2544FF",
+    fontBadResult: "#FF3434",
   },
   button: {
     font: "#111",
@@ -38,9 +38,12 @@ export const light = {
     background: "rgba(200,200,200,0.5)",
     backgroundWeak: "rgba(200,200,200,0.2)",
     backgroundInverse: "rgba(0,0,0,0.2)",
+    graphic: "rgba(0,100,0,0.5)",
   },
   transaction: {
     font: "#222",
+    fontWeak: "#666",
+    fontChecked: "#070",
     background: "rgba(220,220,220,0.5)",
     backgroundEnabled: "rgba(255,255,255,0.5)",
     dangerBackground: "rgba(250,150,150,0.5)",
@@ -51,18 +54,18 @@ export const light = {
   },
   picker: {
     rollSides: "rgba(0,0,0,0.2)",
-    rollMiddle: "rgba(0,0,0,0.1)",
-    font: "rgba(0,0,0,0.6)",
+    rollMiddle: "rgba(255,255,255,1)",
+    font: "rgba(0,0,0,0.7)",
     button: "#333",
     buttonHover: "#222",
     buttonActive: "#000",
   },
   income: {
     soft:  "#333",
-    hard: "#cccccc",
+    hard: "#9be",
   },
   expenditure: {
     soft: "#333",
-    hard: "#cccccc",
+    hard: "#9be",
   }
 };

@@ -2,7 +2,6 @@ import { useAppSelector } from "../../app/hooks";
 import Login from "./login";
 import Register from "./register";
 import { Container, DoubleWideBox, LogoContainer } from "./style";
-import UserAccess from "../userAccess/userAccess";
 import { LayerContainer } from "../../common/Layer/style";
 import Loading from "../../common/Loading/Loading";
 
@@ -19,7 +18,7 @@ export default function Authentication() {
   }
 
   return isLoggedIn ? (
-    <UserAccess/>
+    <></>
   ) : (
     <LayerContainer>
       <Container>

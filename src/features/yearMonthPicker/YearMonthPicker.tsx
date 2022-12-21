@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { LanguageContext } from "../../app/App";
-import { YearMonthInterface } from "../interfaces";
+import { YearMonthInterface } from "../../budget/interfaces";
 import { YearMonthPickerContainer } from "./style";
 
 export default class YearMonthPicker extends Component<Props, State> {
@@ -116,8 +116,7 @@ export default class YearMonthPicker extends Component<Props, State> {
 
     function cylinder(part: number, total: number, top: number, topChange: number) {
       return {
-        transform: `rotateX(${(-(360 / total) * (part - 1)) + top + topChange}deg) translateY(-50%)`,
-        transformOrigin: "0 0 -38px",
+        transform: `rotateX(${(-(360 / total) * (part - 1)) + top + topChange}deg) translate3d(0, -50%, 20px)`,
       };
     }
 

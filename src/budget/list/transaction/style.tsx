@@ -12,7 +12,7 @@ export const ItemContainer = styled.div.attrs((props: {selected: boolean}) => pr
   }
 `;
 
-export const TransactionContainer = styled.div.attrs((props: {highlight: string}) => props)`
+export const TransactionContainer = styled.div.attrs((props: {highlight: string, checked: boolean}) => props)`
   position: relative;
   display: flex;
   align-items: center;
@@ -27,19 +27,11 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string}
   height: 28px;
   min-height: 28px;
   overflow: hidden;
-  color: ${props => props.theme.transaction.font};
+  color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
 
   @media (max-width: 600px) {
     height: 36px;
     min-height: 36px;
-  }
-
-  :has(input:checked) {
-    .description:disabled, .value:disabled, .expiration_day:disabled {
-      text-decoration-line: line-through;
-      color: ${props => props.theme.general.fontInverse};
-    }
-    background: ${props => props.theme.transaction.background};
   }
 
   input::-webkit-outer-spin-button,
@@ -57,9 +49,12 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string}
     font-size: 16px;
   }
 
-  input[type="checkbox"] {
+  .check {
+    display: flex;
+    align-items: center;
     flex: 1 0 auto;
-  }
+    color: ${props => props.checked ? props.theme.transaction.fontChecked : props.theme.transaction.font};
+}
 
   .description {
     width: 100%;
@@ -81,9 +76,11 @@ export const TransactionContainer = styled.div.attrs((props: {highlight: string}
   .description:disabled, .value:disabled, .expiration_day:disabled {
     background: none;
     border: none;
-    -webkit-text-fill-color: ${props => props.theme.transaction.font};
+    -webkit-text-fill-color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
     -webkit-opacity: 1;
     opacity: 1;
+    color: ${props => props.checked ? props.theme.transaction.fontWeak : props.theme.transaction.font};
+    text-decoration-line: ${props => props.checked ? "line-through" : "none"};
   }
 
   .description:enabled, .value:enabled, .expiration_day:enabled {

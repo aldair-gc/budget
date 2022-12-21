@@ -12,39 +12,17 @@ export default createGlobalStyle`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  overflow: hidden;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  -webkit-user-select: none;
   user-select: none;
 }
 
 input {
   font-size: 16px;
-}
-
-body {
-  @media (prefers-color-scheme: dark) {
-    background: #333;
-  }
-
-  @media (prefers-color-scheme: light) {
-    background: #ccc;
-  }
-
-  @media (max-width: 600px) {
-    // height: 100vh;
-
-    @media (prefers-color-scheme: dark) {
-      background: #000;
-    }
-
-    @media (prefers-color-scheme: light) {
-      background: #fff;
-    }
-  }
 }
 `;
