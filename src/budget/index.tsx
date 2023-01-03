@@ -22,7 +22,7 @@ export default function Budget() {
   const [userInput, setUserInput] = useState(-1); // set -1 to disable, 0 to new empty transaction or id to open fulfilled with its data.
   const [showSorter, setShowSorter] = useState("none" as "none" | "income" | "expenditure");
   const [balance, setBalance] = useState({ loading: true, value: 0 } as { loading: boolean; value: number });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false as boolean);
 
   function setList(type: "income" | "expenditure", list: TransactionInterface[]): void {
     type === "expenditure" && setExpenditureList(list);

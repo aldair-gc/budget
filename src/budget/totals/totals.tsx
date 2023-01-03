@@ -7,7 +7,7 @@ export default function Totals(props: Props) {
     return list.reduce((sum, item) => (sum += item.status === status || status === "all" ? +item.value : 0), 0);
   }
 
-  function result(status: "pending" | "done" | "all"): number {
+  function totalResult(status: "pending" | "done" | "all"): number {
     const totalIncome = totalOf(props.incomeList, status);
     const totalExpenditure = totalOf(props.expenditureList, status);
     return totalIncome - totalExpenditure;
@@ -19,21 +19,21 @@ export default function Totals(props: Props) {
         <NumberContext.Consumer>
           {({ number }) => (
             <TotalsContainer>
-              <TotalsEstimation result={result("done") + props.lastMonthBalance.value > 0}>
+              <TotalsEstimation result={totalResult("done") + props.lastMonthBalance.value > 0}>
                 <h3>{file.totals.balance}</h3>
-                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(result("done") + props.lastMonthBalance.value)}</h2>
+                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(totalResult("done") + props.lastMonthBalance.value)}</h2>
                 <i>{file.totals.balanceHelp}</i>
               </TotalsEstimation>
 
-              <TotalsEstimation result={result("all") > 0}>
+              <TotalsEstimation result={totalResult("all") > 0}>
                 <h3>{file.totals.estimation}</h3>
-                <h2>{number.currency.format(result("all"))}</h2>
+                <h2>{number.currency.format(totalResult("all"))}</h2>
                 <i>{file.totals.estimationHelp}</i>
               </TotalsEstimation>
 
-              <TotalsEstimation result={props.lastMonthBalance.value + result("all") > 0}>
+              <TotalsEstimation result={props.lastMonthBalance.value + totalResult("all") > 0}>
                 <h3>{file.totals.lastMonth}</h3>
-                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(props.lastMonthBalance.value + result("all"))}</h2>
+                <h2>{props.lastMonthBalance.loading ? "-" : number.currency.format(props.lastMonthBalance.value + totalResult("all"))}</h2>
                 <i>{file.totals.lastMonthHelp}</i>
               </TotalsEstimation>
             </TotalsContainer>
