@@ -85,7 +85,7 @@ export default class BudgetList extends Component<Props, State> {
             list={this.props.list}
             setList={(type: "income" | "expenditure", list: TransactionInterface[]) => this.props.setList(list)}
             options={{
-              type: [false, this.props.type],
+              type: [true, this.props.type],
               description: [false, ""],
               value: [false, ""],
               status: [true, "pending"],
