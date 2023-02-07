@@ -2,8 +2,11 @@
 
 ## Description
 
-The project `BUDGET` is an single-page web application written using Vite + React with Typescript made to be simple and to make it very easy to have control over financial resources.
-Compatible with desktop and mobile devices.
+The project `BUDGET` is a single-page web application written using Vite and React with Typescript made to be simple and to make very easy to have control over financial resources.
+
+- It's compatible with desktop and mobile devices.
+- It supports english and brazilian portuguese.
+- It has support for USD and BRL currencies.
 
 It's a personal project made to trully be used and to serve to its purpuse.
 
