@@ -57,7 +57,7 @@ export default class BudgetList extends Component<Props, State> {
   }
 
   percentageDone(type: "income" | "expenditure"): number {
-    return Math.floor((this.totalEstimated(type, "done") * 100) / this.totalEstimated(type, "all"));
+    return Math.floor((this.totalEstimated(type, "done") * 100) / this.totalEstimated(type, "all")) || 0;
   }
 
   render() {
