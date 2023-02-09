@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const DoubleWideBox = styled.div`
   display: flex;
   height: calc(100% - 50px);
-  transform: translateX(-75%);
+  transform: translateX(0%);
   transition: all 0.3s;
   color: ${(props) => props.theme.general.font};
   background: ${(props) => props.theme.general.background};

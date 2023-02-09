@@ -6,9 +6,16 @@ import { LayerContainer } from "../../common/Layer/style";
 import Loading from "../../common/Loading/Loading";
 import ForgotPassword from "./forgot-password";
 import ResetPassword from "./reset-password";
+import { useEffect } from "react";
 
 export default function Authentication() {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const loginOption = parseInt(urlParams.get("loginopt") as string, 10);
+    changePosition(loginOption);
+  }, []);
 
   const innerPages = [
     <Login key={"login"} position={changePosition} />,
