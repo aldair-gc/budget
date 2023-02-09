@@ -1,3 +1,5 @@
+# PROJECT STATUS
+
 ## TO DO
 
 - save selected filter at localStorage
@@ -13,8 +15,9 @@
 
 - validade user input before submiting
 - check sort > create bug
+- effects on Safari
 
-## READ ABOUT:
+## READ ABOUT
 
 - bind
 - why sometimes it's required to use async arrow functions in components

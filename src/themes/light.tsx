@@ -4,6 +4,7 @@ export const light = {
     fontStrong: "#000",
     fontWeak: "#444",
     fontInverse: "#eee",
+    fontDanger: "#a00",
     background: "#ddd",
     backgroundStrong: "#fff",
     backgroundWeak: "#bbb",

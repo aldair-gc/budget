@@ -2,20 +2,16 @@
 import { FormEvent, useContext, useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { LanguageContext, LoadingContext } from "../../app/App";
-import { useAppDispatch } from "../../app/hooks";
 import axios from "../../services/axios";
-import { authFailure, authSuccess } from "./authSlice";
+import { ErrorMessagesInterface } from "./interfaces";
 import { InputContainer } from "./style";
 
-export default function Login(props: { position: (arg0: number) => void }) {
-  const dispatch = useAppDispatch();
+export default function ForgotPassword(props: { position: (arg0: number) => void }) {
   const lang = useContext(LanguageContext);
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [response, setResponse] = useState("");
   const [msgEmail, setMsgEmail] = useState("");
-  const [msgPassword, setMsgPassword] = useState("");
+  const [response, setResponse] = useState("");
 
   useEffect(() => {
     if (email && !isEmail(email)) {
@@ -23,39 +19,29 @@ export default function Login(props: { position: (arg0: number) => void }) {
     } else {
       setMsgEmail("");
     }
-
-    if (password && (password.length < 6 || password.length > 50)) {
-      setMsgPassword(lang.file.auth.invalidPasswordMessage);
-    } else {
-      setMsgPassword("");
-    }
-  }, [email, lang.file.auth.invalidEmailMessage, lang.file.auth.invalidPasswordMessage, password]);
+  }, [email, lang.file.auth.invalidEmailMessage]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>, setStatus: (status: "idle" | "loading" | "success" | "failure") => void) {
     e.preventDefault();
-
-    if (msgEmail || msgPassword) {
+    if (msgEmail || !email) {
       setResponse(lang.file.auth.checkFieldsAbove);
       return;
     }
 
     try {
       setStatus("loading");
-      const loginRequest = await axios.post("/token", { email, password });
-      if (loginRequest.data.token) {
-        dispatch(authSuccess(loginRequest.data));
-        axios.defaults.headers.common["Authorization"] = `Bearer ${loginRequest.data.token}`;
-        setResponse(lang.file.auth.userLoggedIn);
+      const loginRequest = await axios.post("/password/forgot", { email });
+      if (loginRequest.data.passwordRequest) {
+        console.log(loginRequest.data);
+        setResponse(lang.file.auth.checkYourEmail);
         setStatus("success");
       } else {
-        dispatch(authFailure());
-        setResponse(lang.file.auth.authFailure);
+        setResponse(lang.file.auth.requestFailed);
         setStatus("failure");
       }
     } catch (error: any) {
       setStatus("failure");
-      const errors = error.response.data.errors ?? [];
-      errors.map((err: any) => setResponse(err));
+      setResponse(lang.file.errorMessages[`${(error.response.data.error as ErrorMessagesInterface) || "invalidRequest"}`]);
     }
   }
 
@@ -65,7 +51,9 @@ export default function Login(props: { position: (arg0: number) => void }) {
         <LoadingContext.Consumer>
           {({ setStatus }) => (
             <InputContainer>
-              <h2>{file.auth.login}</h2>
+              <h2>{file.auth.forgotPassword}</h2>
+
+              <p>{file.auth.forgotMessage}</p>
 
               <form onSubmit={(e) => handleSubmit(e, setStatus)}>
                 <label htmlFor="login-email">{file.auth.email}</label>
@@ -80,22 +68,10 @@ export default function Login(props: { position: (arg0: number) => void }) {
                 />
                 <small>{msgEmail}</small>
 
-                <label htmlFor="login-password">{file.auth.password}</label>
-                <input
-                  type="password"
-                  name="login-password"
-                  id="login-password"
-                  autoComplete="current-password"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <small>{msgPassword}</small>
-
-                <input type="submit" value={file.auth.login} />
+                <input type="submit" value={file.auth.request} />
               </form>
 
-              <h3 onClick={() => props.position(3)}>{file.auth.forgotPassword}</h3>
-              <h3 onClick={() => props.position(2)}>{file.auth.registerNewUser}</h3>
+              <h3 onClick={() => props.position(1)}>{file.auth.loginRegisteredUser}</h3>
               <small>{response}</small>
             </InputContainer>
           )}

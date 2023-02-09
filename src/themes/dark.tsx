@@ -4,6 +4,7 @@ export const dark = {
     fontStrong: "#fff",
     fontWeak: "#bbb",
     fontInverse: "#222",
+    fontDanger: "#f88",
     background: "#222",
     backgroundStrong: "#000",
     backgroundWeak: "#444",

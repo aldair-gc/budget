@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import isEmail from "validator/lib/isEmail";
 import { LanguageContext, LoadingContext } from "../../app/App";
 import axios from "../../services/axios";
@@ -16,30 +16,30 @@ export default function Register(props: { position: (arg0: number) => void }) {
   const [msgEmail, setMsgEmail] = useState("");
   const [msgPassword, setMsgPassword] = useState("");
 
-  function verify() {
-    if (name === "") {
+  useEffect(() => {
+    if (name && name.length < 2) {
       setMsgName(lang.file.auth.invalidNameMessage);
     } else {
       setMsgName("");
     }
 
-    if (!isEmail(email)) {
+    if (email && !isEmail(email)) {
       setMsgEmail(lang.file.auth.invalidEmailMessage);
     } else {
       setMsgEmail("");
     }
 
-    if (password.length < 6 || password.length > 50) {
+    if (password && (password.length < 6 || password.length > 50)) {
       setMsgPassword(lang.file.auth.invalidPasswordMessage);
     } else {
       setMsgPassword("");
     }
-  }
+  }, [email, lang.file.auth.invalidEmailMessage, lang.file.auth.invalidNameMessage, lang.file.auth.invalidPasswordMessage, name, password]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>, setStatus: (status: "idle" | "loading" | "success" | "failure") => void) {
     e.preventDefault();
-    verify();
-    if (msgName && msgEmail && msgPassword) {
+
+    if (msgName || msgEmail || msgPassword || !name || !email || !password) {
       setResponse(lang.file.auth.checkFieldsAbove);
       return;
     }
@@ -100,7 +100,6 @@ export default function Register(props: { position: (arg0: number) => void }) {
                   name="password"
                   id="password"
                   autoComplete="new-password"
-                  placeholder="*****"
                   required
                   onChange={(e) => setPassword(e.target.value)}
                 />
