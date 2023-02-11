@@ -61,7 +61,8 @@ export default class Transaction extends Component<Props, BudgetItemState> {
     const exp = this.props.item.expiration_day;
     const today = new Date().getDate();
     if (this.checkMonth() === "future") return "";
-    if (this.checkMonth() === "past") return "danger";
+    if (this.checkMonth() === "past" && this.props.item.status === "pending") return "danger";
+    if (this.checkMonth() === "past") return "";
     if (this.props.item.status !== "pending") return "";
     if (exp === 0) return "";
     if (exp <= today + 1) return "danger";

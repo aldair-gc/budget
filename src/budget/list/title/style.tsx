@@ -10,7 +10,6 @@ export const InputTitles = styled.div`
   padding: 5px 10px;
   font-size: 16px;
   background: ${(props) => props.theme.list.backgroundInverse};
-  backdrop-filter: blur(20px);
   z-index: 6;
 
   h2 {

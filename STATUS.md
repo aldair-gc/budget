@@ -15,7 +15,6 @@
 
 - validade user input before submiting
 - check sort > create bug
-- effects on Safari
 
 ## READ ABOUT
 

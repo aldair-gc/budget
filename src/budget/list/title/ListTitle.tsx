@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FaPlus, FaSort, FaSortAlphaDown, FaSortAlphaUp, FaSortNumericDown, FaSortNumericUp } from "react-icons/fa";
+import { FaPlus, FaSort, FaSortAmountDown, FaSortAmountDownAlt } from "react-icons/fa";
 import { LanguageContext } from "../../../app/App";
 import { InputTitles, SortContainer, SortOption } from "./style";
 
@@ -23,27 +23,27 @@ export default function ListTitle(props: Props) {
             onMouseUpCapture={() => props.changeShowSorter("none")}
           >
             <SortOption>
-              <FaSort onClick={() => props.changeSorter("none")} />
+              <FaSortAmountDown style={{ visibility: "hidden" }} />
               {file.list.createdAt}
-              <FaSort onClick={() => props.changeSorter("none")} />
+              <FaSortAmountDownAlt onClick={() => props.changeSorter("none")} />
             </SortOption>
 
             <SortOption>
-              <FaSortAlphaDown onClick={() => props.changeSorter("description-A")} />
+              <FaSortAmountDown onClick={() => props.changeSorter("description-A")} />
               {file.transaction.description}
-              <FaSortAlphaUp onClick={() => props.changeSorter("description-Z")} />
+              <FaSortAmountDownAlt onClick={() => props.changeSorter("description-Z")} />
             </SortOption>
 
             <SortOption>
-              <FaSortNumericDown onClick={() => props.changeSorter("value-1")} />
+              <FaSortAmountDown onClick={() => props.changeSorter("value-1")} />
               {file.transaction.value}
-              <FaSortNumericUp onClick={() => props.changeSorter("value-9")} />
+              <FaSortAmountDownAlt onClick={() => props.changeSorter("value-9")} />
             </SortOption>
 
             <SortOption>
-              <FaSortNumericDown onClick={() => props.changeSorter("expiration_day-1")} />
+              <FaSortAmountDown onClick={() => props.changeSorter("expiration_day-1")} />
               {file.transaction.expirationDay}
-              <FaSortNumericUp onClick={() => props.changeSorter("expiration_day-9")} />
+              <FaSortAmountDownAlt onClick={() => props.changeSorter("expiration_day-9")} />
             </SortOption>
           </SortContainer>
         </InputTitles>

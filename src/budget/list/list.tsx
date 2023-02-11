@@ -113,7 +113,7 @@ export default class BudgetList extends Component<Props, State> {
         </ItemList>
 
         <ListBackground
-          height={this.props.loading ? 100 : this.percentageDone(this.props.type)}
+          width={this.props.loading ? 100 : this.percentageDone(this.props.type)}
           loading={this.props.loading}
           type={this.props.type}
         />

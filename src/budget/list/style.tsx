@@ -47,21 +47,18 @@ export const ItemList = styled.div`
   flex-direction: column;
   overflow-y: auto;
   background: ${(props) => props.theme.list.backgroundWeak};
-  backdrop-filter: blur(2px);
   padding: 5px;
   gap: 5px;
-  z-index: 5;
-  opacity: 1;
 `;
 
-export const ListBackground = styled.div.attrs((props: { height: number; loading: boolean; type: string }) => props)`
+export const ListBackground = styled.div.attrs((props: { width: number; loading: boolean; type: string }) => props)`
   position: absolute;
   bottom: 0;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: -1;
   transition: all 0.3s;
-  width: ${(props) => props.height}%;
+  width: ${(props) => props.width}%;
   background: ${(props) =>
     props.loading ? props.theme.general.background : props.type === "income" ? props.theme.income.hard : props.theme.expenditure.hard};
 `;

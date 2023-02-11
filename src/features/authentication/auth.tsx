@@ -14,7 +14,8 @@ export default function Authentication() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const loginOption = parseInt(urlParams.get("loginopt") as string, 10);
-    changePosition(loginOption);
+    const box = document.querySelector("#wide-box") as HTMLDivElement;
+    box && changePosition(loginOption);
   }, []);
 
   const innerPages = [

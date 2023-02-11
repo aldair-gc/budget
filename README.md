@@ -1,4 +1,4 @@
-# <div align="center">BUDGET</div>
+# BUDGET
 
 ## Description
 
@@ -40,7 +40,7 @@ The following is recommended for the development environment:
 
 ### Folder Structure
 
-```
+```text
 ./budget/
  ├── vscode           - VSCode configutation files
  ├── public           - static and public files
@@ -69,10 +69,10 @@ Backend repo: <a href="https://github.com/aldair-gc/budget-backend.git">https://
 
 ## Run
 
-```
-$ git clone https://github.com/aldair-gc/budget.git
-$ npm install
-$ npm run dev
+```bash
+git clone https://github.com/aldair-gc/budget.git
+npm install
+npm run dev
 ```
 
 Open in the browser http://localhost:5173
