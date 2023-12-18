@@ -4,6 +4,7 @@ import { LanguageContext, NumberContext } from "../../app/App";
 import axios from "../../services/axios";
 import { TransactionInterface } from "../interfaces";
 import { OptionsForm, Option, Buttons } from "./style";
+import convertToFloat from "../../lib/convert-to-float";
 
 export default class InputForm extends Component<Props, State> {
   constructor(props: Props) {
@@ -64,7 +65,7 @@ export default class InputForm extends Component<Props, State> {
     const newTransaction = {
       type: this.state.type[1],
       description: this.state.description[1],
-      value: parseInt(this.state.value[1]),
+      value: convertToFloat(this.state.value[1]),
       status: this.state.status[1],
       year: this.state.year[1],
       month: this.state.month[1],
@@ -143,19 +144,15 @@ export default class InputForm extends Component<Props, State> {
                 <Option style={{ display: this.state.value[0] ? "none" : "flex" }}>
                   <label htmlFor="value">{file.transaction.value}:</label>
                   <input
-                    type="text"
+                    type="currency"
                     min={0}
                     inputMode="decimal"
                     onFocus={() => this.setState({ valueOnFocus: true })}
                     onBlur={() => this.setState({ valueOnFocus: false })}
-                    value={
-                      this.state.valueOnFocus
-                        ? this.state.value[1].toString().replace(",", "").replace(".", ",")
-                        : number.currency.format(+this.state.value[1] || 0)
-                    }
+                    value={this.state.valueOnFocus ? this.state.value[1] : number.currency.format(convertToFloat(this.state.value[1]) || 0)}
                     onChange={(e) =>
                       this.setState((state) => ({
-                        value: [state.value[0], e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".")],
+                        value: [state.value[0], e.target.value],
                       }))
                     }
                   />

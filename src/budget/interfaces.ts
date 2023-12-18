@@ -1,5 +1,5 @@
 export interface TransactionInterface {
-  id?: number;
+  id: number;
   type: "income" | "expenditure";
   description: string;
   value: string;

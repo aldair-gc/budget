@@ -6,6 +6,7 @@ import Options from "./options";
 import { FaCaretDown, FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import axios from "../../../services/axios";
 import { NumberContext } from "../../../app/App";
+import convertToFloat from "../../../lib/convert-to-float";
 
 export default class Transaction extends Component<Props, BudgetItemState> {
   constructor(props: Props) {
@@ -122,12 +123,12 @@ export default class Transaction extends Component<Props, BudgetItemState> {
           <NumberContext.Consumer>
             {({ number }) => (
               <input
-                type="text"
+                type="currency"
                 className={`value ${editing}`}
                 min={0}
                 inputMode="decimal"
-                value={editing ? value.toString().replace(",", "").replace(".", ",") : number.currency.format(+value)}
-                onChange={(e) => this.setState({ value: e.target.value.replace(/[^0-9,-]+/g, "").replace(/[,]+/g, ".") })}
+                value={editing ? value : number.currency.format(convertToFloat(value.toString()) ?? 0)}
+                onChange={(e) => this.setState({ value: e.target.value })}
                 disabled={!(editing && selection === id)}
               />
             )}

@@ -5,6 +5,7 @@ import { LanguageContext } from "../../../app/App";
 import axios from "../../../services/axios";
 import { SimpleTransaction, TransactionInterface } from "../../interfaces";
 import { ButtonsContainer } from "./style";
+import convertToFloat from "../../../lib/convert-to-float";
 
 export default class Options extends Component<Props, State> {
   constructor(props: Props) {
@@ -52,7 +53,7 @@ export default class Options extends Component<Props, State> {
   updateTransaction = async (id: number): Promise<void> => {
     const fieldsToUpdate = {
       description: this.props.item.description,
-      value: parseFloat(this.props.item.value.toString()),
+      value: convertToFloat(this.props.item.value.toString()),
       expiration_day: this.props.item.expiration_day,
     };
 

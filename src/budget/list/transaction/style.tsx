@@ -47,6 +47,7 @@ export const TransactionContainer = styled.div.attrs((props: { highlight: string
   }
 
   input[type="text"],
+  input[type="currency"],
   input[type="number"] {
     padding: 5px 2px;
     font-size: 16px;
