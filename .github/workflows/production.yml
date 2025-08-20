@@ -1,0 +1,131 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "23"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Prepare deployment on VPS
+        id: pre_deployment
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          # SSH setup
+          eval "$(ssh-agent -s)"
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+          # Create a folder named budget in the www directory on the server
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo mkdir -p /var/www/budget"
+          echo "Folder /var/www/budget ready on the server"
+
+          # Create backup of current deployment
+          export BACKUP_DIR="/var/www/budget.backup.$(date +%Y%m%d_%H%M%S)"
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo mkdir -p $BACKUP_DIR && sudo cp -r /var/www/budget/* $BACKUP_DIR 2>/dev/null || true"
+          echo "Backup of current deployment created at $BACKUP_DIR"
+
+          # Clear current deployment
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo rm -rf /var/www/budget/*"
+          echo "Current deployment cleared on the server"
+
+          # Export BACKUP_DIR for use in the next step
+          echo "backup_dir=$BACKUP_DIR" >> $GITHUB_OUTPUT
+
+      - name: Copy files to VPS and set permissions
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          # SSH setup
+          eval "$(ssh-agent -s)"
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+          # Ensure the destination directory exists
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "mkdir -p /tmp/budget"
+          echo "Destination directory /tmp/budget ready on the server"
+
+          # Copy files to the server
+          scp -o StrictHostKeyChecking=no -r ./dist/* $VPS_USER@$VPS_HOST:/tmp/budget/
+          echo "Files copied to /tmp/budget on the server"
+          # Move files, set ownership and permissions
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << EOF
+          set -e
+          sudo mv /tmp/budget/* /var/www/budget/
+          # Set ownership and permissions
+          sudo chown -R www-data:www-data /var/www/budget/
+          sudo chmod -R 755 /var/www/budget/
+          echo "Ownership and permissions set for /var/www/budget"
+          EOF
+
+      - name: Restart web server and verify deployment
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          BACKUP_DIR: ${{ steps.pre_deployment.outputs.backup_dir }}
+        run: |
+          # SSH setup
+          eval "$(ssh-agent -s)"
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+          # Restart the web server and verify deployment
+          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
+          set -e
+
+          # Restart Apache
+          sudo systemctl restart apache2 || { echo 'Error: Failed to restart Apache'; exit 1; }
+          sleep 5
+          echo "Apache restarted successfully"
+
+          # Check if the web server is running
+          if systemctl is-active --quiet apache2; then
+              echo "Apache is running"
+          else
+              echo "Error: Apache is not running"
+              exit 1
+          fi
+
+          # Check if the application is accessible
+          if curl -s --head https://budget.aldairgarros.com | grep "200 OK" > /dev/null; then
+              echo "Application is accessible"
+              # Clean up backup directory if needed
+              ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo rm -rf $BACKUP_DIR"
+          else
+              echo "Error: Application is not accessible"
+              echo "Restoring from backup at $BACKUP_DIR"
+              ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "sudo cp -r $BACKUP_DIR/* /var/www/budget/"
+              echo "Backup restored successfully"
+              exit 1
+          fi
+          EOF
