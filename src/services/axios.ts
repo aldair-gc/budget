@@ -3,7 +3,7 @@ import axios from "axios";
 import { store } from "../app/store";
 
 const inst = axios.create({
-  baseURL: "https://budget-server.aldairgc.com",
+  baseURL: "https://budget-server.aldairgarros.com",
 });
 
 inst.interceptors.request.use((config: any) => {
